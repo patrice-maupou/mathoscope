@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="547" height="377">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/fonctions.math,
+definitions/evaluations.math,
+definitions/couleurs.math,
+definitions/signes.math
+">
+<PARAM name="définitions globales" value="
+apprEns->apprEns(A,B,e)=applique(1=0,{Ø->A,Ø->B : STOP(0=0)},{card(A)>0 et card(B)>0 : mappe((a,b)->image et (a-b)^2<e,seq(A),seq(B),(a-b)^2<e)}),
+figstandard->tests(joint(fig0,{point(0,0),caché,label(entrée,centré,14)}),correct ou essai=ESSAIS,joint(fig0,{point(0,0),caché,label(solution,centré,14)})),
+décotexte->CADRE(texte,10,10,couleur(210,230,240))
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø},
+{[a,b]->image : [a,b]},
+{]a,b]->image : ]a,b]},
+{[a,b[->image : [a,b[},
+{]a,b[->image : ]a,b[},
+{A union B->image : A union B}
+">
+<PARAM name="Exercice 1" value="
+titre : équation et graphique~
+énoncé : Donner l'ensemble des solutions de l'équation f(x) = g(x) ¶
+ en examinant le tracé de ces deux fonctions¶
+ Ecrire Ø s'il n'y a pas de solution (bouton droit)~
+définitions : 
+   cliptexte->clip(0,0,700,90),  texte->décotexte,
+   (f0,f1,f2,g0,g1,g2)->choix([-5,5],6), 
+   (af,bf,ag,bg,a,b,c)->calcule(((f0+f2)-2×f1)/72,(f2-f0)/12,((g0+g2)-2×g1)/72,(g2-g0)/12,ag-af,bg-bf,g1-f1),
+   f->norm(af×x^2+bf×x+f1), g->norm(ag×x^2+bg×x+g1), 
+   d2->calcule(b^2-4×a×c), d->approche(rac(calcule(|d2|)),-2), 
+   x0->tests(approche((-b-d)/(2×a),-2),a<0,approche((-b+d)/(2×a),-2),a=0,approche(-c/b,-2)), 
+   x1->tests(approche((-b+d)/(2×a),-2),a<0,approche((-b-d)/(2×a),-2),a=0,10), 
+   S->tests(Ø,d2>0 et x0<-6 et x1<=6,{x1},d2>0 et -6<=x0 et 6<x1,{x0},d2>0 et -6<=x0 et x1<=6,{x0,x1}), 
+   solution->S, format->{point(0,0),caché,label(?,centré,14)}, 
+   figure->(clip(200,0,500,500,couleur(bleupale)),Ox(12,noir),Oy(6,noir),{ligne(graphe(f,x,-6,6,1/4)),couleur(bleu)},{ligne(graphe(g,x,-6,6,1/4)),couleur(rouge)},clip(0,0,200,110),{point(0,0),caché,label(f(x)=g(x),centré,14)},clip(0,110,200,600))~
+vérification : 
+   correct->apprEns(entrée,solution,1/3), {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : parabole~
+énoncé : Utiliser le tracé de la parabole représentant la fonction $f(x) = x^2$ pour résoudre¶
+ graphiquement l'équation proposée ci-dessous. Pour celà, écrire la définition d'une¶
+ fonction g telle que l'équation soit équivalente à f(x) = g(x)~
+définitions : 
+   (x0,x1)->choix([-3,-1],[1,3]), texte->décotexte, cliptexte->clip(0,0,700,100), 
+   (y0,y1)->calcule(x0^2,x1^2), (b,c)->calcule((y1-y0)/(x1-x0),(x1×y0-x0×y1)/(x1-x0)), 
+   g->norm(b×x+c), eq->norm(x^2-b×x-c)=0, question->eq, 
+   format->{point(0,0),caché,label(g(x)=?,centré,14)}, solution->g(x)=norm(b×x+c), sep->150, 
+   fond->(clip(sep,0,500,500,origine(sep,0),unités(1,1)),{polygone(point(0,0),point(500,0),point(500,500),point(0,500)),caché,remplit(vertpale)}), 
+   fig0->joint(fond,clip(sep,0,500,500,recadre(10)),Ox(8,rouge),Oy(12,rouge),{ligne(graphe(x^2,x,-3,3,1/4)),couleur(bleu)}), 
+   figure->(fig0,clip(0,0,sep,110),{point(0,0),caché,label(question,centré,14)},clip(0,110,sep,500))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   fig0->tests(fig0,correct ou essai=3,joint(fig0,{droite(point(x0,y0),point(x1,y1)),sepA(8),sepB(8),couleur(rouge)})), 
+   figure->(fig0,clip(0,0,sep,110),{point(0,0),caché,label(question,centré,14)},clip(0,110,sep,500)), 
+   réponse->FIN, texte->décotexte~
+énoncé : Ecrire maintenant l'ensemble solution~
+définitions : 
+   format->{point(0,0),caché,label({?},centré,14)}, texte->décotexte, solution->{x0,x1}, 
+   figure->(fig0,clip(0,0,sep,110),{point(0,0),caché,label(x^2=g,centré,14)},clip(0,110,sep,500))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : inéquation et graphique~
+énoncé : Résoudre graphiquement l'inéquation proposée de la forme $f(x) < g(x)$¶
+  ou $f(x) <= g(x)$, la courbe en bleu représente la fonction f et la courbe ¶
+  en rouge  représente la fonction g.¶
+ (S'il y a deux intervalles, sélectionner l'union avec le bouton droit)~
+définitions : 
+   cliptexte->clip(0,0,700,100),  texte->décotexte,
+   (f0,f1,f2,g0,g1,g2)->choix([-5,5],6),  
+   (af,bf,ag,bg,a,b,c)->calcule(((f0+f2)-2×f1)/72,(f2-f0)/12,((g0+g2)-2×g1)/72,(g2-g0)/12,ag-af,bg-bf,g1-f1),
+   d2->calcule(b^2-4×a×c), d->approche(rac(calcule(|d2|)),-2), 
+   x0->tests(approche((-b-d)/(2×a),-2),a<0,approche((-b+d)/(2×a),-2),a=0,approche(-c/b,-2)), 
+   x1->tests(approche((-b+d)/(2×a),-2),a<0,approche((-b-d)/(2×a),-2),a=0,approche(-c/b,-2)), 
+   S0->tests(Ø,b>0 et x0<-6,[-6,6],-6<x0 et x0<6,[-6,x0[,b>0,]x0,6]), 
+   S1->tests([-6,6],d2>0 et x0<-6 et x1<=6,[-6,x1[,d2>0 et -6<=x0 et 6<x1,]x0,6],d2>0 et -6<=x0 et x1<=6,]x0,x1[), 
+   S2->tests(Ø,d2<0,[-6,6],d2>0 et x0<-6 et x1<=6,]x1,6],d2>0 et -6<x0 et 6<x1,[-6,x0[,d2>0 et -6<=x0 et x1<=6,[-6,x0[ union ]x1,6]), 
+   S->tests(S1,a>0,S2,a=0,S0), solution->S, f->norm(af×x^2+bf×x+f1), 
+   g->norm(ag×x^2+bg×x+g1), y0->calcule(applique(f,x->x0)), y1->calcule(applique(f,x->x1)), 
+   question->f(x)<g(x), sep->200, 
+   fig0->(clip(sep,0,500,500,recadre(10),couleur(rose)),Ox(12,noir),Oy(8,noir),{ligne(graphe(f,x,-6,6,1/4)),couleur(bleu)},{ligne(graphe(g,x,-6,6,1/4)),couleur(rouge)}), 
+   seg0->({droite(point(x0,0),point(x0,y0)),couleur(vert)},{point(x0,0),caché,label(x0,-90)}), 
+   seg1->({droite(point(x1,0),point(x1,y1)),couleur(vert)},{point(x1,0),caché,label(x1,-90)}), 
+   fig1->joint((clip(0,0,sep,110),{point(0,0),caché,label(f(x)<g(x),centré,14)}),fig0), 
+   fig2->tests(fig1,d2>0 et -6<=x0 et x1<=6,joint(fig1,seg0,seg1),d2>0 et x0<-6 et x1<=6,joint(fig1,seg1),d2>0 et -6<=x0 et 6<x1,joint(fig1,seg0)), 
+   figure->joint(fig2,clip(0,110,sep,600)), format->{point(0,0),caché,label(?,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

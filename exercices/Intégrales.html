@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="750" height="527">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="1">
+<PARAM name="importer" value="
+definitions/développements.math
+">
+<PARAM name="définitions globales" value="
+primitive->schéma({int(f+g,x)->image : int(f,x)+int(g,x)},{int(-g,x)->image : -int(g,x)},{int(f-g,x)->image : int(f,x)-int(g,x)},{a->num,int(a×x^(-1),x)->image : a×ln(x)},{int(sin(x),x)->image : STOP(-cos(x))},{int(cos(x),x)->image : STOP(sin(x))},{a->num,int(a×f,x)->image : a×int(f,x)},{a->num,int(a,x)->image : a×x},{int(x,x)->image : 1/2×x^2},{a->num,int(a/x^n,x)->image : a×int(x^(-n),x)},{int(x^n,x)->image : calcule(1/(n+1))×x^calcule(n+1)}),
+assmul->schéma({a×(b×c)->image : calcule(a×b)×c}),
+exposants_positifs->schéma({a->num,b->num,a/b×x^(-n)->image : STOP(a/(b×x^n))},{a->num,a×x^(-1)->image : STOP(a/x)},{a->num,a×x^(-n)->image : a/x^n},{x^(-n)->image : 1/x^n}),
+compose->compose(g,f,x)=applique((applique(g,x->f),x))
+">
+<PARAM name="décorations" value="
+integral->(ligne(point(30,0),point(30,60)),{point(30,0),style(arc({point(2,0),caché},2,2,0,180))},{point(30,60),style(arc(point(-2,0),2,2,0,-180))}),
+{int(f,x)->image : STOP(MARGES(DECO(OUEST,f×HBOX(``,d,x),integral,10),(1,0,2,1)))},
+{int(f,x)->image : STOP(MARGES(DECO(OUEST,HBOX(f,``,d,x),integral,10),(1,0,2,1)))}
+">
+<PARAM name="Exercice 1" value="
+titre : tests sur polynomes~
+énoncé :Exemples de primitives~
+définitions : 
+   P->(2×x^3+x^2+1,(2×x^3-5×x^2+3×x)-4,(x-1)×(x+2),3×x-2/x,3-5/x^3,(3-5/x^3)×(3×x^2-x+1),(2×x)/rac(x),3×cos(x)), 
+   Q0->mappe(f->norm(applique(int(développe(f,x),x),primitive,assmul)),P), 
+   Q->mappe((f,g)->int(f,x)=applique(g,exposants_positifs),P,Q0), 
+   R->mappe(f->développe(f,x),P), figure->{point(0,0),caché,label(VBOX(Q),centré,14)}~
+">
+</APPLET></P>
+</body>
+</html>

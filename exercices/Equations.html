@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="319">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="5">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/développements.math
+">
+<PARAM name="définitions globales" value="
+isol->isol(eq,v)=applique(eq,{n×u=w->eq,compare(u,v)=0 : STOP(v=1/n×w)},{a+b=c->eq,compare(b,v)=0 : STOP(v=c+(-1)×a)},{a+n×b=c->eq,compare(b,v)=0 : STOP(v=1/n×c+(-1/n)×a)},{a+b=c->eq : STOP(isol(a=(-1)×b+c,v))}),
+prodfrac->schéma({(-a)×b->image : -prodfrac(a×b)},{a×(-b)->image : -prodfrac(a×b)},{-(-a)->image : STOP(prodfrac(a))},{a/b×(c/d)->image : STOP((a×c)/(b×d))},{a/b×(1/d)->image : STOP(a/(b×d))},{1/b×(c/d)->image : STOP(c/(b×d))},{a×(1/d)->image : STOP(a/d)},{1/b×c->image : STOP(c/b)},{a×(c/d)->image : STOP((a×c)/d)},{a/b×c->image : STOP((a×c)/b)}),
+fig0->(clip(0,0,600,100),{point(0,0),caché,label(CADRE(question,-10,couleur(255,230,230)),centré,14)},clip(0,100,600,500))
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø}
+">
+<PARAM name="Exercice 1" value="
+titre : ajouter~
+énoncé : Ecrit la valeur de x obtenue sans calcul en appliquant l'une des règles :  ¶
+                  si a = b alors a + c = b + c¶
+                  si a = b alors a - c = b - c¶
+ Exemple : si $x+3/2 = 4$ , on écrit $x = 4-3/2$ (avec $c=-3/2$)~
+définitions : 
+   E->{1,2,3,4,5,6,7,8,9}, (a,b,c,d)->choix(E,E,E,E,c>1,d>1), (sa,sb)->choix({-1,1},{-1,1}), 
+   x0->calcule((sa×a)/c), y0->calcule((sb×b)/d), question->norm(x+x0)=y0, forme->x=?, 
+   format->FORMAT, cliptexte->clip(0,0,700,100,couleur(250,220,240)), TOTAL->10, 
+   solution->x=norm(y0+(-1)×x0), s->x=norm((-1)×x0+y0), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0 ou compare(entrée,s)=0, 
+   incomplet->compare(calcule(entrée),calcule(solution))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Ecrire la solution sous la forme d'une fraction simplifiée ou d'un entier.~
+définitions : 
+   question->solution, forme->x=?, format->FORMAT, figure->fig0, 
+   s->applique(solution,schéma({x=a->image : x=calcule(a)})), solution->s~
+vérification : 
+   correct->compare(entrée,s)=0, incomplet->compare(calcule(entrée),s)=0, solution->s, 
+   {note,total,partie,texte}->standard, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : proportions~
+énoncé : On va multiplier les deux membres de l'égalité par un nombre k¶
+ pour obtenir la solution de l'équation en appliquant la règle :  si a = b alors a × k = b × k¶
+ Exemple : avec $-2*x/3 = 4$ , on écrit $k=-3/2$~
+définitions : 
+   (a,b,c,d)->choix({2,3,4,5,6},4,pgcd(b,c)=1,pgcd(a,d)=1), 
+   (s0,s1)->choix({-1,1},2), question->norm(s0×((a×x)/d))=norm(s1×(b/c)), 
+   solution->k=calcule((s0×d)/a), forme->k=?, format->FORMAT, TOTAL->10, 
+   cliptexte->clip(0,0,700,80,couleur(240,220,250)), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Donne la réponse simplifiée au maximum~
+définitions : 
+   question->x=norm(s0×(s1×(d/a×(b/c)))), 
+   solution->applique(question,schéma({x=a->image : x=calcule(a)})), forme->x=?, 
+   format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : ajouter et multiplier~
+énoncé :  Ajouter d'abord un nombre à chaque membre de l'égalité¶
+  pour isoler le terme contenant x¶
+  Exemple : pour $2×x/3 -1/2 = 7/3$ on écrira $2×x/3 = 7/3 + 1/2$~
+définitions : 
+   E->{1,2,3,4,5,6,7}, (a,b,c,d,e,f)->choix(E,E,E,E,E,E,pgcd(a,c)=1,pgcd(e,f)=1,pgcd(b,d)=1), 
+   (s0,s1,s2)->choix({-1,1},{-1,1},{-1,1}), 
+   question->applique(norm(s0×((e×x)/f)+s1×(a/c))=norm(s2×(b/d)),schéma({a/1->image : a})), 
+   s->calcule(-(s1×a)/c), TOTAL->10, 
+   solution->applique(norm(s0×((e×x)/f))=norm(s2×(b/d)+s),schéma({a/1->image : a})), 
+   sol2->norm(s0×((e×x)/f))=norm(s+s2×(b/d)), forme->norm(s0×((e×x)/f))=?, format->FORMAT, 
+   cliptexte->clip(0,0,700,90,couleur(220,240,220)), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0 ou compare(entrée,sol2)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Calculer maintenant le membre de droite~
+définitions : 
+   question->solution, solution->applique(question,schéma({a=b->image : a=calcule(b)})), 
+   format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(solution,entrée)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En multipliant par un nombre rationnel bien choisi,¶
+ trouver la solution de l'équation sans faire de calcul¶
+ Exemple : $2×x/3 = -3/4$ devient $x = -3/2×(3/4)$~
+définitions : 
+   question->solution, h->applique(question,schéma({a=b->image : b})), s->norm(s0×(f/e×h)), 
+   solution->x=s, sol2->x=norm(s0×(h×(f/e))), forme->x=?, format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0 ou compare(entrée,sol2)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Donner maintenant la solution simplifiée~
+définitions : 
+   question->solution, forme->x=?, format->FORMAT, 
+   solution->applique(question,schéma({x=a->image : x=calcule(a)})), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<--! ax=0 ne fonctionne pas bien-->
+<PARAM name="Exercice 4" value="
+titre : ajouter et multiplier (2)~
+énoncé :   Ajouter une expression de chaque côté de l'égalité¶
+   pour grouper les termes en x à gauche et les constantes à droite¶
+   Exemple : si l'équation est $2 -3/2×x+3 = 1-2×x$ on écrira $2×x-3$~
+définitions : 
+   E->{1,2,3,4,5,6,7}, (s0,s1,s2,s3)->choix({-1,1},4), 
+   (a,b,c,d,e,f,g,h)->choix(E,8,pgcd(a,c)=1,pgcd(e,f)=1,pgcd(b,d)=1,pgcd(g,h)=1), 
+   q0->s0×((e×x)/f)+s1×(a/c), q1->s2×((g×x)/h)+s3×(b/d), r->-s2×((g×x)/h)-s1×(a/c), 
+   s->applique(norm(-s2×((g×x)/h)-s1×(a/c)),schéma({a/1->image : a})), solution->s, 
+   question->norm(q0)=norm(q1), forme->?, format->FORMAT, TOTAL->10, 
+   cliptexte->clip(0,0,700,90,couleur(220,240,240)), figure->fig0~
+vérification : 
+   correct->compare(entrée,s)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Réduire les termes de chaque côté de l'égalité pour obtenir la forme ax = b¶
+ Exemple :   $3×x/2-2 -x+2 = x+1/3-x+2$ donne $(1/2)×x = 7/3$~
+définitions : 
+   q0->s0×((e×x)/f)+s1×(a/c)+s, q1->s2×((g×x)/h)+s3×(b/d)+s, question->norm(q0)=norm(q1), 
+   s->norm(calcule(s0×(e/f)-s2×(g/h))×x), 
+   solution->applique(s,prodfrac)=norm(calcule(s3×(b/d)-s1×(a/c))), format->FORMAT, 
+   figure->fig0~
+vérification : 
+   correct->compare(applique(entrée,prodfrac),solution)=0, incomplet->1=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Ecrire l'ensemble solution¶
+ Exemples :$ (2/3)×x = 1/2$ donne ${4/3}$ , $0×x = 1/4$ donne Ø (bouton droit)¶
+                      $0×x=0$ donne R (tous les nombres réels sont solution)~
+définitions : 
+   question->solution, ca->applique(s,schéma({a×x->image : a})), 
+   cb->applique(question,schéma({a=b->image : b})), s->tests({cb/ca},ca=0,Ø,ca=0 et cb=0,R), 
+   solution->calcule(s), format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 5" value="
+titre : développer d'abord~
+énoncé : Développer et réduire de chaque côté de l'égalité¶
+ Exemple : $(2×x+1)/3 + 2/3 = 3/2×(x+2)$ donne $2/3×x+1 = 3/2×x+3$~
+définitions : 
+   (a0,b0,c0,d0,e0,f0,a1,b1,c1,d1,e1,f1)->choix([1,8],6,[2,8],6), 
+   (sa,sb,sc,sd,se,sf)->choix({-1,1},6), 
+   k0->choix({calcule((sa×a0)/a1)×(sb×(b0×x)+sc×b1),(sa×a0×(sb×(b0×x)+sc×b1))/a1}), 
+   k1->choix({calcule((sc×c0)/c1)×(sd×(d0×x)+se×d1),(sc×(c0×(sd×(d0×x)+se×d1)))/c1}), 
+   q0->norm(k0), q1->norm(k1), question->q0=q1, s0->développe(q0,x), s1->développe(q1,x), 
+   solution->s0=s1, forme->?, format->FORMAT, TOTAL->10, 
+   cliptexte->clip(0,0,700,90,couleur(220,250,220)), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Simplifier l'équation pour obtenir la forme a×x = b~
+définitions : 
+   question->solution, s->calcule((sa×sb×a0×b0)/a1-(sc×c0×sd×d0)/c1), 
+   c->calcule((sc×c0×se×d1)/c1-(sa×a0×sc×b1)/a1), solution->norm(s×x)=c, forme->?, 
+   format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Indique l'ensemble solution¶
+ Exemples : si $2×x = -3$ ,  l'ensemble solution est ${-3/2}$¶
+	    si $0×x = 2$ , l'ensemble solution est Ø (ensemble vide)~
+définitions : 
+   question->solution, solution->tests(Ø,non(s=0),{calcule(c/s)}), forme->?, format->FORMAT, 
+   figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

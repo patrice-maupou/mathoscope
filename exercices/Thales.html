@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="376">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math
+">
+<PARAM name="définitions globales" value="
+bary->bary(s)=applique(?,{(point(x,y),a)->s : STOP(s)},{(point(x,y),a,point(x',y'),a')->s : STOP(point(calcule((a×x+a'×x')/(a+a')),calcule((a×y+a'×y')/(a+a'))),calcule(a+a'))},t->sépare(s,2),{(a,b)->t,non(compare(sépare(a,2),a)=0) : bary(joint(bary(a),b))}),
+data->data(q)=applique({{A=a,B=b,C=c,D=d}->q : VBOX(A=a,B=b,C=c,D=d)}),
+dév->dév(x)=applique(x,{a+b->x : STOP(dév(a)+dév(b))},{(a+b)^1->x : STOP(dév(a)+dév(b))},{(a+b)^n->x : STOP(dév(dév((a+b)^calcule(n-1))×(a+b)))},{a×(b+c)->x : STOP(dév(a×b)+dév(a×c))},{(b+c)×a->x : STOP(dév(b×a)+dév(c×a))},{a/b->x : STOP(dév(a)/dév(b))},{a=b->x : STOP(dév(a)=dév(b))},{a<b->x : STOP(dév(a)<dév(b))}),
+ass->ass(x,op)=applique(x,{op=0,a+b->x,non(u+v->b) : STOP(ass(a,0)+b)},{op=1,a×b->x,non(u×v->b) : STOP(ass(a,1)×b)},{op=0,a+(b+c)->x : STOP(ass(a+b+c,0))},{op=1,a×(b×c)->x : STOP(ass(a×b×c,1))},{op=1,a+b->x : STOP(ass(a,1)+ass(b,1))},{a=b->x : STOP(ass(a,op)=ass(b,op))},{a<b->x : STOP(ass(a,op)<ass(b,op))}),
+remplace->remplace(t,q)=applique({{A=a,B=b,C=c,D=d}->q : applique(t,A->a,B->b,C->c,D->d)}),
+calcule->calcule(e)=applique(e,{e->num : applique(calcule,e)},{a=b->e : calcule(a)=calcule(b)}),
+solve->solve(eq,x)=applique({y=n->eq,n->num : STOP(solve(n=y,x))},{n=x/a->eq,n->num : STOP(x=calcule(a×n))},{n=a/x->eq,n->num : STOP(x=calcule(a/n))},{n=a/(p+x)->eq,n->num,p->num : STOP(x=calcule(a/n-p))},{n=(p+x)/a->eq,n->num,p->num : STOP(x=calcule(a×n-p))}),
+pt->pt(s)=applique({(P,m)->s : P}),
+prodcroix->prodcroix(eq)=applique(eq,{a/b=c/d->eq : a×d=b×c},{a×d=b×c->image,compare(a,d)>0 : d×a=b×c},{a×d=b×c->image,compare(b,c)>0 : a×d=c×b},{a=b->image,compare(a,b)>0 : b=a},{a=b et c=d->eq : prodcroix(a=b) et prodcroix(c=d)}),
+trimul->trimul(x)=applique(x,{a×b->x,compare(a,b)>0 : STOP(b×a)},{a=b->x : STOP(trimul(a)=trimul(b))},{a=b et c=d->x : STOP(trimul(a=b) et trimul(c=d))}),
+isolex->isolex(eq,x,y)=applique({a×x=b×y->eq,x->var,y->var : calcule(b/a)×y},{a×y=b×x->eq,x->var,y->var : calcule(a/b)×y}),
+incomplet->compare(entrée,solution)=0,
+figstandard->tests(figure,correct ou essai=3,joint(fig0,{point(0,0),caché,label(solution,centré,14)})),
+bandeau->clip(0,0,700,80,couleur(230,240,220))
+">
+<PARAM name="Exercice 1" value="
+titre : Thalès (1)~
+énoncé : Ecrire une égalité de fractions en utilisant le théorème de Thalès.¶
+ Exemple : si OA = 5, AB = 2, OD = 3, DC = x , on peut écrire :¶
+     	$5/3 = 2/x$ ou encore $5/7=3/(3+x)$~
+définitions : 
+   cliptexte->bandeau, (a,b,c,d)->choix([2,9],4), 
+   q0->choix({{OA=a,OB=calcule(a+b),OD=d,OC=x},{OA=a,AB=b,OD=d,DC=x}}), 
+   q1->choix({{AB=b,OB=calcule(a+b),OD=x,OC=calcule(c+d)},{OB=calcule(a+b),AB=b,OD=d,DC=x}}), 
+   q2->choix({{AB=b,OA=a,AD=x,BC=calcule(c+d)},{OB=calcule(a+b),AD=a,OA=a,BC=x}}), 
+   q3->choix({{DC=c,OD=d,AD=x,BC=calcule(a+b)},{OC=calcule(a+b),AD=a,OD=a,BC=x}}), 
+   q->choix({q0,q1,q2,q3}), 
+   t->tests(OA/OB=OD/OC,compare(q,q2)=0,OA/OB=AD/BC,compare(q,q3)=0,OD/OC=AD/BC), 
+   th1->applique(remplace(t,q),OB->OA+AB,OC->OD+DC), 
+   th2->applique(remplace(th1,q),OA->OB-AB,OD->OC-DC), solution->calcule(remplace(th2,q)), 
+   s->solve(solution,x), format->{point(0,-3),caché,label(?/?=?/?,centré,14)}, 
+   pO->point(-6,3), pB->point(5,1), pC->point(2,-3), pA->pt(bary(pO,b,pB,a)), 
+   pD->pt(bary(pO,b,pC,a)), 
+   pts->mappe((p,l)->{p,label(l,-90,14),couleur(bleu)},(pO,pA,pB,pC,pD),(O,A,B,C,D)), 
+   fig0->(clip(140,0,500,500,couleur(255,240,255)),pts,{droite(pO,pB),couleur(bleu),sepA(0.5),sepB(0.5)},{droite(pO,pC),couleur(bleu),sepA(0.5),sepB(0.5)},{droite(pA,pD),couleur(rouge),sepA(0.5),sepB(0.5)},{droite(pB,pC),couleur(rouge),sepA(0.5),sepB(0.5)},clip(0,0,140,500)), 
+   question->data(q), figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   r->solve(entrée,x), correct->compare(r,s)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, solution->réponse~
+énoncé : Donne maintenant la valeur de x~
+définitions : 
+   question->solution, solution->s, format->{point(0,-3),caché,label(x=?,centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : Thalès (2)~
+énoncé : En utilisant le théorème de Thalès, calculer la distance BG¶
+  (tous les résultats seront donnés au centième près).~
+définitions : 
+   (a,b,c,d,e)->choix([2,9],5), cliptexte->bandeau, pA->point(-3,-4), pB->point(6,-4), 
+   pM->point(4,1), pI->pt(bary(pA,b,pM,a)), pC->pt(bary(pA,b,pB,a)), 
+   pG->pt(bary(pB,a,pI,-b-a)), ag->approche((a×c)/b,-2), ic->approche((a×c)/(a+b),-2), 
+   bi->approche((a×c+8×b)/(8+c),-2), bg->approche(((a+b)/b×(a×c+8×b))/(8+c),-2), 
+   question->VBOX(AG=ag,IC=ic,BI=bi), format->{point(0,-2),caché,label(BG=?,centré,14)}, 
+   solution->BG=bg, 
+   fig0->(clip(140,0,500,500,origine(140,0),unités(1,1)),{polygone(point(0,0),point(500,0),point(500,500),point(0,500)),caché,remplit(240,255,240)},clip(140,0,500,500,recadre(20)),{pC,caché,label(C,-90,11)},{pA,caché,label(A,225,11)},{pB,caché,label(B,-80,11)},{pM,caché,label(M)},{pI,caché,label(I)},{pG,caché,label(G)},{droite(pA,pM),couleur(vert)},{droite(pA,pB),couleur(vert)},{droite(pG,pB),couleur(rouge)},{droite(pG,pA),couleur(bleu)},{droite(pI,pC),couleur(bleu)},{droite(pM,pB),couleur(bleu)},clip(0,0,140,500)), 
+   figure->joint(fig0,{point(0,3),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(approche(opérande(entrée,2),-1),approche(bg,-1))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Utiliser le théorème de Thalès pour obtenir la valeur du rapport AC/AB~
+définitions : 
+   question->VBOX(AG=ag,IC=ic,BI=bi,solution), s->approche((bg-bi)/bg,-2), 
+   format->{point(0,-2),caché,label(AC/AB=?,centré,14)}, solution->AC/AB=s, 
+   figure->joint(fig0,{point(0,3),caché,label(question,centré,14)})~
+vérification : 
+   E->approche(2×opérande(entrée,2),-1), S->approche(2×s,-1), correct->compare(E,S)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En utilisant encore le théorème de Thalès, en déduire la distance MB.~
+définitions : 
+   question->VBOX(question,solution), format->{point(0,-2),caché,label(MB=?,centré,14)}, 
+   solution->MB=approche(ic/s,-2), 
+   figure->joint(fig0,{point(0,3),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(approche(2×opérande(entrée,2),-1),approche((2×ic)/s,-1))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : Thalès et parallélogramme~
+énoncé :  ABCD est un parallélogramme et la droite (EF) coupe les côtés (AB) et (CD)¶
+ aux points G et H. En utilisant le théorème de Thalès, écrire une relation entre AH et HB. ~
+définitions : 
+   (a,b,c)->choix([1,3],2,[3,8]), cliptexte->bandeau, pA->point(0,0), pB->point(c,0), 
+   pC->point(calcule(c+3),4), pD->pt(bary(pA,1,pC,1,pB,-1)), pE->pt(bary(pB,-a,pC,5+a)), 
+   pF->pt(bary(pD,-b,pA,5+b)), y0->(c×(b+5))/(a+b+5), x0->(y0×b)/(b+5), 
+   format->{point(0,-3),caché,label(?/?=?/?,centré,14)}, pH->pt(bary(pA,c-x0,pB,x0)), 
+   pG->pt(bary(pD,c-y0,pC,y0)), q->VBOX(BC=5,AB=c,CE=a,AF=b), question->q, 
+   s->AH/HB=b/calcule(a+5), s1->AH/DG=calcule(b/(b+5)), solution->s, r->prodcroix(solution), 
+   fond->(clip(140,0,500,500,origine(140,0),unités(1,1)),{polygone(point(0,0),point(500,0),point(500,500),point(0,500)),caché,remplit(240,240,255)}), 
+   fig1->(clip(140,0,500,500,recadre(30)),{polygone(pA,pB,pC,pD),couleur(bleu)},{droite(pE,pC),couleur(bleu)},{droite(pF,pA),couleur(bleu)},{droite(pE,pF),couleur(rouge)},{pA,caché,label(A,135)},{pF,caché,label(F,135)},{pC,caché,label(C,315)},{pB,caché,label(B,315)},{pG,caché,label(G,135)},{pE,caché,label(E,315)},{pD,caché,label(D,125)},{pH,caché,label(H,315)},clip(0,0,140,500)), 
+   fig0->joint(fond,fig1), figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   t->prodcroix(entrée), correct->compare(r,t)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : En exprimant la longueur HB en fonction de AH, écrire une équation¶
+ avec AH comme unique variable ~
+définitions : 
+   question->VBOX(question,solution), s2->GC/HB=calcule(a/(a+5)), 
+   solution->applique(s,HB->c-AH), format->{point(0,-3),caché,label(AH/?=?,centré,14)}, 
+   r1->prodcroix(solution), figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   t->prodcroix(entrée), correct->compare(t,r1)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : Résoudre maintenant l'équation et donner la valeur de AH~
+définitions : 
+   question->solution, s2->GC/HB=calcule(a/(a+5)), solution->applique(s,HB->c-AH), 
+   r1->prodcroix(solution), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), 
+   format->{point(0,-3),caché,label(AH=?,centré,14)}, eq1->applique(s1,AH->x,DG->y), 
+   eq2->applique(s2,HB->c-x,GC->c-y), 
+   solution->applique(question,schéma({AH/(a-AH)=b->image : AH=calcule((a×b)/(1+b))})), 
+   e1->prodcroix(eq1), e2->prodcroix(eq2), s->trimul(e1 et e2)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : A l'aide du théorème de Thalès, donner maintenant la valeur exacte du¶
+ rapport GC/DG~
+définitions : 
+   question->q, solution->GC/DG=calcule(a/(b+5)), 
+   format->{point(0,-3),caché,label(GC/DG=?,centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En exprimant DG en fonction de GC, écrire une équation avec GC comme ¶
+ variable unique~
+définitions : 
+   question->VBOX(q,solution), solution->applique(solution,DG->c-GC), 
+   format->{point(0,-3),caché,label(?=?,centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Résoudre maintenant l'équation et donner la valeur de GC~
+définitions : 
+   question->solution, format->{point(0,-2),caché,label(GC=?,centré,14)}, 
+   solution->applique(question,schéma({GC/(a-GC)=b->image : GC=calcule((a×b)/(1+b))})), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

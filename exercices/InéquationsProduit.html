@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="577" height="458">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/coord.math,
+definitions/evaluations.math,
+definitions/développements.math,
+definitions/tris.math
+">
+<PARAM name="définitions globales" value="
+comp->comp(a,b)=applique(1=0,{{va,ia}->a,{vb,ib}->b : va>vb},{{va,ia}->a,{vb,ib}->b,non(va>vb) : compare(vb,-infini)=0}),
+augmente->augmente(Ens,élém)=applique({élém},{Ens->ensemble : joint(Ens union {élém})}),
+numden->numden(f)=applique({f,1×x^0},{a/b->f : STOP({a,b})},{a/b×x^0->f : STOP({a×x^0,b×x^0})},{(-a/b)×x^0->f : STOP({(-a)×x^0,b×x^0})}),
+trier->trier(e)=applique({-b->e : STOP(-trier(b))},{a-b->e : STOP(trier(a+(-b)))},ass(e,0),{a+b->image : ass(trier(a)+trier(b),0)},{c+a+b->image,compare(a,b)>0 : STOP(trier(c+b+a))},{a+b->image,compare(a,b)>0 : STOP(b+a)},{a×b->image : trier(a)×trier(b)},{c×a×b->image,compare(a,b)>0 : STOP(trier(c×b×a))},{a×b->image,compare(a,b)>0 : STOP(b×a)},{a/b->image : STOP(trier(a)/trier(b))}),
+facteurs->facteurs(e,x,inv)=applique(e,{e->num : STOP({{-infini,1},calcule(-e)})},{b1×x^1+b0×x^0->stnd(e,x) : STOP({{calcule(-b0/b1),inv},calcule(-b1)})},{b1×x^1->stnd(e,x) : STOP({{0,inv},calcule(-b1)})},{a×b->e,b->num : STOP(facteurs(b,x,inv))},{a×b->e,a->num : STOP(facteurs(b,x,calcule(1-inv)))},{a×b->e,{s,sa}->facteurs(a,x,inv),{t,sb}->facteurs(b,x,inv) : STOP({joint(s,t),calcule(sa×sb)})},{a/(c×b)->e,b->num : STOP(facteurs(a/c,x,inv))},{a/(c×b)->e,{s,sa}->facteurs(a/c,x,inv),{t,sb}->facteurs(b,x,calcule(1-inv)) : STOP({place(t,s,comp),calcule(sa×sb)})},{a/b->e,b->num : STOP(facteurs(a,x,inv))},{a/b->e,{s,sa}->facteurs(a,x,inv),{t,sb}->facteurs(b,x,calcule(1-inv)) : STOP({place(t,s,comp),calcule(sa×sb)})}),
+interv->interv(E,sgn)=applique(t->sépare(E,-2),{(({va,ia},{va,ib}),t1)->t : STOP(interv(t1,sgn))},{(({va,ia},{vb,ib}),t1)->t : STOP(interv(({va,ia},{vb,ib}),sgn) union interv(t1,sgn))},{({va,ia},{va,ib})->t : STOP(Ø)},{({va,ia},{vb,ib})->t : ]va,vb[},{({va,ia},{vb,ib})->t,ia+sgn=0 : STOP([va,vb[)},{({va,ia},{vb,ib})->t,ib+sgn=0 : STOP(]va,vb])},{({va,ia},{vb,ib})->t,ia+sgn=0,ib=0 : STOP([va,vb])},{{va,ia}->t : ]va,infini[},{{va,ia}->t,ia+sgn=0 : [va,infini[}),
+mpts->mpts(x,y,l,t,c)=applique({point(x,y),label(l,centré,t),caché,couleur(c,0,0)}),
+segment->segment(x0,y0,x1,y1)=applique(droite(point(x0,y0),point(x1,y1)))
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø},
+{[a,b]->image : [a,b]},
+{]a,b]->image : ]a,b]},
+{[a,b[->image : [a,b[},
+{]a,b[->image : ]a,b[},
+{A union B->image : A union B}
+">
+<PARAM name="Exercice 1" value="
+titre : inéquation produit~
+énoncé : Ecrire dans l'ordre croissant les valeurs qui annulent l'un des facteurs.~
+définitions : 
+   (a0,a1,b0,b1)->choix([1,8],4,non(a×d-b×c=0)), 
+   (sa0,sa1,sb0,sb1,type)->choix({-1,1},4,{-2,-1,1,2}), 
+   (A0,A1,B0,B1)->calcule(sa0×a0,sa1×a1,sb0×b0,sb1×b1), A->norm(A1×x+A0), B->norm(B1×x+B0), 
+   P->A×B, question->tests(P>0,type=1,P>=0,type=-1,P<=0,type=-2,P<0), 
+   cliptexte->clip(0,0,700,90,couleur(230,240,230)), 
+   fig0->(clip(0,0,700,100),{point(0,0),caché,label(CADRE(question,-20,-1,couleur(255,255,200)),centré,14)}), 
+   suivant->calcule(partie+1), 
+   labels->mappe(mpts(x,y,l,t,c),(80,180,560,80,80,80),(20,20,20,50,80,110),(x,-infini,infini,A,B,P),14,0), 
+   segments->mappe(segment(x0,y0,x1,y1),(0,0,0,160,300,440),(35,65,95,10,35),(700,700,700,160,300,440),(35,65,95,120)), 
+   fig1->joint(clip(0,100,700,600,origine(0,110),unités(1,1)),labels,segments), 
+   figure->(fig0,fig1), (a2,b2)->calcule(-(sa0×sa1×a0)/a1,-(sb0×sb1×b0)/b1), 
+   texte->tests(texte,entrées=0,VLBOX(Le signe d'un produit dépend du signe de chacun des facteurs du produit.,`On cherche d'abord les valeurs qui annulent chaque facteur :`,HBOX(A=0,` , `,x=a2,`  et  `,B=0,` , `,x=b2))), 
+   inv->tests(1,b2<a2,-1), a->tests(a2,inv<0,b2), b->tests(b2,inv<0,a2), solution->(a,b), 
+   format->({point(300,35),caché,label(?,90,14)},{point(440,35),caché,label(?,90,14)}), 
+   demo->entrées=0~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Cliquer sur les zéros correspondant aux valeurs précédentes~
+définitions : 
+   texte->tests(texte,entrées=1,VLBOX(On place les zéros des expressions de la première colonne)), 
+   ord0->tests(50,inv<0,80), ord1->tests(80,inv<0,50), suivant->calcule(partie+1), 
+   fig0->joint(fig0,fig1,{point(300,35),caché,label(a,90,14)},{point(440,35),caché,label(b,90,14)}), 
+   S0->((300,ord0),(440,ord1),(300,110),(440,110)), E0->ensemble(S0), 
+   solution->mappe(mpts(x,y,l,t,c),mappe(opérande(a,b),S0,1),mappe(opérande(a,b),S0,2),0,14,255), 
+   T->Ø, figure->joint(fig0,cliquer(4))~
+vérification : 
+   ex0->abs(entrée), ey0->ord(entrée), 
+   ex1->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),ex0,mappe(opérande(x,y),S0,1),b), 
+   ey1->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),ey0,mappe(opérande(x,y),S0,2),b), 
+   ex->tests(ex0,calcule(|ex1-ex0|)<20,ex1), ey->tests(ey0,calcule(|ey1-ey0|)<20,ey1), 
+   e->(ex,ey), entrée->{point(ex,ey),caché,label(0,centré,14),couleur(255,0,0)}, 
+   zeros->tests(T,compare(T,Ø)=0,e,actions=0,augmente(T,e)), 
+   T->tests(Ø,actions>0,augmente(T,e)), correct->zeros=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Dans la ligne correspondant à la première expression, cliquer sur les intervalles¶
+ où cette expression est positive~
+définitions : 
+   fig0->joint(fig0,solution), 
+   {variation,signe}->tests({croissante,x>a2},sa1<0,{décroissante,x<a2}), 
+   texte->tests(texte,entrées=2,VLBOX(HBOX(La fonction ,f(x)=A,est,variation,` d'après le signe de a =`,A1),HBOX(`donc positive si `,signe))), 
+   c1->tests(`-`,sa1<0,`+`), c2->tests(`+`,sa1×inv<0,`-`), c3->tests(`+`,sa1<0,`-`), 
+   S0->tests((370,510),inv<0 et sa1>0,510,inv<0 et sa1<0,(230,370),inv>0 et sa1<0,230), 
+   E0->ensemble(S0), solution->mappe(mpts(x,y,l,t,c),S0,50,`+`,18,255), 
+   nbclics->tests(2,sa1×inv<0,1), figure->joint(fig0,cliquer(nbclics)), 
+   S1->mappe(mpts(x,y,l,t,c),(230,370,510),50,(c1,c2,c3),18,255), 
+   suivant->calcule(partie+1), T->Ø~
+vérification : 
+   abscisse->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),opérande(entrée,1),(230,370,510),b), 
+   entrée->{point(abscisse,50),caché,label(`+`,centré,18),couleur(255,0,0)}, 
+   absplus->tests(T,compare(T,Ø)=0,abscisse,actions=0,augmente(T,abscisse)), 
+   T->tests(Ø,actions>0,augmente(T,abscisse)), correct->absplus=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Dans la ligne correspondant à la seconde expression, cliquer sur les intervalles¶
+ où cette expression est positive~
+définitions : 
+   c1->tests(`-`,sb1<0,`+`), c2->tests(`+`,sb1×inv>0,`-`), c3->tests(`+`,sb1<0,`-`), 
+   S0->tests((370,510),inv>0 et sb1>0,510,inv>0 et sb1<0,(230,370),inv<0 et sb1<0,230), 
+   E0->ensemble(S0), {variation,signe}->tests({croissante,x>b2},sb1<0,{décroissante,x<b2}), 
+   texte->tests(texte,entrées=3,VLBOX(HBOX(La fonction ,f(x)=B,est,variation,` d'après le signe de a =`,B1),HBOX(`donc positive si `,signe))), 
+   solution->mappe(mpts(x,y,l,t,c),S0,80,`+`,18,255), nbclics->tests(2,sb1×inv>0,1), 
+   fig0->joint(fig0,S1), figure->joint(fig0,cliquer(nbclics)), suivant->calcule(partie+1), 
+   T->Ø, S1->mappe(mpts(x,y,l,t,c),(230,370,510),80,(c1,c2,c3),18,255)~
+vérification : 
+   abscisse->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),opérande(entrée,1),(230,370,510),b), 
+   entrée->{point(abscisse,80),caché,label(`+`,centré,18),couleur(255,0,0)}, 
+   absplus->tests(T,compare(T,Ø)=0,abscisse,actions=0,augmente(T,abscisse)), 
+   T->tests(Ø,actions>0,augmente(T,abscisse)), correct->absplus=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Sur la dernière ligne, cliquer sur les intervalles où le produit est positif~
+définitions : 
+   c1->tests(`+`,sa1×sb1<0,`-`), c2->tests(`-`,sa1×sb1<0,`+`), c3->tests(`+`,sa1×sb1<0,`-`), 
+   S0->tests(370,sa1×sb1>0,(230,510)), E0->ensemble(S0), 
+   solution->mappe(mpts(x,y,l,t,c),S0,110,`+`,18,255), nbclics->tests(2,sb1×sa1<0,1), 
+   fig0->joint(fig0,S1), 
+   texte->tests(texte,entrées=4,VLBOX(La règle du signe d'un produit permet de remplir la dernière ligne)), 
+   figure->joint(fig0,cliquer(nbclics)), 
+   S1->mappe(mpts(x,y,l,t,c),(230,370,510),110,(c1,c2,c3),18,255), suivant->calcule(partie+1)~
+vérification : 
+   abscisse->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),opérande(entrée,1),(230,370,510),b), 
+   entrée->{point(abscisse,110),caché,label(`+`,centré,18),couleur(255,0,0)}, 
+   absplus->tests(T,compare(T,Ø)=0,abscisse,actions=0,augmente(T,abscisse)), 
+   T->tests(Ø,actions>0,augmente(T,abscisse)), correct->absplus=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Ecrire l'ensemble solution sous forme d'un intervalle ou de l'union de¶
+ deux intervalles (utiliser le clic droit pour la palette des symboles)~
+définitions : 
+   figure->joint(fig0,S1,clip(0,230,600,80)), 
+   {signe,crochet}->tests({positif,ferme},type=2,{strictement positif,ouvre},type=-1,{négatif,ferme},type=-2,{strictement négatif,ouvre}), 
+   texte->tests(texte,entrées=5,VLBOX(HBOX(`D'après l'inéquation, `,P, doit être ,signe,`.`),`L'ensemble solution est donc formé des intervalles de même signe`,HBOX(`sur la dernière ligne (on `,crochet,` les crochets)`))), 
+   ext->tests(]-infini,a] union [b,infini[,calcule(|type|)=2,]-infini,a[ union ]b,infini[), 
+   int->tests([a,b],calcule(|type|)=2,]a,b[), solution->S=tests(int,type×sa1×sb1>0,ext), 
+   format->{point(0,0),caché,label(S=?,centré,14)}, suivant->0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : inéquation quotient~
+énoncé : Ecrire dans l'ordre les valeurs annulant le numérateur et le dénominateur~
+définitions : 
+   (a0,a1,b0,b1)->choix([1,8],4,non(a×d-b×c=0)), 
+   (sa0,sa1,sb0,sb1,type)->choix({-1,1},4,{-2,-1,1,2}), 
+   A->norm(calcule(sa1×a1)×x+calcule(sa0×a0)), B->norm(calcule(sb1×b1)×x+calcule(sb0×b0)), 
+   Q->A/B, question->tests(Q>0,type=1,Q>=0,type=-1,Q<=0,type=-2,Q<0), 
+   cliptexte->clip(0,0,700,90,couleur(230,240,230)), 
+   format->({point(300,35),caché,label(?,90,14)},{point(440,35),caché,label(?,90,14)}), 
+   fig0->(clip(0,0,700,100),{point(0,0),caché,label(CADRE(question,-20,-1,couleur(255,255,200)),centré,14)}), 
+   labels->mappe(mpts(x,y,l,t,c),(80,180,560,80,80,80),(20,20,20,50,80,120),(x,-infini,infini,A,B,Q),14,0), 
+   segments->mappe(segment(x0,y0,x1,y1),(0,0,0,160,300,440),(35,65,95,10,35),(700,700,700,160,300,440),(35,65,95,140)), 
+   fig1->joint(clip(0,100,700,600,origine(0,110),unités(1,1)),labels,segments), 
+   figure->(fig0,fig1), a'->calcule(-(sa0×sa1×a0)/a1), b'->calcule(-(sb0×sb1×b0)/b1), 
+   inv->tests(1,b'<a',-1), a->tests(a',b'<a',b'), b->tests(b',b'<a',a'), s->(a,b), 
+   texte->tests(texte,entrées=0,VLBOX(`On cherche d'abord les valeurs qui annulent numérateur et dénominateur :`,HBOX(A=0,si,x=a,`  et  `,B=0,si,x=b))), 
+   solution->s, suivant->calcule(partie+1), demo->entrées=0~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Placer les zéros sur les lignes verticales~
+définitions : 
+   S0->((300,tests(50,inv<0,80)),(440,tests(80,inv<0,50)),tests((300,120),b'<a',(440,120))), 
+   E0->ensemble(S0), nbclics->3, T->Ø, 
+   solution->mappe(mpts(x,y,l,t,c),mappe(opérande(a,b),S0,1),mappe(opérande(a,b),S0,2),0,14,255), 
+   fig0->joint(fig0,fig1,{point(300,35),caché,label(a,90,14)},{point(440,35),caché,label(b,90,14)}), 
+   texte->tests(texte,entrées=1,VLBOX(`On place les zéros des expressions de la première colonne,`,HBOX(mais,Q, ne s'annule que si ,A, est nul))), 
+   fig1->figure, figure->joint(fig0,cliquer(nbclics)), suivant->calcule(partie+1)~
+vérification : 
+   ex0->abs(entrée), ey0->ord(entrée), 
+   ex1->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),ex0,mappe(opérande(x,y),S0,1),b), 
+   ey1->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),ey0,mappe(opérande(x,y),S0,2),b), 
+   ex->tests(ex0,calcule(|ex1-ex0|)<20,ex1), ey->tests(ey0,calcule(|ey1-ey0|)<20,ey1), 
+   e->(ex,ey), entrée->{point(ex,ey),caché,label(0,centré,14),couleur(255,0,0)}, 
+   zeros->tests(T,compare(T,Ø)=0,e,actions=0,augmente(T,e)), 
+   T->tests(Ø,actions>0,augmente(T,e)), correct->zeros=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Cliquer dans le tableau les endroits où les expressions sont positives~
+définitions : 
+   texte->tests(texte,entrées=2,VLBOX(HBOX(Le signe du quotient ,Q, est le même que celui du produit ,A×B))), 
+   fig0->joint(fig0,solution), 
+   C->mappe(tests(a,b,c),`+`,(sa1>0,sa1×inv<0,sa1<0,sb1>0,sb1×inv>0,sb1<0,sa1×sb1<0,sa1×sb1>0,sa1×sb1<0),`-`), 
+   S1->mappe(mpts(x,y,l,t,c),(230,370,510,230,370,510,230,370,510),(50,50,50,80,80,80,120),C,18,255), 
+   solution->mappe({a€A : (a,A)->A},label(`+`,centré,18),S1), nbclics->card(solution), T->Ø, 
+   figure->joint(fig0,cliquer(nbclics)), ABS->(230,370,510), ORD->(50,80,120), 
+   suivant->partie+1~
+vérification : 
+   ex->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),abs(entrée),ABS,b), 
+   ey->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),ord(entrée),ORD,b), 
+   e->{point(ex,ey),label(`+`,centré,18),caché,couleur(255,0,0)}, entrée->e, 
+   zeros->tests(T,compare(T,Ø)=0,e,actions=0,joint(T,e)), 
+   T->tests(Ø,actions>0,joint(T,e),actions>0 et compare(T,Ø)=0,e), 
+   correct->ensemble(zeros)=ensemble(solution), {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : En déduire l'ensemble solution~
+définitions : 
+   fig0->joint(fig0,S1), 
+   texte->tests(texte,entrées=3,VLBOX(On examine la dernière ligne de signes pour trouver l'ensemble solution,HBOX(la borne correspondant à ,b',` est ouverte (valeur interdite)`))), 
+   ext->tests(]-infini,a] union ]b,infini[,b'<a',]-infini,a[ union [b,infini[,calcule(|type|)=2,]-infini,a[ union ]b,infini[), 
+   int->tests(]a,b],a'<b',[a,b[,calcule(|type|)=2,]a,b[), 
+   solution->tests(S=int,type×sa1×sb1>0,S=ext), 
+   format->{point(0,0),caché,label(S=?,centré,14)}, suivant->0, 
+   figure->joint(fig0,clip(0,240,600,80))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, partie->STOP, 
+   réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : avec réduction~
+énoncé : Dans le cas où l'inéquation n'est pas sous la forme standard (Q>0, Q<0, etc)¶
+  on rassemble tous les termes du même côté et on réduit au même dénominateur.¶
+  Exemple : $2/(x+1) < 3$ devient : $(-3×x+2)/(x+1) < 0$¶
+ Ecrire la réduction au même dénominateur : $ (-3×x+2)/(x+1)$ ~
+définitions : 
+   (a0,b0,c0,d0,a1,b1,c1,d1)->choix({-6,-5,-4,-3,-2,-1,1,2,3,4,5,6},8), 
+   (quotient,type)->choix({0,1,2},{-2,-1,1,2}), 
+   {a1,b1,c1,d1}->tests({a1,b1,0,0},quotient=1,{0,b1,0,c1},quotient=2,{0,0,c1,d1}), 
+   (a0,b0)->tests((a0,b0),quotient=2 et b0<0,calcule(-a0,-b0)), 
+   (c0,d0)->tests((c0,d0),quotient=0 et d0<0,calcule(-c0,-d0)), 
+   (q1,q2)->((a1×x+a0)/(b1×x+b0),(c1×x+c0)/(d1×x+d0)), (q3,q4)->calcule(norm(q1),norm(q2)), 
+   {a,b}->numden(stnd(q3,x)), {c,d}->numden(stnd(q4,x)), sgn->choix({-1,1}), 
+   q->tests(norm(q3+q4),sgn=-1,norm(q3-q4)), s->norm(développe(a×d+sgn×x^0×b×c,x)/(b×d)), 
+   question->tests(q>0,type=1,q>=0,type=-1,q<=0,type=-2,q<0), 
+   format->{point(0,0),caché,label(?,centré,14)}, solution->s, 
+   cliptexte->clip(0,0,700,116,couleur(250,230,240)), 
+   fig0->(clip(0,0,700,100),{point(0,0),caché,label(CADRE(question,-10,couleur(255,255,200)),centré,14)},clip(0,80,700,160)), 
+   figure->fig0, suivant->partie+1~
+vérification : 
+   correct->compare(trier(entrée),trier(s))=0, {note,total,partie,texte}->standard, 
+   solution->tests(s>0,type=1,s>=0,type=-1,s<=0,type=-2,s<0), réponse->FIN~
+énoncé : A l'aide d'un tableau de signes (voir exercice précédent) tracé sur feuille,¶
+  conclure en écrivant l'ensemble solution.¶
+ Exemple : $]4/5,14/11[ union ]5/3,infini[$~
+définitions : 
+   figure->joint(fig0,{point(0,0),caché,label(solution,centré,14)},clip(0,160,700,300)), 
+   {bornes,sgn}->facteurs(s,x,0), 
+   bornes2->tests(bornes,type×sgn>0,joint({-infini,1},bornes)), 
+   format->{point(0,0),caché,label(S=?,centré,14)}, 
+   solution->S=interv(bornes2,calcule(|type|-1)), suivant->partie+1~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

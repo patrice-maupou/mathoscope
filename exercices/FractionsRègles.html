@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="550" height="490">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/grilles.math
+">
+<PARAM name="définitions globales" value="
+affiche->affiche(expr,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(0,0),caché,label(expr,centré,14)}))
+">
+<PARAM name="Exercice 1" value="
+titre : addition~
+énoncé : Addition de fractions : chaque fraction est représentée par une barre verticale dont la¶
+ hauteur représente une unité, la partie en couleur correspond à la fraction. On voit que¶
+ les divisions des deux barres ne sont pas comparables.~
+définitions : 
+   (a,c)->choix([3,7],2,pgcd(a,b)=1), (b,d)->choix([2,a-2],[2,c-2]), question->b/a+d/c, 
+   m->calcule(a×c), b1->calcule(b×c), d1->calcule(d×a), e->calcule(b1+d1), sep->150, 
+   fond->clip(sep,0,500,500,couleur(255,255,240)), 
+   cliptexte->clip(0,0,700,120,couleur(255,240,240)), 
+   figure->(affiche(question,0,0,sep,500),fond,clip(sep,0,500,500,recadre(20)),barfrac(0,b,a,c,bleu,cyan),{point(0,b1),caché,label(b/a,180)},barfrac(3,d,c,a,bleu,cyan),{point(3,d1),caché,label(d/c,180)})~
+énoncé : On découpe les barres en tranches égales pour pouvoir ajouter,¶
+ par exemple si on a $2/3+5/2$, chaque barre sera divisée en 6=2×3,¶
+ le numérateur étant ajusté de manière à garder la même fraction,¶
+         donc $2/3+5/2 = 4/6+15/6 = 19/6$~
+définitions : 
+   question->(b×c)/(a×c)+(a×d)/(a×c), 
+   figure->(affiche(question,0,0,sep,500),fond,clip(sep,0,500,500,recadre(20)),barfrac(0,b1,m,1,rouge,cyan),{point(0,b1),caché,label(b1/m,180)},{point(1,b1),caché,label(b/a,0)},grille(point(0,0),point(1,m),1,c,bleu),barfrac(2,d1,m,1,rouge,cyan),{point(2,d1),caché,label(d1/m,180)},{point(3,d1),caché,label(d/c,0)},grille(point(2,0),point(3,m),1,a,bleu),barfrac(5,e,m,1,bleu,cyan),{point(5,e),caché,label(e/m,180)})~
+">
+<PARAM name="Exercice 2" value="
+titre : simplification~
+énoncé : On peut interpréter graphiquement la fraction 2/3 avec une barre¶
+ verticale divisée en 3 parts égales (le dénominateur). La partie¶
+ coloriée correspond à deux parts, elle représente donc cette fraction.~
+définitions : 
+   b->choix({3,5,7}), (a,m)->choix([2,b-1],[2,4]), a1->calcule(a×m), b1->calcule(b×m),  
+   cliptexte->clip(0,0,700,90,couleur(230,210,190)), 
+   question->a1/b1, cliptexte->clip(0,0,700,90,couleur(220,210,190)), sep->150, 
+   fond->(clip(sep,0,500,500),{polygone(point(-20,-12),point(-20,12),point(20,12),point(20,-12)),caché,remplit(vertpale)}), 
+   figure->(affiche(question,0,0,sep,500),fond,clip(sep,0,500,500,recadre(20)),barfrac(0,a1,b1,1,bleu,cyan),{point(0,a1),caché,label(a1/b1,180)})~
+énoncé : On remarque que numérateur et dénominateur sont tous les deux¶
+ multiples d'un même nombre, ce qui signifie graphiquement que l'on¶
+ peut prendre des parts plus grandes (en rouge) et qui permet de¶
+ donner une fraction égale, mais plus simple.~
+définitions : 
+   question->VBOX(a1/b1=(a×m)/(b×m),a1/b1=a/b),
+   figure->(affiche(question,0,0,sep,500),fond,clip(sep,0,500,500,recadre(20)),barfrac(0,a1,b1,1,bleu,cyan),grille(point(0,0),point(1,b1),1,m,rouge),{point(0,a1),caché,label(a1/b1,180)},{point(1,a1),caché,label(a/b,0)})~
+">
+<PARAM name="Exercice 3" value="
+titre : multiplication~
+énoncé : La hauteur de la barre qui représente la seconde fraction est égale à la¶
+   première fraction qui devient la référence. ~
+définitions : 
+   (b,d)->choix([3,5],[3,5]), (a,c)->choix([1,b-1],[1,d-1]), question->a/b×(c/d), sep->150, cliptexte->clip(0,0,700,90,couleur(220,210,190)), 
+   fond->(clip(sep,0,500,500),{polygone(point(-20,-12),point(-20,12),point(20,12),point(20,-12)),caché,remplit(255,255,240)}), 
+   fig->(affiche(question,0,0,sep,500),fond,clip(sep,0,500,500,recadre(20)),barfrac(0,a,b,d,bleu,cyan),{point(0,a×d),caché,label(a/b,180)},barfrac(2,c,d,a,bleu,cyan),{point(2,a×c),caché,label(c/d,180)}),
+   figure->fig~
+énoncé : Pour obtenir le résultat, on doit comparer la dernière partie¶
+    coloriée avec la hauteur de la première barre~
+définitions : 
+   question->a/b×(c/d)=(a×c)/(b×d), 
+   res->(barfrac(5,a×c,b×d,1,bleu,cyan),{point(5,a×c),label((a×c)/(b×d),180),caché}), 
+   figure->joint(fig,res)~
+">
+</APPLET></P>
+</body>
+</html>

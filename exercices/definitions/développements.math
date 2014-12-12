@@ -1,0 +1,22 @@
+<importer>
+signes.math
+</importer>
+<definitions>
+dev->dev(p,x)=applique({c×(a+d)×(b×x^n)->p : STOP(dev(c×a×(b×x^n),x)+dev(c×d×(b×x^n),x))},{c×(a×x^m)×(b×x^n)->p : STOP(dev(c×(calcule(a×b)×x^calcule(m+n)),x))},{a×x^m×(b×x^n)->p : STOP(calcule(a×b)×x^calcule(m+n))},{a+b->p : STOP(dev(a,x)+dev(b,x))},{(a+b)×c->p : STOP(dev(a×c,x)+dev(b×c,x))},{c×(a+b)->p : STOP(dev(c×a,x)+dev(c×b,x))},p),
+stri->stri(p,x)=applique(p,{a+b->p : stri(a,x)+b},{a×x^m+b×x^n->image,m<n : b×x^n+a×x^m},{c+a×x^m+b×x^n->image,m<n : stri(c+b×x^n,x)+a×x^m}),
+red->red(p,x)=applique(p,{a+b->p : red(a,x)+b},{a×x^n->image : STOP(calcule(a)×x^n)},{a+0×x^n->image : STOP(red(a,x))},{0×x^n+a->image : STOP(red(a,x))},{a×x^n+b×x^n->image : calcule(a+b)×x^n},{c+a×x^n+b×x^n->image : red(c+red(a×x^n+b×x^n,x),x)}),
+ass->ass(x,op)=applique(x,{op=0,a+b->x,non(u+v->b) : STOP(ass(a,0)+b)},{op=0,a×b->x : STOP(ass(a,0)×ass(b,0))},{op=0,a/b->x : STOP(ass(a,0)/ass(b,0))},{op=1,a×b->x,non(u×v->b) : STOP(ass(a,1)×b)},{op=0,a+(b+c)->x : STOP(ass(a+b+c,0))},{op=1,a×(b×c)->x : STOP(ass(a×b×c,1))}),
+développe->développe(p,x)=applique(norm(red(stri(ass(dev(stnd(p,x),x),0),x),x)))
+</definitions>
+<commentaires>
+stnd->` Transforme un polynôme de la variable x en une somme de monômes¶ de la forme a×x^n ( essayer stnd(3×(-2×x+1)×(-x^2-2×x+5),x) )`,
+norm->` Ecrit une expression sous forme normale en appliquant les règles des signes :¶ (-a)×b devient -a×b ,  1×a devient a , 0×a devient 0, -(-a) devient a , etc..`,
+hors->`donne une relation vraie si et seulement si la variable x ne fait pas partie de l'expression e`
+</commentaires>
+<history>
+hors(x,(x+1)×(x-1)),
+stnd((2×x-3)×(-5×x-4),x),
+stnd((2×x-3)×(-5×x-4),x),
+norm((2×x+(-3))×((-5)×x-4)),
+norm((-3)×x+4)
+</history>

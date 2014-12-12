@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="529" height="433">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="5">
+<PARAM name="importer" value="
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{(-n)/a->image : -norm(n/a)},{a×(-n)->image : -norm(a×n)},{a/(-n)->image : -norm(a/n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{a/1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+quotient->quotient(e)=applique({a×q+r->e : q}),
+trieucl->trieucl(e)=applique(calcule(e),{w+b->e,non(b=0) : STOP(calcule(w)+b)}),
+rect->rect(r,a)=applique(t->approche(a,-6),point(approche(r×cos(t),-4),approche(r×sin(t),-4))),
+ptsCercle->ptsCercle(rayon,angle,start,nb)=mappe(a->{rect(rayon,calcule(angle×a+start)),style(trait(angle×a+start))},seq([1,nb])),
+pts->mappe(a->{rect(1,a),caché,label(a,applique(a,PI->180),10)},(0,PI/6,PI/4,PI/3,PI/2)),
+angle->angle(p)=applique({point(x,y)->p : angle(x,y)}),
+trait->trait(a)=applique((c,s)->(approche(3×cos(a),-4),approche(3×sin(a),-4)),{droite(point(c,-s),point(-c,s)),couleur(0,0,255)}),
+décotexte->CADRE(texte,10,10,couleur(210,230,240)),
+affiche->affiche(expr,x,y,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(x,y),caché,label(expr,centré,14)}))
+">
+<PARAM name="décorations" value="
+{PI->constant,PI->image : UNICODE(`3c0`)},
+{cos(x)^n->image : HBOX(cos^n,x)},
+{sin(x)^n->image : HBOX(sin^n,x)}
+">
+<PARAM name="Exercice 1" value="
+titre : mesure principale~
+énoncé : Les angles sont mesurés en radians à $2×PI$ près (ou modulo $2×PI$).  ¶
+ Celà signifie que si on retranche ou si on ajoute un multiple entier de $2×PI$, ¶
+ on obtient une mesure du même angle angle. ¶
+ On divise le coefficient de $PI$ au numérateur par le double du dénominateur~
+définitions : 
+   (n,s,d)->choix([20,50],{-1,1},[1,10],pgcd(a,c)=1), texte->décotexte, 
+   cliptexte->clip(0,0,700,120), e->euclide(n,calcule(2×d)), q->quotient(e), 
+   r->opérande(e,2), m->norm((s×n×PI)/d), question->m, TOTAL->10, 
+   figure->affiche(question,0,0,0,0,500,500), solution->n=e~
+énoncé : On multiplie chaque membre de l'égalité obtenue par $PI$ et on divise par¶
+  le dénominateur :~
+définitions : 
+   question->VBOX(m,solution), texte->décotexte, f->norm(s×q×(2×PI)+(s×(r×PI))/d), 
+   solution->m=f, figure->affiche(question,0,0,0,0,500,500)~
+énoncé : Il suffit maintenant d'enlever les multiples entiers de $2×PI$ pour obtenir¶
+ la mesure principale de l'angle, (enlever ou ajouter encore $2×PI$ si le numérateur¶
+ est plus grand que le dénominateur).~
+définitions : 
+   question->solution, texte->décotexte, figure->affiche(question,0,0,0,0,500,500), 
+   r->tests(r,r>d,calcule(r-2×d)), solution->tests(norm((s×r×PI)/d),s×r=-d,PI)~
+énoncé : On obtient finalement :¶
+ (appuyer sur Entrée pour commencer l'exercice)~
+définitions : 
+   question->HBOX(m=solution,` `,BBOX(2×PI)), texte->décotexte, 
+   figure->affiche(question,0,0,0,0,500,500)~
+énoncé : La mesure de l'angle est de la forme $(`n`×PI)/`d`$. Ecrire le résultat de la¶
+  division euclidienne de n par 2×d (sans tenir compte du signe).¶
+  Exemple : pour$ -(43×PI)/3$ on écrit 43 = 6×7 + 1~
+définitions : 
+   (n,s,d)->choix([20,50],{-1,1},[1,10],pgcd(a,c)=1), texte->décotexte, 
+   e->euclide(n,calcule(2×d)), q->quotient(e), r->opérande(e,2), m->norm((s×n×PI)/d), 
+   question->m, figure->affiche(question,0,2,0,0,500,500), forme->n=?, format->FORMAT, 
+   solution->n=e, start->calcule(partie), suivant->calcule(partie+1)~
+vérification : 
+   correct->compare(trieucl(opérande(entrée,2)),trieucl(opérande(solution,2)))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte~
+énoncé : En déduire la mesure principale, comme dans la démonstration¶
+ (relancer l'exercice si la méthode n'est pas comprise)~
+définitions : 
+   question->VBOX(m,solution), texte->décotexte, figure->affiche(question,0,4,0,0,500,500), 
+   forme->?, format->FORMAT, r->tests(r,r>d,calcule(r-2×d)), f0->calcule(|r/d|), 
+   s->tests(s,r<0,calcule(-s)), (a,b)->tests((f0,1),u/v->f0,(u,v)), 
+   solution->tests(norm((s×a×PI)/b),f0=1,PI,f0=0,0), suivant->start~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : angles et cercle~
+énoncé : Pour placer un point correspondant à un angle en radians sur le cercle¶
+ trigonométrique, on peut chercher sa mesure principale, puis comparer¶
+ aux angles situés dans le quadrant en haut à droite.¶
+ Cliquer sur le point du cercle correspondant à l'angle indiqué.~
+définitions : 
+   (n,d,s)->choix([0,20],{1,2,3,3,4,4,6,6},{-1,1},pgcd(a,b)=1), texte->décotexte, 
+   cliptexte->clip(0,0,700,120), question->norm((s×n×PI)/d), angle->calcule((s×n×180)/d), 
+   e->euclide(n,calcule(2×d)), r->norm((s×opérande(e,2)×PI)/d), ptsol->rect(1,question), 
+   solution->{ptsol,couleur(255,0,0),label(r,angle+180)}, TOTAL->10, 
+   labels->mappe((a,b)->{rect(1,a),caché,label(a,b)},(0,PI/6,PI/4,PI/3,PI/2),(0,30,45,60,90)), 
+   fig0->(clip(150,0,500,500,unités(100,-100),couleur(240,255,234)),{point(0,0),label(O,225)},{droite(point(-1,0),point(1,0)),couleur(0,0,255)},{droite(point(0,-1),point(0,1)),couleur(0,0,255)},{cercle(point(0,0),1),couleur(0,0,255)},ptsCercle(1,PI/6,0,11),ptsCercle(1,PI/2,PI/4,4),labels), 
+   figure->joint(affiche(question,0,0,0,0,150,500),fig0,cliquer(1))~
+vérification :
+   ea0->approche((angle(opérande(entrée,1),opérande(entrée,2))×12)/PI), 
+   ea->tests(ea0,ea0>12,calcule(ea0-24)), r0->opérande(euclide(calcule((n×12)/d),24),2), 
+   sa->tests(calcule(s×r0),r0>11,calcule(s×(r0-24)),r0=0,0,r0=12,12), P->rect(1,(ea×PI)/12), 
+   entrée->{P,couleur(255,0,0)}, correct->compare(ea,sa)=0, 
+   {note,total,partie,texte}->standard, texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : cosinus~
+énoncé :  Repérer le point sur le cercle qui correspond à l'angle indiqué. Le cosinus¶
+  est alors l'abscisse de ce point. Pour obtenir la valeur exacte, comparer cette¶
+  abscisse aux valeurs remarquables indiquées : 0, $1/2$, $rac(2)/2$, $rac(3)/2$, 1¶
+  et écrire cette valeur.~
+définitions : 
+   (n,d,s)->choix([0,20],{1,2,3,3,4,4,6,6},{-1,1},pgcd(a,b)=1), cliptexte->clip(0,0,700,120), 
+   texte->décotexte, m->cos(norm((s×n×PI)/d)), cs->approche(cos((n×PI)/d),-8), 
+   sol->mappe({approche(cs-x,-4)=0 : x->x},(0,-1/2,1/2,rac(2)/2,-rac(2)/2,rac(3)/2,-rac(3)/2,1,-1)), 
+   solution->sol, forme->?, format->FORMAT, TOTAL->10, 
+   segments->mappe(x->{droite(x,point(opérande(x,1),0)),couleur(0,255,0)},mappe(x->opérande(x,1),pts)), 
+   cos->mappe((a,b)->{point(opérande(a,1),-0.05),caché,label(b,-90,10)},mappe(x->opérande(x,1),opérande(pts,[2,4])),(rac(3)/2,rac(2)/2,1/2)), 
+   fig0->(clip(150,0,500,500,unités(100,-100),couleur(234,235,250)),{point(0,0),label(O,225)},{droite(point(-1,0),point(1,0)),couleur(0,0,255)},{droite(point(0,-1),point(0,1)),couleur(0,0,255)},{cercle(point(0,0),1),couleur(0,0,255)},ptsCercle(1,PI/6,0,11),ptsCercle(1,PI/2,PI/4,3),pts,segments,cos), 
+   figure->joint(fig0,affiche(m,0,3,0,0,150,500)), suivant->1~
+vérification : 
+   correct->compare(entrée,sol)=0, solution->m=sol, réponse->FIN, 
+   {note,total,partie,texte}->standard, texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 4" value="
+titre : sinus~
+énoncé : Repérer le point sur le cercle qui correspond à l'angle indiqué. Le sinus¶
+  est alors l'ordonnée de ce point. Pour obtenir la valeur exacte, comparer cette¶
+  ordonnée aux valeurs remarquables indiquées et écrire cette valeur.~
+définitions : 
+   (n,d,s)->choix([0,20],{1,2,3,3,4,4,6,6},{-1,1},pgcd(a,b)=1), cliptexte->clip(0,0,700,120), 
+   texte->décotexte, question->sin(norm((s×n×PI)/d)), sn->approche(sin((s×n×PI)/d),-8), 
+   sol->mappe({approche(sn-x,-4)=0 : x->x},(0,-1/2,1/2,rac(2)/2,-rac(2)/2,rac(3)/2,-rac(3)/2,1,-1)), 
+   solution->sol, forme->?, format->FORMAT, TOTAL->10, 
+   segments->mappe(x->{droite(x,point(0,opérande(x,2))),couleur(0,255,0)},mappe(x->opérande(x,1),pts)), 
+   sin->mappe((a,b,p)->{point(0,opérande(a,2)),caché,label(b,p,10)},mappe(x->opérande(x,1),opérande(pts,[2,4])),(1/2,rac(2)/2,rac(3)/2),(180,0,180)), 
+   fig0->(clip(150,0,500,500,unités(100,-100),couleur(250,235,234)),{point(0,0),label(O,225)},{droite(point(-1,0),point(1,0)),couleur(0,0,255)},{droite(point(0,-1),point(0,1)),couleur(0,0,255)},{cercle(point(0,0),1),couleur(0,0,255)},ptsCercle(1,PI/6,0,11),ptsCercle(1,PI/2,PI/4,3),pts,segments,sin), 
+   figure->joint(fig0,affiche(question,0,3,0,0,150,500)), suivant->1~
+vérification : 
+   correct->compare(entrée,sol)=0, solution->question=sol, réponse->FIN, 
+   {note,total,partie,texte}->standard, texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 5" value="
+titre : relation fondamentale~
+énoncé : Dans cet exercice, on donne le sinus ou le cosinus d'un angle x.¶
+  Utiliser la relation fondamentale de la trigonométrie :¶
+ 	$(cos(x))^2 + (sin(x))^2 = 1$¶
+  pour calculer l'autre fonction trigonométrique.~
+définitions : 
+   (p0,p1,sa,sb)->choix({1,2,3,5,7},{1,3,5,7},{-1,1},{-1,1}), a->calcule(p0×p1), 
+   h->calcule((p0×(p1×p1+1))/2), b->calcule((p0×(p1×p1-1))/2), sn->calcule((sa×a)/h), 
+   cn->calcule((sb×b)/h), I1->tests(x€[-PI/2,PI/2],cn<0,x€]PI/2,(3×PI)/2[), 
+   I2->tests(x€[0,PI],sn<0,x€]-PI,0[), (trig,autre)->arrangement(2,{cos(x),sin(x)}), 
+   cond->compare(trig,cos(x))=0, I->tests(I1,cond,I2), TOTAL->10, 
+   question->tests(VBOX(sin(x)=sn,I1),cond,VBOX(cos(x)=cn,I2)), 
+   solution->tests(cos(x)^2=calcule(cn^2),cond,sin(x)^2=calcule(sn^2)), forme->autre^2=?, 
+   format->{point(0,-2),caché,label(forme,centré,14)}, cliptexte->clip(0,0,700,120), 
+   texte->décotexte, figure->affiche(question,0,2,0,0,500,500), suivant->1~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : En tenant compte de l'intervalle contenant la mesure de l'angle x,¶
+ en déduire la valeur exacte du sinus ou cosinus demandé~
+définitions : 
+   figure->affiche(VBOX(solution,I),0,2,0,0,500,500), texte->décotexte, forme->autre=?, 
+   format->{point(0,-2),caché,label(forme,centré,14)}, 
+   solution->tests(cos(x)=cn,cond,sin(x)=sn), suivant->0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP, texte->décotexte~
+">
+</APPLET></P>
+</body>
+</html>

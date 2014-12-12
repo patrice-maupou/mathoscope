@@ -1,0 +1,18 @@
+<definitions>
+grh->grh(A,B,dy,c)=applique((xa,ya)->opérande(A),(xb,yb)->opérande(B),mappe(n->{droite(point(xa,calcule(ya+n×dy)),point(xb,calcule(ya+n×dy))),couleur(c)},seq([0,(yb-ya)/dy]))),
+grv->grv(A,B,dx,c)=applique((xa,ya)->opérande(A),(xb,yb)->opérande(B),mappe(n->{droite(point(calcule(xa+n×dx),ya),point(calcule(xa+n×dx),yb)),couleur(c)},seq([0,(xb-xa)/dx]))),
+grille->grille(A,B,dx,dy,c)=applique(joint(grh(A,B,dy,c),grv(A,B,dx,c))),
+barfrac->barfrac(x0,a,b,dy,c0,c1)=applique(A->point(x0,0),A'->point(x0+1,0),m->max(a,b),B->point(x0+1,m×dy),C->point(x0,a×dy),C'->point(x0+1,a×dy),joint({polygone(A,C,C',A'),remplit(c1)},grille(A,B,1,dy,c0),{A,caché},{B,caché})),
+min->min(s)=mappe({x<=image : x->x},s,x),
+max->max(s)=mappe({x>=image : x->x},s,x)
+</definitions>
+<commentaires>
+barfrac->` Représente la fraction a/b par une barre verticale avec b subdivisions.¶ x0 : abscisse du point en bas à gauche, a : le numérateur, b : le dénominateur¶ dy : hauteur de chaque subdivision¶ c0 : couleur de tracé, c1 : couleur de remplissage`,
+grh->` Tracé d'une suite de droites horizontales¶ A : point de départ en bas à gauche, B : point limite en haut à droite¶ dy : distance entre deux droites successives¶ c : couleur de tracé`,
+grv->`Tracé d'une suite de droites verticales¶ A : point de départ en bas à gauche, B : point limite en haut à droite¶ dx : distance horizontale entre deux droites successives¶ c : couleur de tracé`,
+grille->` Tracé d'une grille de couleur c¶ A : point en bas à gauche, B : point en haut à droite¶ dx : distance entre deux droites verticales, dy : distance entre deux droites horizontales¶ Exemple : grille(point(-4,-3),point(4,3),2,1,bleu)`
+</commentaires>
+<history>
+grh(point(0,0),point(2,3),1,c),
+grh(point(0,0),point(2,1),1,c)
+</history>

@@ -1,0 +1,32 @@
+<definitions>
+exp1->exp1(p,x)=applique(applique(p,assoc,num_avant),{x^n->image : STOP(p)},{x->p : STOP(x^1)},{a+b->image : STOP(exp1(a,x)+exp1(b,x))},{-b->image : STOP((-1)×exp1(b,x))},{a-b->image : STOP(exp1(a,x)+(-1)×exp1(b,x))},{a×b->image : STOP(exp1(a,x)×exp1(b,x))},{a/b->image : STOP(exp1(a,x)/exp1(b,x))},{a^n->image : STOP(exp1(a,x)^n)},{?(a)->image : STOP(?(exp1(a,x)))}),
+exp01->exp01(p,x)=applique(calcule(applique(exp1(p,x),assoc))),
+assoc->schéma({a+(b+c)->image : a+b+c},{a×(b×c)->image : a×b×c}),
+num_avant->schéma({a×b->image,non(a->num),b->num : b×a}),
+op_to_fonc->schéma({a+b->image : PLUS(a,b)},{a-b->image : MOINS(a,b)},{a×b->image : MUL(a,b)},{a/b->image : DIV(a,b)}),
+fonc_to_op->schéma({PLUS(a,b)->image : a+b},{MOINS(a,b)->image : a-b},{MUL(a,b)->image : a×b},{DIV(a,b)->image : a/b}),
+ASSOC->ASSOC(p)=applique(p,{?(a,?(b,c))->image : ?(ASSOC(?(a,b)),ASSOC(c))},{?(?(a,b),?(c,d))->image : ?(?(ASSOC(?(a,b)),ASSOC(c)),ASSOC(d))}),
+C_AV->C_AV(p,x)=applique(p,{MUL(a,b)->image,dans(x,a),non(dans(x,b)) : MUL(b,C_AV(a,x))},{?(a,b)->image : ?(C_AV(a,x),C_AV(b,x))})
+</definitions>
+<history>
+C_AV(MUL(7,MOINS(2,MUL(x,2))),x),
+applique(C_AV(MUL(7,MOINS(2,MUL(x,2))),x),fonc_to_op),
+applique(C_AV(applique(2-x×2,op_to_fonc),x),fonc_to_op),
+applique(C_AV(applique(7×(2-x×2),op_to_fonc),x),fonc_to_op),
+applique(C_AV(applique(x^2×5,op_to_fonc),x),fonc_to_op),
+applique(C_AV(applique(3×x^2×5,op_to_fonc),x),fonc_to_op),
+applique(C_AV(applique(3×x^2×5-7×(2-x×2),op_to_fonc),x),fonc_to_op),
+applique(ASSOC(applique(2+(5+(3+4)),op_to_fonc)),fonc_to_op),
+ASSOC(applique(2+(5+(3+4)),op_to_fonc)),
+ASSOC(applique(2+(3+4),op_to_fonc)),
+(3×x^2-x+7)^2/(2×x-1+h(x)^3),x,
+3×(x×(x+2)),x,
+3×(x×2)×(x+2),x,
+3×x×(x+2),x,
+-x,x,
+(3×x^2-x+7)^2/(2×x-1+h(x)^3),x,
+(3×x^2-x+7)^2/(2×x-1+h(x)^3),
+-x,
+x,
+-1
+</history>

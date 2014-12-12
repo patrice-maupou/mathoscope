@@ -1,0 +1,54 @@
+<importer>
+signes.math,
+tris.math,
+signes.math,
+tris.math
+</importer>
+<definitions>
+max->max(a,b)=applique(a,{infini->b : STOP(b)},{-infini->a : STOP(b)},{a->num,b->num,a<b : b}),
+min->min(a,b)=applique(a,{-infini->b : STOP(b)},{infini->a : STOP(b)},{a->num,b->num,b<a : b}),
+croissant->croissant(x,y)=applique((a,b)->(opérande(x,1),opérande(y,1)),compare(a,b)>0,{a->num,b->num : STOP(a>b)},{-infini->a : 1<0},{-infini->b : 0<1}),
+coefs->coefs(e,x,z)=applique({hors(x,e) : STOP(seq(infini,calcule(e),z))},{b1×x^1->stnd(e,x) : STOP(seq(0,b1,z))},{b1×x^1+b0×x^0->stnd(e,x) : STOP(seq(calcule(-b0/b1),b1,z))},{a/b->e : STOP(triseq(joint(coefs(a,x,z),coefs(b,x,calcule(1-z))),croissant))},{non(a×b->e) : STOP(?)},(op,n,f)->décompose(e,1),s->mappe((a,b,c)->coefs(a,b,c),f,x,z),triseq(s,croissant)),
+facteurs->facteurs(e,x,inv)=applique(e,{e->num : STOP({{-infini,1},calcule(-e)})},{b1×x^1+b0×x^0->stnd(e,x) : STOP({{calcule(-b0/b1),inv},calcule(-b1)})},{b1×x^1->stnd(e,x) : STOP({{0,inv},calcule(-b1)})},{a×b->e,b->num : STOP(facteurs(b,x,inv))},{a×b->e,a->num : STOP(facteurs(b,x,calcule(1-inv)))},{a×b->e,{s,sa}->facteurs(a,x,inv),{t,sb}->facteurs(b,x,inv) : STOP({joint(s,t),calcule(sa×sb)})},{a/(c×b)->e,b->num : STOP(facteurs(a/c,x,inv))},{a/(c×b)->e,{s,sa}->facteurs(a/c,x,inv),{t,sb}->facteurs(b,x,calcule(1-inv)) : STOP({place(t,s,croissant),calcule(sa×sb)})},{a/b->e,b->num : STOP(facteurs(a,x,inv))},{a/b->e,{s,sa}->facteurs(a,x,inv),{t,sb}->facteurs(b,x,calcule(1-inv)) : STOP({place(t,s,croissant),calcule(sa×sb)})}),
+intervsol->intervsol(ineq,x)=applique({x<a->ineq : STOP(]-infini,a[)},{a<x->ineq : STOP(]a,infini[)},{a<=x->ineq : STOP([a,infini[)},{x<=a->ineq : STOP(]-infini,a])}),
+intersec->intersec(I,J)=applique((op1,s1,(a1,b1))->décompose(I,1),(op2,s2,(a2,b2))->décompose(J,1),(A,B)->(max(a1,a2),min(b1,b2)),(op,(i1,i2),s)->décompose(s1),(op3,(j1,j2),s3)->décompose(s2),k1->tests(i1,compare(A,a2)<0 ou compare(a1,a2)=0 et compare(i1,j1)<0,j1),k2->tests(i2,compare(B,b1)<0 ou compare(b1,b2)=0 et compare(j2,i2)<0,j2),k->var(k1,k2),calcule(compose((op1,k,(A,B)),1))),
+interv->interv(E,sgn)=applique(t->sépare(E,-2),{(({va,ia},{va,ib}),t1)->t : STOP(interv(t1,sgn))},{(({va,ia},{vb,ib}),t1)->t : STOP(interv(({va,ia},{vb,ib}),sgn) union interv(t1,sgn))},{({va,ia},{va,ib})->t : STOP(Ø)},{({va,ia},{vb,ib})->t : ]va,vb[},{({va,ia},{vb,ib})->t,ia+sgn=0 : STOP([va,vb[)},{({va,ia},{vb,ib})->t,ib+sgn=0 : STOP(]va,vb])},{({va,ia},{vb,ib})->t,ia+sgn=0,ib=0 : STOP([va,vb])},{{va,ia}->t : ]va,infini[},{{va,ia}->t,ia+sgn=0 : [va,infini[}),
+intervals->intervals(v,s)=applique(v0->tests(v,opérande(opérande(v,-1),1)->num,joint(v,seq(infini,1,1))),sgn->calcule(mappe(x->image×opérande(x,2),v,opérande(x,2)))),
+intervalle->intervalle(I,J)=applique((v0,s0,z0)->I,(v1,s1,z1)->J,c0->tests(`]`,z0=0,`[`),c1->tests(`[`,z1=0,`]`),compose((-8,var(c0,c1),(v0,v1)),1))
+</definitions>
+<commentaires>
+croissant->`Compare les éléments a et b selon la structure`,
+intervsol->`Donne l'intervalle correspondant à une inéquation simple (x d'un côté)`,
+intersec->`Calcule l'intersection de deux intervalles`
+</commentaires>
+<history>
+opérande((1,2,3),-1),
+coefs(2/(x+1),x,0),
+coefs(((2×x-3)×(x+2)×3)/(x+1),x,0),
+coefs((2×x-3)×(x+2)×3,x,0),
+place(seq(-2,1,0),(seq(-3,1,0),seq(3/2,2,0)),croissant),
+place(seq(-2,1,0),seq(3/2,2,0),croissant),
+place(seq(3/2,2,0),seq(-2,1,0),croissant),
+fm((2×x-3)×(x+2)×3,x,0),
+fm((2×x-3)×(x+2),x,0),
+fm((2×x-3)×(x+2)),
+facteur(-3,x,0),
+facteur(-3×x+1,x,0),
+facteur(3×x,x,0),
+triseq(({6,0},{-1/2,0},{5,0},{17,0},{-8,0},{0,1},{1/2,0}),croissant),
+triseq(({6,0},{-2,0},{5,0},{17,0},{-8,0},{0,1},{1/2,0}),croissant),
+triseq(({6,0},{-2,0},{5,0},{17,0},{-8,0},{0,0},{1/2,0}),croissant),
+triseq((6,-2,5,17,-8,0,1/2),croissant),
+triseq((6,-2,5,17,-8,0),croissant),
+triseq((6,-2,5,17,-8),croissant),
+triseq((6,-2,5,17,-8),cmp),
+place(6,-2,cmp),
+mappe(croissant,6,-3),
+croissant(3,-infini),
+croissant(-infini,3),
+croissant(2,3),
+max(9,infini),
+max(-infini,9),
+intersec(]-infini,9],[5,12[),
+intersec([5,9[,[2,5])
+</history>

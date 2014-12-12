@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<project name="mathoscope" default="default" basedir=".">
+  <description>Builds, tests, and runs the project mathoscope.</description>
+  <import file="nbproject/build-impl.xml"/>
+  <property name="applet" value="mathApplet"/>
+  <property name="exercices" value="exercices"/>
+  <property name="version" value="V2.2"/>
+  <property name="user.name" value="Patrice Maupou"/>
+  <tstamp>
+    <format property="TODAY" pattern="d MMMM yyyy" locale="fr"></format>
+  </tstamp>
+  
+  
+  <target name="clean applet" description="efface les fichiers de l'applet">
+    <mkdir dir="${applet}" />
+    <delete includeemptydirs="false">
+      <fileset dir="${applet}">
+        <exclude name="**/*.html"/>
+        <exclude name="**/*.htm"/>
+      </fileset>
+    </delete>
+  </target>   
+  <target name="source applet" description="copie les sources de l'applet" depends="clean applet">
+    <property name="ifframe.token" value="/* if frame" />
+    <property name="endframe.token" value="*/" />
+    <copy todir="${applet}">
+      <fileset dir="${src.dir}">
+        <include name="**/*.java" />
+        <exclude name="**/*MathFrame.java" />
+        <exclude name="**/*Node.java" />
+        <exclude name="**/*GeomPanelActions.java" />
+      </fileset>
+      <filterset begintoken="//[" endtoken="]">
+        <filter token="ifframe" value="${ifframe.token}" />
+        <filter token="endframe" value="${endframe.token}" />
+      </filterset>
+    </copy>
+  </target>
+  
+  
+  <target name="compile applet" depends="source applet">
+    <javac srcdir="${applet}" destdir="${applet}" source="1.5" target="1.5"/>
+  </target>
+  
+    
+  <target name="-post-jar" depends="compile applet"> 
+    <jar basedir="${applet}" compress="true" jarfile="${dist.dir}/maths.jar">
+      <exclude name="**/*.java" />
+      <exclude name="**/*Node.class" />
+    </jar>
+    <copy file="${dist.dir}/maths.jar" todir="${exercices}"/>
+    <copy file="${dist.dir}/mathoscope.jar" todir="${exercices}"/>
+    <jar basedir="${src.dir}" compress="true" jarfile="src${version}.zip">
+      <manifest>
+        <attribute name="Created-By" value="${user.name}"/>
+        <attribute name="License" value="GPL"/>
+        <attribute name="Version" value="${version}"/>
+        <attribute name="Date" value="${TODAY}"/> 
+        <attribute name="Main-Class" value="ExpressionApplet"/>
+      </manifest>
+      <exclude name="**/*.class"/>
+      <exclude name="**/*.form"/>
+      <exclude name="**/*.html"/>
+      <exclude name="**/*.htm"/>
+      <exclude name="**/*.xml"/>
+      <exclude name="**/*.xsl"/>
+      <exclude name="**/*.txt"/>
+      <exclude name="**/*.bak"/>
+      <exclude name="**/*essai.java"/>
+      <exclude name="**/*.policy.applet"/>
+      <exclude name="**/*.js"/>
+      <exclude name="**/*.math"/>
+      <exclude name="**/*.nbattrs"/>
+      <exclude name="**/*.nbintdb"/>
+      <exclude name="**/*.jarContent"/>
+      <exclude name=".project"/>
+      <exclude name=".classpath"/>
+      <exclude name="**/*.jar"/>
+      <exclude name="apidoc"/>
+    </jar>
+  </target>
+  
+  
+  <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="mathoscope-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+  -->
+</project>

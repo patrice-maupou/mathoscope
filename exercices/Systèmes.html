@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="566" height="342">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="2">
+<PARAM name="importer" value="
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+system->system(s)=applique({a=b et c=d->s : STOP(BBOX(VBOX(a=b,c=d),`{`))},{s->seq : BBOX(VBOX(s),`{`)}),
+unsys->unsys(b)=applique({BBOX(VBOX(s1,s2),`{`)->b : (s1,s2)}),
+bandeau->clip(0,0,700,80,couleur(230,220,210))
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø},
+{a et b->image : STOP(BBOX(VBOX(a,b),`{`))}
+">
+<PARAM name="Exercice 1" value="
+titre : par addition~
+énoncé : Multiplier la première équation par c1 et la seconde par c2 ¶
+ pour dans que la somme de ces deux équations, le coefficient de x soit nul¶
+ Exemple:  (c1=-2) et (c2=3)~
+définitions : 
+   cliptexte->bandeau, (a,b,c,d,e,f)->choix({1,2,3,4,5,6},4,[-9,9],2), 
+   (sa,sb,sc,sd)->choix({-1,1},4), e1->sa×(a×x)+sb×(b×y), e2->sc×(c×x)+sd×(d×y), 
+   question->norm(e1)=e et norm(e2)=f, 
+   format->{point(0,-2),caché,label(c1=? et c2=?,centré,14)}, p->pgcd(a,c), 
+   (m1,m2)->calcule((sc×c)/p,-(sa×a)/p), 
+   solution->applique(c1=m1 et c2=m2,schéma({a=-x et b=-y->image : a=x et b=y})), 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,255,255)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   k1->opérande(opérande(entrée,1),2), k2->opérande(opérande(entrée,2),2), 
+   correct->calcule(sa×a×k1+sc×c×k2)=0 et non(k1=0), {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : Réduire l'équation obtenue sous la forme ay = b~
+définitions : 
+   n1->tests(m1,correct,k1), n2->tests(m2,correct,k2), 
+   question->norm(n1×e1+n2×e2)=norm(n1×e+n2×f), 
+   format->{point(0,-2),caché,label(?×y=?,centré,14)}, 
+   eqy0->calcule(sb×n1×b+sd×n2×d)×y=calcule(n1×e+n2×f), 
+   eqy->applique(eqy0,schéma({a=b->image : norm(a)=b})), solution->eqy, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Multiplier la première équation par c1 et la seconde par c2¶
+ pour dans que la somme de ces deux équations, le coefficient de y soit nul¶
+ exemple:  (c1=-2)  et  (c2=3)~
+définitions : 
+   p->pgcd(b,d), m1->calcule(-(sd×d)/p), m2->calcule((sb×b)/p), solution->c1=m1 et c2=m2, 
+   format->{point(0,-2),caché,label(c1=? et c2=?,centré,14)}, 
+   question->norm(e1)=e et norm(e2)=f, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   k1->opérande(opérande(entrée,1),2), k2->opérande(opérande(entrée,2),2), 
+   correct->calcule(sb×b×k1+sd×d×k2)=0, {note,total,partie,texte}->standard, 
+   n1->tests(m1,correct,k1), n2->tests(m2,correct,k2), solution->c1=n1 et c2=n2, réponse->FIN~
+énoncé : Réduire l'équation obtenue sous la forme ax = b~
+définitions : 
+   question->norm(n1×e1+n2×e2)=norm(n1×e+n2×f), 
+   eqx0->calcule(sa×n1×a+sc×n2×c)×x=calcule(n1×e+n2×f), 
+   format->{point(0,-2),caché,label(?×x=?,centré,14)}, 
+   eqx->applique(eqx0,schéma({a=b->image : norm(a)=b})), solution->eqx, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : On aboutit à un système d'équation plus simple.¶
+  Donner les valeurs les plus simples possibles¶
+  de x et y (Ecrire (x=Ø) et (y=Ø) s'il n'y a pas de solution)~
+définitions : 
+   question->eqx et eqy, format->{point(0,-2),caché,label(x=? et y=?,centré,14)}, 
+   x1->applique(eqx0,schéma({0×x=0->image : x},{0×x=a->image : Ø},{a×x=b->image : calcule(b/a)})), 
+   y1->applique(eqy0,schéma({0×x=0->image : x},{0×x=a->image : Ø},{a×x=b->image : calcule(b/a)})), 
+   solution->x=x1 et y=y1, figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : par substitution~
+énoncé : On isole la variable y dans la première équation¶
+ pour l'exprimer en fonction de x¶
+ Exemple : $3×x+2×y = 1$ donne $y = -3/2×x + 1/2$~
+définitions : 
+   E->{1,2,3,4,5,6}, cliptexte->bandeau, (a,c,d,e,f,b)->choix({1,2,3,4,5,6},5,{1,2}), 
+   (sa,sb,sc,sd)->choix({-1,1},4), e1->sa×(a×x)+sb×(b×y), e2->sc×(c×x)+sd×(d×y), 
+   question->norm(e1)=e et norm(e2)=f, format->{point(0,-2),caché,label(y=?,centré,14)}, 
+   s->norm(-calcule((sa×sb×a)/b)×x+sb×calcule(e/b)), solution->y=s, 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,255,255)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Remplacer cette valeur de y dans la seconde équation¶
+   sans faire de calcul~
+définitions : 
+   question->solution et norm(e2)=f, 
+   solution->applique(e2=f,y->s,schéma({a=b->image : norm(a)=b})), 
+   format->{point(0,-2),caché,label(?,centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Réduire la seconde équation sous la forme ax = b~
+définitions : 
+   question->y=s et solution, eqxg->calcule(sc×c-(sd×d×sa×sb×a)/b)×x, 
+   eqxd->calcule(f-(sb×sd×d×e)/b), 
+   eqx->calcule(sc×c-(sd×d×sa×sb×a)/b)×x=calcule(f-(sb×sd×d×e)/b), 
+   solution->norm(eqxg)=eqxd, format->{point(0,-2),caché,label(?×x=?,centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Donner les valeurs de x et y s'il y a une solution¶
+  Ecrire Ø (ALT+0) s'il n'y a pas de solution et réécrire¶
+  la première équation si la seconde est toujours vérifiée~
+définitions : 
+   question->y=s et solution, format->{point(0,-2),caché,label(x=? et y=?,centré,14)}, 
+   x1->applique(eqx,schéma({-a×x=b->image : (-a)×x=b},{a×x=b->image,non(a=0) : calcule(b/a)},{0×x=0->image : Ø},{0×x=b->image : x})), 
+   y1->applique(s,x->x1,schéma({y=a->image : calcule(a)})), t->x=x1 et y=calcule(y1), 
+   eqxn->applique(eqx,schéma({0×x=a->image,non(a=0) : 0×x=1})), 
+   solution->tests(t,compare(eqx,0×x=0)=0,y=s,compare(eqxn,0×x=1)=0,Ø), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

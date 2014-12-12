@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="653" height="440">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="2">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math,
+definitions/styles.math
+">
+<PARAM name="définitions globales" value="
+abs->abs(M)=applique({point(x,y)->M : x},{M->ensemble : opérande(opérande(M,1),1)}),
+ord->ord(M)=applique({point(x,y)->M : y},{M->ensemble : opérande(opérande(M,1),2)})
+">
+<PARAM name="Exercice 1" value="
+titre : fractions~
+énoncé :Cliquer sur le point de l'axe oblique qui sera relié au point d'abscisse 1 de l'axe horizontal.~
+définitions : 
+   (n,d,s)->choix([2,13],2,{-1,1},pgcd(a,b)=1,(a/b)^2<10), f->calcule((s×n)/d), 
+   texte->tests(texte,entrées=0,VLBOX(HBOX(On veut représenter la fraction ,f, sur l'axe gradué horizontal Ox. On trace d'abord le segment),HBOX(reliant le point d'abscisse ,d,` de la droite oblique au point d'abscisse 1 de l'axe Ox.`))), 
+   cliptexte->clip(0,0,700,80,couleur(230,240,220)), 
+   fig->(clip(0,0,100,500),{point(0,0),caché,label(CADRE(f,10,5,couleur(jaune)),centré,14)},clip(100,0,800,500,couleur(250,240,230)),{droite(point(-20,0),point(20,0)),graduations(10),couleur(bleu),style(tiret(1,0,bleu))},{droite(point(-20,-10),point(20,10)),graduations(40),couleur(bleu),style(tiret(2,1,bleu))},mappe(x->{point(4×x,0),caché,label(x,-90,11)},seq([-3,3]))), 
+   figure->joint(fig,cliquer(1)), 
+   solution->joint({droite(point(d,d/2),point(4,0)),couleur(vert)},{point(d,d/2),caché,label(d,100,10)}), 
+   demo->entrées=0~
+vérification : 
+   x->approche(opérande(entrée,1)), y->x/2, correct->x=d et (opérande(entrée,2)-d/2)^2<0.8, 
+   {note,total,partie,texte}->standard, 
+   entrée->joint({point(x,x/2),caché,label(x,100,10)},{droite(point(x,x/2),point(4,0)),couleur(vert)}), 
+   réponse->FIN~
+énoncé :Cliquer sur le point de l'axe oblique tel que la parallèle au segment vert passant par ce point¶
+coupe l'axe Ox en un point d'abscisse $f$.~
+définitions : 
+   fig->joint(fig,solution), 
+   texte->tests(texte,demo,VLBOX(HBOX(On trace la parallèle passant par le point d'abscisse ,n, de la droite oblique.),HBOX(Le théorème de Thalès montre que l'intersection avec l'axe Ox a pour abscisse ,f,`.`))), 
+   figure->joint(fig,cliquer(1)), a->calcule(s×n), pt->point(a,a/2), 
+   solution->joint({pt,caché,label(a,100,10)},{droite(pt,point(4×f,0)),couleur(vert)},{point(4×f,0),caché,label(f,calcule(-s×90),10),couleur(rouge)})~
+vérification : 
+   x->approche(opérande(entrée,1)), y->x/2, 
+   correct->x=s×n et (opérande(entrée,2)-(s×n)/2)^2<0.8, 
+   {note,total,partie,texte}->standard, sx->tests(1,x<0,-1), 
+   entrée->joint({point(x,x/2),caché,label(x,100,10)},{droite(point(x,x/2),point((4×x)/d,0)),couleur(vert)},{point((4×x)/d,0),caché,label(calcule(x/d),-sx×90,10)}), 
+   réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : racines carrées~
+énoncé :On cherche la construction d'une distance égale à une racine carrée. Le théorème de Pythagore indique ¶
+que l'hypoténuse d'un triangle rectangle est une racine carrée puisque $BC=rac(AB^2+AC^2)$ ¶
+Indiquer alors les distances AB et AC permettant de construire le côté BC (les carrés des longueurs¶
+sont indiquées sur le dessin, on peut trainer les points B et C pour les ajuster).~
+définitions : 
+   cliptexte->clip(0,0,700,110,couleur(225,230,235)), 
+   (b,c)->choix([1,9],2,non(approche(rac(b^2+c^2)^2)=calcule(b^2+c^2))), 
+   a2->calcule(b^2+c^2), (b0,c0)->choix([5,9],2), pA->{point(0,0),caché,label(A,225,14)}, 
+   figure->(clip(0,0,200,700),{point(0,2),caché,label(BC=rac(a2),centré,14)},clip(200,0,500,700,origine(270,230),couleur(240,240,250))), 
+   interactions->(TRAINER(pB,{point(c0,0),label(B,-45,14),couleur(255,0,0)}),xB->abs(pB),xB2->approche(xB^2),pB->point(xB,0),pI->{point(xB/2,-0.2),caché,label(xB2,-90,12)},TRAINER(pC,{point(0,b0),label(C,135,14),couleur(255,0,0)}),yC->ord(pC),yC2->approche(yC^2),pC->point(0,yC),J->{point(0,yC/2),caché,label(yC2,180,12)},K->{point(xB/2,yC/2),caché,label(calcule(xB2+yC2),45,12)},polygone(pB,{point(0,0),caché,label(A,225,14)},pC),clip(0,0,200,700)), 
+   format->({point(0,-1),caché,label(AB=?,centré,14)},{point(0,-2),caché,label(AC=?,centré,14)}), 
+   solution->(AB=c,AC=b), S->{b,c}~
+vérification : 
+   R->joint(réponse,entrée), (x,y)->mappe(a->opérande(a,2),opérande(R)), 
+   correct->calcule(x^2+y^2)=a2, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

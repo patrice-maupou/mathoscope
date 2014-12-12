@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="548" height="305">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="2">
+<PARAM name="importer" value="
+definitions/fonctions.math
+">
+<PARAM name="définitions globales" value="
+couleur->couleur(c)=applique(couleur,c),
+remplit->remplit(c)=applique({(r,g,b)->c : telque(remplit(r,g,b))}),
+noir->(0,0,0),
+bleu->(0,0,255),
+rouge->(255,0,0),
+vert->(0,255,0),
+jaune->(255,255,0),
+cyan->(0,255,255),
+magenta->(255,0,255),
+bleupale->(240,240,255),
+vertpale->(240,255,240),
+rose->(255,240,240)
+">
+<PARAM name="Exercice 1" value="
+titre : exercice 1~
+énoncé :(Ecrire l'énoncé de la question)~
+définitions : 
+   figure->({droite(point(-2,2),point(2,-2)),couleur(bleu)},{ligne(graphe(x^2,x,-3,3,1/4)),couleur(bleu)},Ox(8,rouge),Oy(8,(255,0,0)))~
+">
+<PARAM name="Exercice 2" value="
+titre : exercice 2~
+énoncé :(Ecrire l'énoncé de la question)~
+définitions : 
+   fond->{droite(point(-2,2),point(2,-2)),couleur(bleu)}, figure->fond~
+">
+</APPLET></P>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="295">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="1">
+<PARAM name="importer" value="
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+vabs->vabs(x)=applique(x,{x<0 : calcule(-x)}),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+i->i(x)=applique(calcule(x+1))
+">
+<PARAM name="décorations" value="
+{a[n]->image : a[n]}
+">
+<PARAM name="Exercice 1" value="
+titre : suite arithmétique~
+énoncé : Soit u[n] une suite arithmétique avec deux termes connus, on cherche ¶
+  le premier terme $u[0]$ et la raison r.~
+définitions : 
+   cliptexte->clip(0,0,600,80,couleur(200,230,250)), 
+   (u,r0,n0,n1)->choix([-5,5],3,[6,12],non(b=0)), un0->calcule(u+n0×r0), 
+   un1->calcule(u+n1×r0), solution->(u[n0]=norm(u[0]+n0×r),u[n1]=norm(u[0]+n1×r)), 
+   figure->{point(0,0),label(VBOX(u[n0]=un0,u[n1]=un1),centré,14),caché}, essai->i(essai)~
+énoncé : Utilisons la formule donnant le terme général, $u[n]=u[0]+nr$~
+définitions : 
+   figure->{point(0,0),label(VBOX(un0=u[0]+n0×r,un1=u[0]+n1×r),centré,14),caché}, 
+   solution->norm(un1-un0)=norm(n1×r+(-1)×n0×r)~
+énoncé : La différence élimine $u[0]$ et permet de calculer r~
+définitions : 
+   f->VBOX(un0=u[0]+n0×r,un1=u[0]+n1×r,norm(un1-un0)=norm(n1×r+(-1)×n0×r)), solution->r=r0, 
+   figure->{point(0,0),label(f,centré,14),caché}~
+énoncé : On résout l'équation pour trouver la raison r ¶
+         On termine en calculant $u[0]$~
+définitions : 
+   figure->{point(0,0),label(VBOX(un0=norm(u[0]+n0×r),r=r0),centré,14),caché}, 
+   solution->u[0]=u~
+énoncé : Donc la suite arithmétique est complètement déterminée par les¶
+  valeurs suivantes :¶
+  (commencer l'exercice en appuyant sur Entrée)~
+définitions : 
+   figure->{point(0,0),label(VBOX(u[0]=u,r=r0),centré,14),caché}, solution->solution et r=r0~
+énoncé : Remplacer les deux termes de la suite en fonction du premier¶
+ terme $u[0]$ et de la raison r~
+définitions : 
+   (u,r0,n0,n1)->choix([-5,5],3,[6,12],non(b=0)), un0->calcule(u+n0×r0), 
+   un1->calcule(u+n1×r0), forme->VBOX(u[0]+?×r=un0,u[0]+?×r=un1), 
+   solution->VBOX(norm(u[0]+n0×r)=un0,norm(u[0]+n1×r)=un1), 
+   figure->{point(0,2),label(VBOX(u[n0]=un0,u[n1]=un1),centré,14),caché}, 
+   format->{point(0,-2),caché,label(forme,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En déduire la valeur de la raison r en éliminant $u[0]$ entre les deux équations~
+définitions : 
+   question->solution, figure->{point(0,2),label(question,centré,14),caché}, 
+   format->{point(0,-2),caché,label(r=?,centré,14)}, solution->r=r0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Terminer l'exercice en calculant $u[0]$~
+définitions : 
+   figure->{point(0,2),label(VBOX(question,solution),centré,14),caché}, 
+   format->{point(0,-2),caché,label(u[0]=?,centré,14)}, solution->u[0]=u~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   solution->VBOX(u[0]=u,r=r0), partie->tests(-1,total<10,partie), réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

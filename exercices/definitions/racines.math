@@ -1,0 +1,10 @@
+<definitions>
+pgcd->schéma({image->seq : sépare(image)},{(a,b)->image,a->entier,b->entier : pgcd(a,b)}),
+gpe_carrés->gpe_carrés(x)=applique(x,{a×b->image : gpe_carrés(a)×gpe_carrés(b)},{c×a^n->image,non(n=2) : a^n×c},{c×(b^0×b^qb^2)->image : c×b^qb^2},{c×(b^rb×b^0^2)->image : b^rb×c},{c×(b^rb×b^qb^2)->image : b^rb×c×b^qb^2},{a^n->image,n>1,2×q+r->euclide(n,2) : a^r×a^q^2},{a^n->image,n<-1,2×q+0->euclide(calcule(-n),2) : a^(-q)^2},{a^n->image,n<-1,2×q+r->euclide(calcule(-n),2) : a^(-r)×a^(-q)^2},{b^0×b^qb^2->image : STOP(b^qb^2)}),
+sort_carrés->sort_carrés(x)=applique(x,{rac(a^n^2)->image : a^n},{c×rac(a^n^2)->image : c×a^n},{rac(b×a^n^2)->image : a^n×sort_carrés(rac(b))},{c×rac(b×a^n^2)->image : c×a^n×sort_carrés(rac(b))}),
+den_rationnel->den_rationnel(x)=applique(x,{a/rac(b)->x,non(b=1) : STOP((a×rac(b))/b)},{a/(rac(b)+(-1)×rac(c))->x : (a×(rac(b)+rac(c)))/calcule(b-c)},{a/(rac(b)+rac(c))->x,non(b=c) : (a×(rac(b)-rac(c)))/calcule(b-c)},{a/(rac(b)+1×rac(c))->x : (a×(rac(b)-rac(c)))/calcule(b-c)},{a/(-b)->image : -a/b},{a/1->image : a},{-a/1->image : -a}),
+conjugué->conjugué(x)=applique(x,{a+rac(b)->x : a-rac(b)},{a+c×rac(b)->x : a-c×rac(b)}),
+exp_pos->exp_pos(x)=applique(x,{b^(-n)->image : STOP(1/b^n)},{b^n->image : STOP(b^n)},{a×b^(-n)->image : exp_pos(a)/b^n},{b^(-n)×a->image : exp_pos(a)/b^n},{a/b/c->image : a/(b×c)})
+</definitions>
+<history>
+</history>

@@ -1,0 +1,5 @@
+<definitions>
+figure->({polygone(point(-2,-2),point(-2,2),point(2,2),point(2,-2)),couleur(255,0,0)},{point(0,5),caché,label(MATHOSCOPE,centré,24)})
+</definitions>
+<history>
+</history>

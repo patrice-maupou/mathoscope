@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="556" height="315">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="5">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/développements.math
+">
+<PARAM name="définitions globales" value="
+narrange->schéma({x=a->image : x=calcule(a)},{x=1/0->image : 1=0},{x=-1/0->image : 1=0},{x=a ou x=b->image,a>b : x=b ou x=a},{1=0 ou x=b->image : x=b},{x=b ou 1=0->image : x=b}),
+affiche->affiche(expr,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(0,0),caché,label(expr,centré,14)})),
+exp->exp(x)=applique({a×a->x : STOP(exp(a^2))},{a×a^n->x : STOP(exp(a^calcule(n+1)))},{y×a×a->x : STOP(exp(y×a^2))},{y×a×a^n->x : STOP(exp(y×a^calcule(n+1)))},{a^n^p->x : STOP(a^calcule(n×p))},{y×a^n^p->x : STOP(y×a^calcule(n×p))},{a×b->x : STOP(exp(a)×exp(b))},x),
+trier->trier(e)=applique({-b->e : STOP(-trier(b))},{a-b->e : STOP(trier(a+(-b)))},ass(e,0),{a+b->image : ass(trier(a)+trier(b),0)},{c+a+b->image,compare(a,b)>0 : STOP(trier(c+b+a))},{a+b->image,compare(a,b)>0 : STOP(b+a)},{a×b->image : trier(a)×trier(b)},{c×a×b->image,compare(a,b)>0 : STOP(trier(c×b×a))},{a×b->image,compare(a,b)>0 : STOP(b×a)},{a/b->image : STOP(trier(a)/trier(b))}),
+FIG->{point(0,2),caché,label(question,centré,14)},
+décotexte->CADRE(texte,10,10,couleur(220,210,240)),
+bandeau->clip(0,0,700,110)
+">
+<PARAM name="Exercice 1" value="
+titre : réduire un polynôme~
+énoncé : Développer le produit sans réduire le nombre de termes¶
+ Exemple : $(-3×x + 1)×(x - 2)$ donne $-3×x^2 + x + 6×x -2$~
+définitions : 
+   texte->décotexte, cliptexte->bandeau,
+   (a,b,c,d)->choix([-3,3],4,non(a×b×c×d=0)), 
+   p0->a×x^1+b×x^0, p1->c×x^1+d×x^0, p->p0×p1, 
+   s->ass(dev(p,x),0), r->norm(red(stri(s,x),x)), 
+   format->{point(0,-2),caché,label(?,centré,14)}, solution->norm(s), 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,255,255)}, 
+   figure->joint(fig0,{point(0,2),caché,label(norm(p),centré,14)})~
+vérification : 
+   te->trier(entrée), ts->trier(solution), correct->compare(te,ts)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte~
+énoncé : réduire et ordonner les termes obtenus précédemment¶
+ Exemple :$ -3×x^2 + x + 6×x -2$ donne $-3×x^2 + 7×x -2$~
+définitions : 
+   solution->r, format->{point(0,-2),caché,label(?,centré,14)}, 
+   figure->{point(0,2),caché,label(norm(s),centré,14)}, texte->décotexte~
+vérification : 
+   correct->compare(r,entrée)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : Facteur commun~
+énoncé : Factoriser la somme ou la différence (sans faire de calcul)¶
+ en appliquant la règle : a×b + a×c = a×(b+c) ou a×b - a×c = a×(b-c)¶
+ Exemple : $(x+2)×(3×x+1)+(x+2)×(x-1) = (x+2)×(3×x+1+x-1)$~
+définitions : 
+   texte->décotexte, cliptexte->bandeau,
+   (a,b,c,d,e,f)->choix({-6,-5,-4,-3,-2,-1,1,2,3,4,5,6},6), 
+   f1->a×x^1+b×x^0, f2->c×x^1+d×x^0, f3->e×x^1+f×x^0, q0->f1×f2+f1×f3, s0->f1×(f2+f3), 
+   s->norm(ass(s0,0)), s1->trier(s), format->{point(0,-2),caché,label(?,centré,14)}, 
+   solution->s, figure->{point(0,2),caché,label(norm(q0),centré,14)}~
+vérification : 
+   r->trier(entrée), correct->compare(s1,r)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+énoncé : Réduire maintenant les expressions à l'intérieur des parenthèses~
+définitions : 
+   s2->norm(f1)×norm(développe(f2+f3,x)), question->s, solution->s2, 
+   format->{point(0,-2),caché,label(norm(f1)×?,centré,14)}, 
+   figure->{point(0,2),caché,label(s,centré,14)}, texte->décotexte~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+énoncé : Le produit est nul si l'un des facteurs est nul¶
+            Ecrire les valeurs annulant le produit sous la forme:¶
+              (x=a)ou(x=b)~
+définitions : 
+   x0->calcule(-b/a), x1->calcule(-(d+f)/(c+e)), s->applique(x=x0 ou x=x1,narrange), 
+   solution->s, format->{point(0,-2),caché,label(x=? ou x=?,centré,14)}, 
+   figure->{point(0,2),caché,label(s2,centré,14)}, texte->décotexte~
+vérification : 
+   r->applique(entrée,narrange), correct->compare(r,s)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : Identités (1)~
+énoncé : Utiliser l'identité remarquable :¶
+                    $`a`^2 - `b`^2 = (`a` - `b`)×(`a` + `b`)$¶
+ pour factoriser l'expression (sans faire le calcul)~
+définitions : 
+   texte->décotexte, cliptexte->bandeau,
+   (a,b,d,c)->choix([-9,9],3,{-1,1},non(a×c=0)), 
+   f1->a×x^1+b×x^0, f2->c×x^1+d×x^0, e1->norm(f1), e2->norm(f2), e3->calcule(e1^2), 
+   e4->calcule(e2^2), q->applique(e3-e4,nsignes), 
+   f3->norm(f1+(-c)×x+(-d))×norm(ass(f1+f2,0)), s1->trier(f3), 
+   format->{point(0,-2),caché,label(?,centré,14)}, solution->f3, 
+   figure->{point(0,2),caché,label(q,centré,14)}~
+vérification : 
+   r->trier(entrée), correct->compare(r,s1)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+énoncé : Réduire chaque parenthèse~
+définitions : 
+   s2->norm(calcule(a-c)×x+calcule(b-d))×norm(calcule(a+c)×x+calcule(b+d)), 
+   format->{point(0,-2),caché,label(?,centré,14)}, solution->s2, 
+   figure->{point(0,2),caché,label(f3,centré,14)}, texte->décotexte~
+vérification : 
+   correct->compare(commute(entrée),commute(s2))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+énoncé : Indiquer les solutions de l'équation:¶
+                a² - b² = 0~
+définitions : 
+   s3->applique(x=(d-b)/(a-c) ou x=-(b+d)/(a+c),narrange), question->s2=0, solution->s3, 
+   forme->x=? ou x=?, format->FORMAT, figure->FIG, texte->décotexte~
+vérification : 
+   correct->compare(applique(entrée,narrange),s3)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 4" value="
+titre : identités (2)~
+énoncé :Utiliser l'identité remarquable :¶
+                  $`a`^2 - `b`^2 = (`a` - `b`)×(`a` + `b`)$¶
+pour factoriser une partie de l'expression (sans faire le calcul)¶
+Exemple : $(2×x-1)^2-(x+3)^2+x-4 = (x-4)×(3×x+2)+x-4$~
+définitions : 
+   texte->décotexte, cliptexte->bandeau,
+   (a,b,c,d,e,f)->choix([-9,9],4,[-5,5],2,non(a=0),non(c=0)), 
+   e1->a×x+b, e2->c×x+d, e3->e×x+f, sq->norm(e1)^2-norm(e2)^2, 
+   f0->calcule(a-c)×x+calcule(b-d), f1->norm(f0), question->norm(ass(sq+f0,0)), 
+   f2->norm(calcule((a+c)×x+(b+d))), solution->norm(ass(f2×f1+f0,0)), forme->?, 
+   format->FORMAT, figure->FIG~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+énoncé : Terminer la factorisation complètement¶
+       Exemple : $(x-4)×(3×x+2)+x-4=(x-4)×(3×x+3)$~
+définitions : 
+   question->solution, solution->f1×norm(calcule(a+c)×x+calcule(b+d+1)), forme->?, 
+   format->FORMAT, figure->FIG, texte->décotexte~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 5" value="
+titre : identités (3)~
+énoncé : Utiliser les identités remarquables :¶
+             $a^2 + b^2 + 2×a×b = (a + b)^2$¶
+             $a^2 + b^2 - 2×a×b = (a - b)^2$¶
+ pour factoriser une partie de l'expression (sans faire le calcul)~
+définitions : 
+   cliptexte->bandeau, texte->décotexte, 
+   (a,b,c,d,e,f)->choix([-5,5],6,non(a×b=0),non(e×f=0)), 
+   e1->a×x+b, e2->c×x+d, c1->développe(stnd(e1,x)×stnd(e1,x),x), f1->norm(e1), f2->norm(e2), 
+   forme->norm(?+f1×e2), format->FORMAT, question->norm(c1+f1×e2), 
+   solution->norm(f1^2+f1×e2), figure->FIG~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+énoncé : Factoriser maintenant la somme~
+définitions : 
+   question->solution, solution->f1×norm(calcule(a+c)×x+calcule(b+d)), forme->?, 
+   format->FORMAT, figure->FIG, texte->décotexte~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte, partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="577" height="434">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="7">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math,
+definitions/coord.math,
+definitions/styles.math
+">
+<PARAM name="définitions globales" value="
+solve->solve(eq,x,x0,x1)=applique({0×x+c=c->eq : STOP(I)},{0×x+b=c->eq : STOP(Ø)},s->tests(infini,a×x=c->eq,calcule(c/a),a×x+b=c->eq,(c-b)/a),{s->num,compare(min(x0,s),x0)=0,compare(max(x1,s),x1)=0 : STOP({calcule(s)})},Ø),
+norm->norm(x)=applique(x,{(-n)×a->x : STOP(-norm(n×a))},{1×a->x : STOP(norm(a))},{0×a->x : STOP(0)},{a×0->x : STOP(0)},{a-(-b)->x : STOP(norm(a+b))},{y+(-a)->x : STOP(norm(norm(y)-norm(a)))},{y+(-1)×a->x : STOP(norm(norm(y)-norm(a)))},{y+(-n)×a->x : STOP(norm(y)-norm(n×a))},{y+n×a->x : STOP(norm(y)+norm(n×a))},{a+b->x : norm(a)+norm(b)},{a-b->x : STOP(norm(a)-norm(b))},{a×b->x : STOP(norm(a)×norm(b))},{a/b->x : STOP(norm(a)/norm(b))},{a^n->x : STOP(norm(a)^norm(n))},{a-0->x : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))}),
+min->min(a,b)=applique(a,{a->num,b->num,b<a : b},{compare(b,-infini)=0 : b},{compare(a,infini)=0 : b}),
+max->max(a,b)=applique(a,{a->num,b->num,a<b : b},{compare(b,infini)=0 : b},{compare(a,-infini)=0 : b}),
+simplifie->simplifie(r,e)=applique(e,{x->var,a->num,x<a->r : (-1)×e},{x->var,a->num,b<x et x<a->r,applique(e,x->a)=0 : (-1)×e}),
+cA->cA(M,A,B,m)=applique(approche((m×(abs(M)-abs(A)))/(abs(B)-abs(A)))),
+augmente->augmente(Ens,élém)=applique({élém},{Ens->ensemble : joint(Ens union {élém})}),
+décotexte->CADRE(texte,10,10,couleur(210,230,240)),
+mpts->mpts(x,y,l,t,c)=applique({point(x,y),label(l,centré,t),caché,couleur(c,0,0)}),
+segment->segment(x0,y0,x1,y1)=applique(droite(point(x0,y0),point(x1,y1))),
+affiche->affiche(expr,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(0,0),caché,label(expr,centré,14)}))
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø},
+{[a,b]->image : [a,b]},
+{]a,b]->image : ]a,b]},
+{[a,b[->image : [a,b[},
+{]a,b[->image : ]a,b[},
+{A->ensemble,B->ensemble,A union B->image : A union B},
+{a=b ou c=d->image : a=b ou c=d}
+">
+<PARAM name="Exercice 1" value="
+titre : Résolution géométrique~
+énoncé : Sur la droite graduée, cliquer sur les points dont les abscisses¶
+ sont les solutions de l'équation proposée.~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,70), 
+   (a,b,sa)->choix([1,6],2,{-1,1}), 
+   question->|norm(x+sa×a)|=b, s0->calcule(min(b-sa×a,-b-sa×a)), 
+   s1->calcule(max(b-sa×a,-b-sa×a)), s->{s0,s1}, 
+   solution->({point(s0,0),label(s0),couleur(bleu)},{point(s1,0),label(s1),couleur(bleu)}), 
+   A->point(-12,0), B->point(12,0), sep->80, nclics->2, 
+   fond->joint(clip(0,sep,900,500),{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(250,240,250)}), 
+   fig0->(affiche(question,0,0,900,100),fond,{A,caché},{B,caché},{point(0,0),label(0)},{droite(A,B),graduations(24),couleur(rouge),sepA(5),sepB(5)}), 
+   figure->joint(fig0,cliquer(2)), demo->entrées=0~
+vérification : 
+   c->cA(entrée,point(0,0),B,12), P->{point(c,0),label(c)}, c0->tests(c,actions=0,c0), 
+   c1->tests(c,actions=1,c0), {c0,c1}->tests({c0,c1},c1<c0,{c1,c0}), 
+   entrée->{point(c,0),label(c),couleur(0,0,255)}, réponse->FIN, 
+   correct->compare((c0,c1),(s0,s1))=0, {note,total,partie,texte}->standard, texte->décotexte~
+">
+<PARAM name="Exercice 2" value="
+titre : Résolution algébrique~
+énoncé : Un nombre et son opposé ont même valeur absolue (nombre positif !) ¶
+  par exemple l'équation |x+1| = 2 est équivalente à  $x+1=-2 ou x+1=2$  (dans l'ordre)¶
+  Ecrire d'abord cette équivalence~
+définitions : 
+   (a,b,sa,sb)->choix([1,8],2,{-1,1},2), texte->décotexte, 
+   cliptexte->clip(0,0,700,90), q->|x+sa×a|=b, question->|norm(x+sa×a)|=b, 
+   format->{point(0,-2),caché,label(BLOC(?=? ou ?=?),centré,14)}, s1->norm(x+sa×a), 
+   solution->s1=-b ou s1=b, 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,240,240)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), demo->entrées=0~
+vérification : 
+   R->applique(entrée,schéma({a=b ou a=c->image,c<b : a=c ou a=b})), 
+   correct->compare(R,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : On peut maintenant donner les solutions de l'équation initiale¶
+  par exemple $x+1=2 ou x+1=-2$ devient {-3,1} (dans l'ordre)~
+définitions : 
+   question->solution, texte->décotexte, 
+   solution->applique({calcule(b-sa×a),calcule(-b-sa×a)},schéma({{a,b}->image,a>b : {b,a}})), 
+   format->{point(0,-2),caché,label({?,?},centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   r->applique(entrée,schéma({{a,b}->image,a>b : {b,a}})), correct->compare(r,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : Inéquations (1)~
+énoncé : Ecrire |x+2| < 3 revient à dire que l'expression x+2 est  comprise entre -3 et 3, ce qui s'écrit :¶
+                                      $-3<x+2 et x+2<3$¶
+               Traduire de même l'inéquation proposée~
+définitions : 
+   cliptexte->clip(0,0,700,90), texte->décotexte,
+   (a,b,sa,sb)->choix([1,8],2,{-1,1},2),  
+   s1->norm(x+sa×a), question->|s1|<b, solution->BBOX(VBOX(-b<s1,s1<b),`{`),
+   m->calcule(-sa×a), (m1,m2)->calcule(m-b,m+b), 
+   A->point(-12,0), B->point(12,0), pA->point(m1,0), pB->point(m2,0), 
+   AB->droite(A,B), M->point(m,0), sep->150, 
+   fond->(clip(0,sep,900,500,origine(0,sep),unités(1,1)),{polygone(point(0,0),point(0,500),point(900,500),point(900,0)),caché,remplit(250,240,250)}), 
+   fig0->(fond,clip(0,sep,900,500,recadre(10)),{AB,couleur(rouge),graduations(24),sepA(5),sepB(5)},{A,caché},{B,caché},{M,couleur(bleu),label(m)},{pA,caché},{pB,caché}), 
+   forme->BBOX(VBOX(?<?,?<?),`{`), format->{point(0,-2),caché,label(forme,centré,14)}, 
+   figure->joint(fig0,clip(0,0,900,sep),{point(0,2),caché,label(question,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Simplifier chaque inéquation de manière à obtenir un systéme de la forme :¶
+                  (a < x) et (x < b)~
+définitions : 
+   question->solution, texte->décotexte, forme->BBOX(VBOX(?<x,x<?),`{`), 
+   figure->joint(fig0,clip(0,0,900,sep),{point(0,2),caché,label(question,centré,14)}), 
+   format->{point(0,-2),caché,label(forme,centré,14)}, solution->BBOX(VBOX(m1<x,x<m2),`{`)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Indiquer l'intervalle solution~
+définitions : 
+   question->solution, texte->décotexte, 
+   figure->joint(fig0,clip(0,0,900,sep),{point(0,2),caché,label(question,centré,14)}), 
+   format->{point(0,-2),caché,label(?,centré,14)}, solution->]m1,m2[~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   figure->ajoute(clip(0,sep,900,500),{pA,couleur(bleu),label(m1),style(gcrochet(bleu))},{pB,couleur(bleu),label(m2),style(dcrochet(bleu))},{droite(pA,pB),couleur(bleu)}), 
+   réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 4" value="
+titre : intervalles~
+énoncé : L'exercice précédent montre que l'intervalle solution¶
+ de l'inéquation |x - a| < b a pour centre a et rayon b.¶
+ Retrouver l'inéquation de ce type à partir de l'intervalle représenté.~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,90), 
+   (a,b,t)->choix([-8,8],2,{ouvert,fermé},non(a=b)),
+   {g,h}->tests({gcrochet(bleu),dcrochet(bleu)},compare(t,fermé)=0,{dcrochet(bleu),gcrochet(bleu)}), 
+   m0->min(a,b), m1->max(a,b), m->calcule((a+b)/2), r->calcule((m1-m0)/2), demo->entrées=0, 
+   s->applique(x-m,schéma({a-(-b)->image : a+b},{a-0->image : a})), 
+   solution->tests(|s|<r,compare(t,fermé)=0,|s|<=r), A->point(-12,0), B->point(12,0), 
+   pA->point(m0,0), pB->point(m1,0), format->{point(0,0),caché,label(|x-?|<?,centré,14)}, 
+   sep->80, 
+   fond->(clip(0,sep,900,500),{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(250,240,250)}), 
+   fig0->(fond,{droite(A,B),couleur(rouge),graduations(24)},{A,caché},{B,caché},{pA,couleur(bleu),label(m0),style(g)},{pB,couleur(bleu),label(m1),style(h)},{droite(pA,pB),couleur(bleu)},clip(0,0,900,sep)), 
+   figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 5" value="
+titre : Simplifier (1)~
+énoncé :  On cherche à simplifier l'écriture en enlevant les valeurs absolues.¶
+  C'est possible uniquement si on sait que la variable appartient à¶
+  certains intervalles.¶
+  Exemple : si x < -2 , on peut remplacer |x+2| par -x-2 car x+2 < 0.~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,100), 
+   (a,b,sa,sb)->choix([-8,8],2,{-1,1},2,non(a=0)), 
+   m->calcule(-sa×a), q->choix({x<m,x>m}), 
+   s->applique(q,schéma({x<a->image,x->var : a-x},{x>a->image,x->var : x-a})), 
+   solution->norm(s), s1->norm(q), s2->norm(x-m), question->(s1,|s2|), 
+   format->{point(0,-2),caché,label(?,centré,14)}, 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,240,240)}, 
+   figure->joint(fig0,clip(0,0,600,500),{point(0,2),caché,label(question,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   r->applique(entrée,schéma({-x-a->image,x->var,a->num : -a-x},{-x+a->image,x->var,a->num : a-x})), 
+   correct->compare(r,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 6" value="
+titre : Simplifier (2)~
+énoncé : C'est le même exercice, mais il y a deux valeurs absolues, on doit encore  remplacer ¶
+ chacune d'elles par une expression sans valeur absolue en tenant compte des inégalités.¶
+                        Exemple : x<2, 5<x, $|x-2|+|x-5| = 2-x+x-5$~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,100), 
+   (a,b,c,d)->choix([1,8],4,non(a×b=0),non(a×d=b×c)), (sa,sb,sc,sd)->choix({-1,1},4), 
+   e1->|norm(sa×(a×x)+sc×c)|, e2->|norm(sb×(b×x)+sd×d)|, y1->a×x+sa×(sc×c), 
+   y2->b×x+sb×(sd×d), m1->calcule(-(sc×sa×c)/a), m2->calcule(-(sd×sb×d)/b), x1->min(m1,m2), 
+   x2->max(m1,m2), q->choix({x<x1,x1<x et x<x2,x>x2}), question->(q,e1+e2=?), 
+   s1->applique(simplifie(q,y1),schéma({a×(b+c)->image : a×b+a×c},{a×(b×c)->image : a×b×c})), 
+   s2->applique(simplifie(q,y2),schéma({a×(b+c)->image : a×b+a×c},{a×(b×c)->image : a×b×c})), 
+   s->norm(applique(s1+s2,schéma({a×x+b+(c×x+d)->image,x->var : calcule(a+c)×x+calcule(b+d)}))), 
+   format->{point(0,-2),caché,label(?,centré,14)}, 
+   solution->norm(calcule(applique(s1+s2,schéma({a+(b+c)->image : a+b+c})))), 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,240,240)}, 
+   figure->joint(fig0,clip(0,0,600,500),{point(0,2),caché,label(question,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé :simplifie maintenant l'expression obtenue~
+définitions : 
+   question->solution, texte->décotexte, solution->s, 
+   format->{point(0,-2),caché,label(?,centré,14)}, 
+   figure->joint(fig0,clip(0,0,600,500),{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte, partie->STOP~
+">
+<PARAM name="Exercice 7" value="
+titre : Sommes de valeurs absolues~
+énoncé :  Ecrire dans l'ordre croissant les valeurs qui annulent l'une des lignes du tableau.~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,70), 
+   (a0,b0,a1,b1,c,d)->choix([1,8],4,[3,15],{-2,-1,1,2},non(a×d-b×c=0)), 
+   (sa0,sb0,sa1,sb1,type)->choix({-1,1},4,{-2,-1,1,2}), 
+   A->norm(calcule(sa1×a1)×x+calcule(sa0×a0)), B->norm(calcule(sb1×b1)×x+calcule(sb0×b0)), 
+   P->norm(|A|+d×|B|), 
+   labels->mappe(mpts(x,y,l,t,c),(80,180,560,80,80,80),(20,20,20,50,80,110),(x,-infini,infini,A,B,P),14,0), 
+   segments->mappe(segment(x0,y0,x1,y1),(0,0,0,160,300,440),(35,65,95,10,35),(700,700,700,160,300,440),(35,65,95,120)), 
+   fig0->(affiche(P=c,0,0,700,100),clip(0,100,700,600,origine(0,110),unités(1,1)),segments,labels), 
+   figure->fig0, a2->calcule(-(sa0×sa1×a0)/a1), b2->calcule(-(sb0×sb1×b0)/b1), 
+   inv->tests(1,b2<a2,-1), a->tests(a2,inv<0,b2), b->tests(b2,inv<0,a2), solution->(a,b), 
+   format->mappe(a->{point(a,35),caché,label(?,90,14)},(300,440)), 
+   suivant->calcule(partie+1), demo->entrées=0~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte~
+énoncé : Dans la ligne correspondant à la première expression, cliquer sur les intervalles¶
+ où cette expression est positive~
+définitions : 
+   fig0->joint(fig0,{point(300,35),caché,label(a,90,14)},{point(440,35),caché,label(b,90,14)}), 
+   {variation,signe}->tests({croissante,x>a2},sa1<0,{décroissante,x<a2}), texte->décotexte, 
+   c1->tests(`-`,sa1<0,`+`), c2->tests(`+`,sa1×inv<0,`-`), c3->tests(`+`,sa1<0,`-`), 
+   S0->tests((370,510),inv<0 et sa1>0,510,inv<0 et sa1<0,(230,370),inv>0 et sa1<0,230), 
+   E0->ensemble(S0), solution->mappe(mpts(x,y,l,t,c),S0,50,`+`,18,255), 
+   nbclics->tests(2,sa1×inv<0,1), figure->joint(fig0,cliquer(nbclics)), 
+   S1->mappe(mpts(x,y,l,t,c),(230,370,510),50,(c1,c2,c3),18,255), 
+   suivant->calcule(partie+1), T->Ø~
+vérification : 
+   abscisse->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),opérande(entrée,1),(230,370,510),b), 
+   entrée->{point(abscisse,50),caché,label(`+`,centré,18),couleur(255,0,0)}, 
+   absplus->tests(T,compare(T,Ø)=0,abscisse,actions=0,augmente(T,abscisse)), 
+   T->tests(Ø,actions>0,augmente(T,abscisse)), correct->absplus=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte~
+énoncé : Dans la ligne correspondant à la seconde expression, cliquer sur les intervalles¶
+ où cette expression est positive~
+définitions : 
+   c1->tests(`-`,sb1<0,`+`), c2->tests(`+`,sb1×inv>0,`-`), c3->tests(`+`,sb1<0,`-`), 
+   S0->tests((370,510),inv>0 et sb1>0,510,inv>0 et sb1<0,(230,370),inv<0 et sb1<0,230), 
+   E0->ensemble(S0), {variation,signe}->tests({croissante,x>b2},sb1<0,{décroissante,x<b2}), 
+   texte->décotexte, solution->mappe(mpts(x,y,l,t,c),S0,80,`+`,18,255), 
+   nbclics->tests(2,sb1×inv>0,1), fig0->joint(fig0,S1), 
+   figure->joint(fig0,cliquer(nbclics)), suivant->calcule(partie+1), T->Ø, 
+   S1->mappe(mpts(x,y,l,t,c),(230,370,510),80,(c1,c2,c3),18,255)~
+vérification : 
+   abscisse->mappe((a,b)->tests(b,(image-a)^2<(b-a)^2,image),opérande(entrée,1),(230,370,510),b), 
+   entrée->{point(abscisse,80),caché,label(`+`,centré,18),couleur(255,0,0)}, 
+   absplus->tests(T,compare(T,Ø)=0,abscisse,actions=0,augmente(T,abscisse)), 
+   T->tests(Ø,actions>0,augmente(T,abscisse)), correct->absplus=E0, 
+   {note,total,partie,texte}->standard, réponse->FIN, texte->décotexte~
+énoncé : Dans la seconde colonne de la dernière ligne, écrire l'expression simplifiée¶
+    (sans valeurs absolues)~
+définitions : 
+   fig0->joint(fig0,S1), texte->décotexte, {a1,a0}->{-a1,calcule(-sa1×sa0×a0)}, 
+   suivant->calcule(partie+1), {b1,b0}->{-b1,calcule(-sb1×sb0×b0)}, 
+   format->{point(230,110),caché,label(?,centré,14)}, 
+   s1->calcule(a1+d×b1)×x+calcule(a0+d×b0), figure->fig0, solution->norm(s1)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Dans la colonne suivante, écrire l'expression simplifiée¶
+    (sans valeurs absolues)~
+définitions : 
+   fig0->joint(fig0,{point(230,110),caché,label(solution,centré,14)}), figure->fig0, 
+   texte->décotexte, suivant->calcule(partie+1), {a1,a0}->{-a1×inv,calcule(-inv×a0)}, 
+   {b1,b0}->{inv×b1,calcule(inv×b0)}, format->{point(370,110),caché,label(?,centré,14)}, 
+   s2->calcule(a1+d×b1)×x+calcule(a0+d×b0), solution->norm(s2)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Dans la dernière colonne, écrire l'expression simplifiée¶
+    (sans valeurs absolues)~
+définitions : 
+   fig0->joint(fig0,{point(370,110),caché,label(solution,centré,14)}), figure->fig0, 
+   texte->décotexte, {a1,a0}->{calcule(a1×inv),calcule(inv×a0)}, 
+   {b1,b0}->{calcule(-inv×b1),calcule(-inv×b0)}, 
+   format->{point(510,110),caché,label(?,centré,14)}, suivant->calcule(partie+1), 
+   s3->calcule(a1+d×b1)×x+calcule(a0+d×b0), solution->norm(s3)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Résoudre l'équation du début dans chaque intervalle¶
+ et rassembler les solutions dans l'ensemble S ci-dessous~
+définitions : 
+   figure->joint(fig0,{point(510,110),caché,label(solution,centré,14)},clip(0,230,600,80)), 
+   texte->décotexte, format->{point(0,0),caché,label(S=?,centré,14)}, 
+   S1->solve(s1=c,x,-infini,a), S2->joint(S1 union solve(s2=c,x,a,b)), 
+   solution->S=joint(S2 union solve(s3=c,x,b,infini))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP, texte->décotexte~
+">
+</APPLET></P>
+</body>
+</html>

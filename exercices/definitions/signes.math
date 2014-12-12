@@ -1,0 +1,17 @@
+<definitions>
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^1->image : norm(a)},{a^0->image : STOP(1)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{(-n)/a->image : -norm(n/a)},{a/(-n)->image : -norm(a/n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{a/1->image : STOP(a)},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+hors->hors(x,e)=applique(compare(applique(e,x->x0),e)=0),
+stnd->stnd(p,x)=applique(p,{hors(x,p) : STOP(p×x^0)},{a/rac(x)->p : STOP(stnd(a×x^(-1/2),x))},{rac(x)->p : STOP(x^(1/2))},{a/x->p,hors(x,a) : STOP(a×x^(-1))},{a/x^n->p,hors(x,a) : STOP(a×x^(-n))},{a×x^n->p,hors(x,a) : STOP(p)},{(-1)×b->p,hors(x,b) : STOP((-b)×x^0)},{(-1)×b×c->p,hors(x,b) : STOP(stnd((-b)×c,x))},{a/b->p,hors(x,b) : STOP(stnd(1/b×a,x))},{a/b->p : STOP(stnd(a,x)/stnd(b,x))},{a+b->p : STOP(stnd(a,x)+stnd(b,x))},{x^n->p : STOP(1×x^n)},{-x^n->p : STOP((-1)×x^n)},{-a×x^n->p,hors(x,a) : STOP((-a)×x^n)},{a×x->p,hors(x,a) : STOP(a×x^1)},{-a×x->p,hors(x,a) : STOP((-a)×x^1)},{x->p : STOP(1×x^1)},{-x->p : STOP((-1)×x^1)},{a×(b×c)->p : STOP(stnd(a×b×c,x))},{a×b×c->p,hors(x,a),hors(x,b) : STOP(stnd(a×b×x^0×c,x))},{a×b×c->p,a0×x^0->a,b0×x^0 : STOP(stnd(a0×b0×x^0×c,x))},{hors(x,p) : STOP(p×x^0)},{a×b->p : stnd(a,x)×stnd(b,x)},{a×(-b)->p : STOP(stnd((-a)×b,x))},{-a×b->p : STOP(stnd((-a)×b,x))},{-a/b->p,hors(x,b) : STOP(stnd((-1/b)×a,x))},{-a/b->p : STOP(stnd((-a)/b,x))},{-(a+b)->p : STOP(stnd(-a+(-b),x))},{-(a-b)->p : STOP(stnd(-a+b,x))},{-b->p : STOP(stnd((-1)×b,x))},{a-b->p : STOP(stnd(a,x)+stnd((-1)×b,x))})
+</definitions>
+<commentaires>
+stnd->` Transforme un polynôme de la variable x en une somme de monômes¶ de la forme a×x^n ( essayer stnd(3×(-2×x+1)×(-x^2-2×x+5),x) )`,
+norm->` Ecrit une expression sous forme normale en appliquant les règles des signes :¶ (-a)×b devient -a×b ,  1×a devient a , 0×a devient 0, -(-a) devient a , etc..`
+</commentaires>
+<history>
+stnd((2×x-3)×(-5×x-4),x),
+norm((2×x+(-3))×((-5)×x-4)),
+norm((-3)×x+4),
+stnd((2×x-3)×(-5×x-4),x),
+norm((2×x+(-3))×((-5)×x-4)),
+norm((-3)×x+4)
+</history>

@@ -1,0 +1,13 @@
+<definitions>
+flèche->flèche(a,b,c)=applique(d->(2×a^2+2×b^2)^(1/2)/5,m->approche((b-a)/d),n->approche((b+a)/d),{ligne(point(-n,m),point(0,0),point(m,n)),couleur(c)}),
+gcrochet->gcrochet(c)=applique({ligne(point(-3,-4),point(0,-4),point(0,4),point(-3,4)),couleur(c)}),
+dcrochet->dcrochet(c)=applique({ligne(point(3,-4),point(0,-4),point(0,4),point(3,4)),couleur(c)}),
+tiret->tiret(a,b,c)=applique(d->calcule((a^2+b^2)/4),P1->point(approche(b/d^(1/2)),approche(a/d^(1/2))),P2->point(approche(-b/d^(1/2)),approche(-a/d^(1/2))),{ligne(P1,P2),couleur(c)}),
+droit->droit(a,b,l,c)=applique(d->(a^2+b^2)^(1/2)/l,{ligne(point(a/d,b/d),point((a+b)/d,(b-a)/d),point(b/d,-a/d)),couleur(c)})
+</definitions>
+<commentaires>
+tiret->` Définit la manière de marquer un point, à utiliser avec l'option style :¶ trace un petit trait de couleur c et de direction perpendiculaire au vecteur (a,b)¶ Exemple : figure->{point(2,1),style(tiret(2,1,(255,0,0))}`,
+flèche->`Dessine une flèche de couleur c orientée suivant le vecteur (a,b)`
+</commentaires>
+<history>
+</history>

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="572" height="393">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="5">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/coord.math,
+definitions/couleurs.math,
+definitions/fonctions.math,
+definitions/tris.math
+">
+<PARAM name="définitions globales" value="
+comp->comp(a,b)=applique(b<a),
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{(-a)/n->image : -norm(a/n)},{a/(-n)->image : -norm(a/n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+min->min(s)=mappe({x<=image : x->x},s,x),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+racine->racine(x)=applique(rac(x),{x<0 : STOP(rac(x))},r->approche(rac(x)),{r=approche(rac(x),-8) : r}),
+affiche->affiche(expr,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(0,0),caché,label(expr,centré,14)}))
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø}
+">
+<PARAM name="Exercice 1" value="
+titre : forme canonique~
+énoncé : On cherche à écrire une fonction du second degré sous forme¶
+ standard, c'est-à-dire $f(x) = a×(x + b)^2 + c$.¶
+ Mettre le coefficient de $x^2$ en facteur avec les termes en x (s'il est différent de 1),¶
+ Exemple :$3×x^2 - 5×x + 1 = 3×(x^2 -51/3×x) + 1$~
+définitions : 
+   (a,b,c,d,q)->choix([1,3],[1,2],[1,3],[1,6],{1,2}), (sa,sb,sc,sd)->choix({-1,1},4), 
+   xm->calcule(-sa×a), ym->calcule(sb×b), 
+   f->calcule(sc×c×x^2+2×sc×sa×a×c×x)+calcule(sc×c×a^2+sb×b), 
+   g->calcule(sc×c)×(x+sa×a)^2+sb×b, 
+   x0->tests(-2,c0×(x+sa0×a0)^2+sb0×b0->g,calcule(-2-sa×a)), y0->calcule(applique(g,x->x0)), 
+   x1->tests(2,c0×(x+sa0×a0)^2+sb0×b0->g,calcule(2-sa×a)), g1->norm(g), 
+   question->f(x)=norm(f), lead->calcule(sc×c), 
+   forme->tests(f(x)=lead×(x^2+?)+?,lead=1,f(x)=x^2+?,lead<0,f(x)=-calcule(-lead)×(x^2+?)+?,lead=-1,f(x)=-(x^2+?)+?), 
+   format->{point(0,-2),caché,label(forme,centré,14)}, 
+   cliptexte->clip(0,0,700,115,couleur(220,230,250)), 
+   solution->f(x)=norm(calcule(sc×c×(x^2+2×sa×a×x))+calcule(sc×c×a^2+sb×b)), 
+   fig0->(clip(200,0,500,500,recadre(10),couleur(240,235,220)),Oy(y0,rouge),Ox(8,rouge),{ligne(graphe(g,x,x0,x1,1/4)),couleur(bleu)},clip(0,0,200,600)), 
+   figure->(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, incomplet->compare(norm(entrée),solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Les termes en x forment les deux premiers termes du développement de $(x+b)^2$,¶
+par exemple $x^2 - 6×x = (x - 3)^2 - 3^2$. En déduire la forme canonique de $f(x)$~
+définitions : 
+   question->solution, format->{point(0,-2),caché,label(?×(x+?)^2+?,centré,14)}, 
+   solution->g1, figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En déduire les coordonnées $x[0]$ et $y[0]$ correspondant¶
+ au minimum ou au maximum de la fonction f¶
+ (sommet de la parabole)~
+définitions : 
+   question->f(x)=solution, solution->(x[0]=xm,y[0]=ym), 
+   format->{point(0,-2),caché,label((x[0]=?,y[0]=?),centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : images~
+énoncé : Cliquer sur le point de l'axe des ordonnées donnant l'image demandée~
+définitions : 
+   (xb,xc)->choix([-4,-2],[2,4]), (yb,yc,ya,yd)->choix([-6,6],2,[-5,5],2), 
+   C->(pol3(-8,xb,xc,8,t),pol3(ya,yb,yc,yd,t)), t1->choix([0,1],a->décimal(1)), 
+   a->pol3(-8,xb,xc,8,t1), question->f(approche(a,-1))=?, s->pol3(ya,yb,yc,yd,t1), 
+   s1->approche(s,-2), solution->{ligne(point(a,0),point(a,s),point(0,s)),couleur(vert)}, 
+   fig0->(clip(200,0,500,500,couleur(245,240,230)),Ox(15,rouge),Oy(15,rouge),{ligne(courbe(C,t,0,1,1/16)),couleur(bleu)}), 
+   figure->joint(affiche(question,0,0,200,500),fig0,cliquer(1)), 
+   cliptexte->clip(0,0,700,50,couleur(220,230,250))~
+vérification : 
+   r->approche(ord(entrée),-1), d0->calcule(|abs(entrée)|), correct->(r-s)^2<1/5 et d0<0.3, 
+   {note,total,partie,texte}->standard, 
+   entrée->{ligne(point(a,0),point(a,r),point(0,r)),couleur(vert)}, réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : antécédents~
+énoncé :Cliquer sur l'axe des abscisses aux points correspondants aux antécédents¶
+ de la valeur indiquée ci-dessous~
+définitions : 
+   (xb,xc)->choix([-4,-2],[2,4]), (yb,yc,ya,yd)->choix([-6,6],2,[-5,5],2), 
+   C->(pol3(-8,xb,xc,8,t),pol3(ya,yb,yc,yd,t)), t0->choix([0,1],a->décimal(1)), 
+   x0->pol3(-8,xb,xc,8,t0), y0->pol3(ya,yb,yc,yd,t0), a->calcule((-ya+3×yb)-3×yc+yd), 
+   b0->calcule(3×((ya+yc)-2×yb)), b->calcule(a×t0+b0), c->calcule(a×t0^2+b0×t0+3×(yb-ya)), 
+   delta2->calcule(b^2-4×a×c), d->approche(rac(calcule(|delta2|)),-6), 
+   T0->tests(t0,delta2=0,(t0,calcule(-b/(2×a))),delta2>0,(t0,approche((-b-d)/(2×a),-2),approche((-b+d)/(2×a),-2)),a=0,(t0,calcule(-c/b))), 
+   X0->triseq(mappe({0<=t,t<=1 : t->approche(pol3(-8,xb,xc,8,t),-1)},T0),comp), 
+   nbclics->card(X0), solution->mappe(x->{droite(point(x,0),point(x,y0)),couleur(vert)},X0), 
+   cliptexte->clip(0,0,700,50,couleur(220,230,250)), question->f(x)=approche(y0,-1), 
+   fig0->(clip(200,0,500,500,recadre(5),couleur(245,240,230)),Ox(15,rouge),Oy(15,rouge),{droite(point(-15,y0),point(15,y0)),couleur(vert)},{ligne(courbe(C,t,0,1,1/16)),couleur(bleu)}), 
+   figure->joint(affiche(question,0,0,200,500),fig0,cliquer(nbclics))~
+vérification : 
+   abscisse->approche(opérande(entrée,1),-1), ordonnée->approche(opérande(entrée,2),-1), 
+   ants->triseq(tests(abscisse,clics>actions+1,joint(ants,abscisse)),comp), 
+   ords->tests(ordonnée,clics>actions+1,joint(ords,ordonnée)), 
+   correct->calcule(mappe((a,b,c)->image et (a-b)^2<0.2 et c^2<0.3,X0,ants,ords,(a-b)^2<0.2 et c^2<0.3)), 
+   {note,total,partie,texte}->standard, 
+   r->mappe(x->{droite(point(x,0),point(x,y0)),couleur(vert)},ants), 
+   réponse->tests(r,essai=ESSAIS et actions=0,solution)~
+">
+<PARAM name="Exercice 4" value="
+titre : images (calcul)~
+énoncé :Calculer l'image par la fonction f du nombre indiqué (donner la valeur exacte)~
+définitions : 
+   (a,b,c,x0)->choix({-3,-2,-1,1,2,3},2,[-2,2],[-3,3]), q->choix({a/x+c,a×x+b,a×x^2+c}), 
+   question->f(x)=norm(q), format->{point(0,0),caché,label(f(x0)=?,centré,14)}, 
+   cliptexte->clip(0,0,700,50,couleur(220,230,250)), s->calcule(applique(q,x->x0)), 
+   s1->tests(s,compare(s,1/0)=0,Ø,compare(s,-1/0)=0,Ø), solution->f(x0)=s1, 
+   fig1->(clip(0,0,600,120),{polygone(point(-4,-3),point(-4,3),point(4,3),point(4,-3)),caché,remplit(255,240,240)}), 
+   figure->joint(fig1,{point(0,0),caché,label(question,centré,14)},clip(0,120,600,600))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 5" value="
+titre : antécédents (calcul)~
+énoncé : Déterminer les antécédents du nombre y en résolvant l'équation¶
+ 	$f(x) = y$¶
+ Exemple : $f(x) = 3×x^2-1$ et $y=0$ donne ${-rac(1/3),rac(1/3)}$~
+définitions : 
+   cliptexte->clip(0,0,700,100,couleur(220,230,250)), 
+   (a,b,c,y0)->choix({-3,-2,-1,1,2,3},2,[-2,2],[-3,3]), 
+   q->choix({(a/x+c,1),(a×x+b,2),(a×x^2+c,3)}), r->(y0-c)/a, 
+   fx->f(x)=norm(applique(q,schéma({(a,b)->image : a}))), question->BBOX(VBOX(fx,y=y0),`{`), 
+   format->{point(0,0),caché,label(?,centré,14)}, 
+   type->applique(q,schéma({(a,b)->image : b})), 
+   s->tests({calcule((y0-b)/a)},type=1,{calcule(a/(y0-c))},type=3,{calcule(-racine((y0-c)/a)),calcule(racine((y0-c)/a))}), 
+   solution->applique(s,schéma({{0,0}->image : {0}},{{-rac(-a),b}->image : Ø},{{-1/0}->image : Ø},{{1/0}->image : Ø})), 
+   fig1->(clip(0,0,600,120),{polygone(point(-4,-3),point(-4,3),point(4,3),point(4,-3)),caché,remplit(255,240,240)}), 
+   figure->joint(fig1,{point(0,0),caché,label(question,centré,14)},clip(0,120,600,600))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

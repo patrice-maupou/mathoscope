@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="331">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="6">
+<PARAM name="définitions globales" value="
+max->max(a,b)=applique(a,{infini->b : STOP(b)},{a<b : b}),
+min->min(a,b)=applique(a,{-infini->b : STOP(b)},{b<a : b}),
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^1->image : norm(a)},{a^0->image : STOP(1)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{a/1->image : STOP(a)},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+interv->interv(ineq,x)=applique({x<a->ineq : ]-infini,a[},{a<x->ineq : ]a,infini[},{a<=x->ineq : [a,infini[},{x<=a->ineq : ]-infini,a]}),
+intersec->intersec(u,v)=applique({{a,ta}->u,{b,tb}->v,compare(min(a,b),b)=0,non(a=b) : STOP(intersec(v,u))},{{a,ta}->u,{b,tb}->v,a=b,tb=1 ou tb=-1 : STOP(intersec(v,u))},{{-infini,ta}->u,{b,tb}->v,ta>0,tb>0 : STOP(Ø)},{{a,ta}->u,{b,tb}->v,ta=1,tb>0 : STOP(]-infini,a[)},{{a,ta}->u,{b,tb}->v,ta=2,tb>0 : STOP(]-infini,a])},{{a,ta}->u,{b,tb}->v,ta<0,tb=-1 : STOP(]b,infini[)},{{a,ta}->u,{b,tb}->v,ta<0,tb=-2 : STOP([b,infini[)},{{a,ta}->u,{b,tb}->v,ta>0,tb<0 : STOP(Ø)},{{a,ta}->u,{b,tb}->v,ta=-1,tb=1,non(a=b) : STOP(]a,b[)},{{a,ta}->u,{b,tb}->v,ta=-1,tb=1 : STOP(Ø)},{{a,ta}->u,{b,tb}->v,ta=-2,tb=1,a=b : STOP(Ø)},{{a,ta}->u,{b,tb}->v,ta=-2,tb=1 : STOP([a,b[)},{{a,ta}->u,{b,tb}->v,ta=-1,tb=2,a=b : STOP(Ø)},{{a,ta}->u,{b,tb}->v,ta=-1,tb=2 : STOP(]a,b])},{{a,ta}->u,{b,tb}->v,ta=-2,tb=2,a=b : STOP({a})},{{a,ta}->u,{b,tb}->v,ta=-2,tb=2 : STOP([a,b])}),
+prodfrac->schéma({(-a)×b->image : -prodfrac(a×b)},{a×(-b)->image : -prodfrac(a×b)},{-(-a)->image : STOP(prodfrac(a))},{a/b×(c/d)->image : STOP((a×c)/(b×d))},{a/b×(1/d)->image : STOP(a/(b×d))},{1/b×(c/d)->image : STOP(c/(b×d))},{a×(1/d)->image : STOP(a/d)},{1/b×c->image : STOP(c/b)},{a×(c/d)->image : STOP((a×c)/d)},{a/b×c->image : STOP((a×c)/b)}),
+fig0->(clip(0,0,600,100),{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(255,240,240)},{point(0,0),caché,label(question,centré,14)},clip(0,100,600,500)),
+stnd->stnd(p,x)=applique(p,{1×a->p : STOP(stnd(a,x))},{-b->p,non(b->num) : STOP((-1)×x^0×stnd(b,x))},{a-b->p,non(compare(a,0)=0) : STOP(stnd(a,x)+stnd(-b,x))},{a+b->p : STOP(stnd(a,x)+stnd(b,x))},{x^n->p : STOP(1×x^n)},{-x^n->p : STOP((-1)×x^n)},{-a×x^n->p : STOP((-a)×x^n)},{a×x->p : STOP(a×x^1)},{-a×x->p : STOP((-a)×x^1)},{x->p : STOP(1×x^1)},{-x->p : STOP((-1)×x^1)},{p->num : STOP(p×x^0)},{a×(b×c)->p,a->num,b->num : STOP(stnd(a×b×c,x))},{a×b->p,non(a->num) : STOP(stnd(a,x)×stnd(b,x))},{a×b->p : STOP(a×x^0×stnd(b,x))},{a/b->p,non(a->num),b->num : 1/b×x^0×stnd(a,x)}),
+dev->dev(p,x)=applique({a×x^m×(b×x^n)->p : STOP(calcule(a×b)×x^calcule(m+n))},{a+b->p : STOP(dev(a,x)+dev(b,x))},{(a+b)×c->p : STOP(dev(a×c,x)+dev(b×c,x))},{c×(a+b)->p : STOP(dev(c×a,x)+dev(c×b,x))},{a×(b×c)->p : STOP(dev(dev(a×b,x)×dev(c,x),x))},{a×b×c->p : STOP(dev(dev(a×b,x)×dev(c,x),x))},p),
+stri->stri(p,x)=applique(p,{a+b->p : stri(a,x)+b},{a×x^m+b×x^n->image,m<n : b×x^n+a×x^m},{c+a×x^m+b×x^n->image,m<n : stri(c+b×x^n,x)+a×x^m}),
+red->red(p,x)=applique(p,{a+b->p : red(a,x)+b},{a+0×x^n->image : STOP(red(a,x))},{0×x^n+a->image : STOP(red(a,x))},{a×x^n+b×x^n->image : calcule(a+b)×x^n},{c+a×x^n+b×x^n->image : red(c+red(a×x^n+b×x^n,x),x)}),
+développe->développe(p,x)=applique(norm(red(stri(ass(dev(stnd(p,x),x),0),x),x))),
+ass->ass(x,op)=applique(x,{op=0,a+b->x,non(u+v->b) : STOP(ass(a,0)+b)},{op=0,a×b->x : STOP(ass(a,0)×ass(b,0))},{op=0,a/b->x : STOP(ass(a,0)/ass(b,0))},{op=1,a×b->x,non(u×v->b) : STOP(ass(a,1)×b)},{op=0,a+(b+c)->x : STOP(ass(a+b+c,0))},{op=1,a×(b×c)->x : STOP(ass(a×b×c,1))}),
+degré->degré(p,x)=applique({x^n->p : STOP(n)},{x->p : STOP(1)},{a×x^n->p,a->num : STOP(n)},{a×x->p,a->num : STOP(1)},{p->num : STOP(0)}),
+ESSAIS->2,
+JUSTE->{note+1,total+1,partie+1,` Bonne réponse ! (appuyer sur entrée)`},
+FAUX->{note,total+1,partie+1,` Ce n'est pas encore celà . Voici la solution : (appuyer sur entrée)`},
+REFAIRE->{note,total+1,partie,` Essaie une autre réponse`},
+INCOMPLET->{note,total,partie,` Réponse imprécise ou insuffisante`},
+FORMAT->{point(0,0),caché,label(forme,centré,14)},
+FIN->tests(joint(réponse,entrée),essai=ESSAIS,solution),
+standard->tests(REFAIRE,essai=ESSAIS,FAUX,incomplet,INCOMPLET,correct,JUSTE)
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø},
+{[a,b]->image : [a,b]},
+{]a,b]->image : ]a,b]},
+{[a,b[->image : [a,b[},
+{]a,b[->image : ]a,b[},
+{A->ensemble,B->ensemble,A union B->image : A union B}
+">
+<PARAM name="Exercice 1" value="
+titre : en ajoutant~
+énoncé : Ecrit un nombre k que l'on va ajouter des deux côtés de l'inégalité¶
+ pour obtenir la solution de l'inéquation en appliquant la règle :¶
+                        si a < b alors a + k < b + k~
+définitions : 
+   (a,b,c,d)->choix([1,5],2,[2,5],2,pgcd(a,c)=1,pgcd(b,d)=1), 
+   cliptexte->clip(0,0,700,80,couleur(220,240,220)), (sa,sb)->choix({-1,1},2), 
+   (qg,qd)->arrangement(2,{x+sa×(a/c),sb×(b/d)}), forme->k=?, format->FORMAT, 
+   question->norm(qg)<norm(qd), s->calcule(-(sa×a)/c), solution->k=s, figure->fig0, 
+   demo->entrées<3~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Simplifier l'inéquation de manière à obtenir l'une des deux formes :¶
+                   	x < a ,  a < x¶
+ où a est une fraction irréductible (ou un entier relatif)~
+définitions : 
+   qg->norm(qg+s), qd->norm(qd+s), question->qg<qd, forme->?, format->FORMAT, 
+   solution->développe(qg,x)<développe(qd,x), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, incomplet->compare(calcule(entrée),solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Indique l'intervalle solution (palette de symboles : bouton droit)¶
+ Exemple : -3 < x a pour ensemble solution $]-3,infini[$~
+définitions : 
+   question->solution, format->FORMAT, solution->interv(question,x), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->tests(partie,total>12 et correct ou essai=3,-1)~
+">
+<PARAM name="Exercice 2" value="
+titre : en multipliant~
+énoncé : Ecrire une inéquation de la forme a < x ou x < a  équivalente à l'inéquation ci-dessous¶
+ en multipliant les deux membres de l'inéquation par un même nombre¶
+ Exemple : si $3×x < 2$ , on écrit $x < 2/3$ et si $-2×x < 3$ , on écrit $-3/2 < x$~
+définitions : 
+   (a,b,c,d)->choix([1,9],4), cliptexte->clip(0,0,700,80,couleur(210,230,240)), 
+   (sa,sb,sc,sd)->choix({-1,1},4), qx->norm(calcule((sa×a)/b)×x), q0->calcule((sc×c)/d), 
+   type->choix({-2,-1,1,1}), 
+   q->choix({calcule((sa×a)/b)×x<calcule((sc×c)/d),calcule((sc×c)/d)<calcule((sa×a)/b)×x}), 
+   q1->calcule(((sa×sc×b)/a×c)/d), 
+   question->tests(qx<q0,type=-2,qx<=q0,type=1,q0<qx,type=2,q0<=qx), 
+   s->transforme(q1,schéma({x->var : (-1)×a×x<b->-b/a<x},{x->var : 1×a×x<b->x<b/a},{x->var : b<(-1)×a×x->x<-b/a},{x->var : b<1×a×x->b/a<x})), 
+   solution->tests(x<q1,type×sa=-2,x<=q1,type×sa=1,q1<x,type×sa=2,q1<=x), forme->?, 
+   format->FORMAT, figure->fig0, demo->entrées<2~
+vérification : 
+   correct->compare(entrée,solution)=0, incomplet->compare(calcule(entrée),solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Indique l'intervalle solution¶
+ Exemple : -3 < x a pour ensemble solution ]-3,infini[~
+définitions : 
+   question->solution, 
+   solution->tests(]-infini,q1[,type×sa=-2,]-infini,q1],type×sa=1,]q1,infini[,type×sa=2,[q1,infini[), 
+   format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   partie->tests(partie,total>10 et correct ou essai=ESSAIS,-1), réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : ajouter et multiplier~
+énoncé : Indiquer l'expression à ajouter de chaque côté de l'inégalité¶
+ pour obtenir une inégalité de type $a×x < b$ ou $b < a×x$ avec a > 0, ou 0×x < b¶
+ Exemple : pour $3×x-4<2-x$, on ajoute $x+4$~
+définitions : 
+   cliptexte->clip(0,0,700,80,couleur(240,230,210)), 
+   (a0,b0,c0,d0,a1,b1,c1,d1)->choix([1,7],4,[2,7],4), (sa,sb,sc,sd)->choix({-1,1},4), 
+   (q0,q1,s0,s1)->mappe(z->norm(calcule(z)),((sa×a0)/a1×x+(sb×b0)/b1,(sc×c0)/c1×x+(sd×d0)/d1,-(sc×c0)/c1×x-(sb×b0)/b1,-(sa×a0)/a1×x-(sd×d0)/d1)), 
+   c->calcule((sd×d0)/d1-(sb×b0)/b1), forme->?, format->FORMAT, 
+   s->calcule((sa×a0)/a1-(sc×c0)/c1), solution->tests(s0,s<0,s1), question->q0<q1, 
+   figure->fig0, demo->entrées=0~
+vérification : 
+   correct->compare(applique(entrée,prodfrac),applique(solution,prodfrac))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Réduire les expressions de chaque côté de l'inégalité~
+définitions : 
+   question->q0+solution<q1+solution, solution->tests(s×x<c,s<0,calcule(-c)<norm(-s×x)), 
+   format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(applique(entrée,prodfrac),applique(solution,prodfrac))=0, 
+   incomplet->compare(calcule(entrée),solution)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : Indique l'intervalle solution¶
+ Exemple :$ -3 < 2×x$ a pour ensemble solution $]-3/2,infini[$~
+définitions : 
+   question->solution, 
+   solution->tests(]-infini,calcule(c/s)[,s=0,]-infini,infini[,s=0 et c<0,Ø,s<0,]calcule(c/s),infini[), 
+   forme->?, format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, incomplet->compare(calcule(entrée),solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 4" value="
+titre : développer d'abord~
+énoncé : Développer et réduire de chaque côté de l'inégalité¶
+ Exemple : $(2×x+1)/3 + 2/3 < 3/2×(x+2)$ donne $2/3×x+1 < 3/2×x+3$~
+définitions : 
+   N->[1,8], cliptexte->clip(0,0,700,80,couleur(240,210,230)), demo->entrées=0, D->[2,8], 
+   (a0,b0,c0,d0,e0,f0,a1,b1,c1,d1,e1,f1)->choix([1,8],6,[2,8],6), 
+   (sa,sb,sc,sd,se,sf)->choix({-1,1},6), 
+   k0->choix({calcule((sa×a0)/a1)×(sb×(b0×x)+sc×b1),(sa×a0×(sb×(b0×x)+sc×b1))/a1}), 
+   k1->choix({calcule((sc×c0)/c1)×(sd×(d0×x)+se×d1),(sc×(c0×(sd×(d0×x)+se×d1)))/c1}), 
+   q0->norm(k0), q1->norm(k1), question->q0<q1, s0->développe(q0,x), s1->développe(q1,x), 
+   solution->s0<s1, forme->?, format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(applique(entrée,prodfrac),applique(solution,prodfrac))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Simplifier l'inéquation pour obtenir l'une des formes :¶
+       	x < a  ou  a < x~
+définitions : 
+   question->solution, s->calcule((sa×sb×a0×b0)/a1-(sc×c0×sd×d0)/c1), 
+   c->calcule((sc×c0×se×d1)/c1-(sa×a0×sc×b1)/a1), s2->pos(s0), s3->pos(s1), 
+   solution->tests(x<calcule(c/s),s<0,calcule(c/s)<x), forme->?, format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Indique l'intervalle solution¶
+ Exemple : -3 < x a pour ensemble solution ]-3,infini[~
+définitions : 
+   question->solution, solution->interv(question,x), forme->?, format->FORMAT, figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 5" value="
+titre : systémes (1)~
+énoncé : Ecrire l'ensemble solution du système d'inéquations ci-dessous :~
+définitions : 
+   (a,b)->choix([-15,15],2,non(a=b)), cliptexte->clip(0,0,700,80,couleur(220,220,230)), 
+   (t0,t1)->choix({-2,-1,1,2},2), i0->tests(a<x,t0=-2,a<=x,t0=1,x<a,t0=2,x<=a), 
+   i1->tests(b<x,t1=-2,b<=x,t1=1,x<b,t1=2,x<=b), question->BBOX(VBOX(i0,i1),`{`), forme->?, 
+   format->FORMAT, figure->fig0, solution->intersec({a,t0},{b,t1}), demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 6" value="
+titre : systèmes (2)~
+énoncé : Simplifier chacune des inéquations du système en isolant¶
+ la variable x pour obtenir a×x < b ou b < a×x.¶
+ Exemple : $(2×x-1<2)$ et $(3<x+4)$ devient $(2×x<3/2)$ et $(-1<x)$~
+définitions : 
+   cliptexte->clip(0,0,700,80,couleur(230,220,220)), 
+   (a0,a1,b0,b1,c0,c1,d0,d1)->choix([1,9],8), 
+   (sa,sb,sc,sd,sa1,sb1,sc1,sd1)->choix({-1,1},8), 
+   (e1,e2,e3,e4)->mappe(z->norm(calcule(z)),(sa×a0×x+sa1×a1,sb×b0×x+sb1×b1,sc×c0×x+sc1×c1,sd×d0×x+sd1×d1)), 
+   question->BBOX(VBOX(e1<e2,e3<e4),`{`), forme->BBOX(VBOX(?<?,?<?),`{`), format->FORMAT, 
+   figure->fig0, (cx1,cx2)->calcule(sa×a0-sb×b0,sc×c0-sd×d0), 
+   (ct1,ct2)->calcule(sb1×b1-sa1×a1,sd1×d1-sc1×c1), (k1,k2)->calcule(ct1/cx1,ct2/cx2), 
+   {u1,v1}->tests({k1,1},cx1=0 et ct1>0,{-infini,-1},cx1=0 et ct1<=0,{-infini,1},cx1<0,{k1,-1}), 
+   {u2,v2}->tests({k2,1},cx2=0 et ct2>0,{-infini,-1},cx2=0 et ct2<=0,{-infini,1},cx2<0,{k2,-1}), 
+   s1->tests(norm(cx1×x)<ct1,cx1<0,calcule(-ct1)<norm(-cx1×x)), 
+   s2->tests(norm(cx2×x)<ct2,cx2<0,calcule(-ct2)<norm(-cx2×x)), 
+   solution->BBOX(VBOX(s1,s2),`{`), demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   partie->tests(partie,calcule(|cx1|)=1 ou cx1=0 et calcule(|cx2|)=1 ou cx2=0,calcule(partie+1)), 
+   réponse->FIN~
+énoncé : Simplifie chaque inéquation pour obtenir la forme ¶
+ x < a ou la forme a < x~
+définitions : 
+   question->solution, format->FORMAT, s1->tests(x<k1,cx1<0,k1<x,cx1=0,s1), 
+   s2->tests(x<k2,cx2<0,k2<x,cx2=0,s2), solution->BBOX(VBOX(s1,s2),`{`), figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Indique maintenant l'ensemble solution~
+définitions : 
+   question->solution, forme->?, format->FORMAT, figure->fig0, 
+   solution->intersec({u1,v1},{u2,v2})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

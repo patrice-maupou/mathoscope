@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="734" height="575">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="1">
+<PARAM name="importer" value="
+definitions/grilles.math,
+definitions/couleurs.math,
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+qr->qr(a,b)=applique({b×q+r->euclide(calcule(a),calcule(b)) : (approche(5×r+2.6,-2),approche(3×q+1.6,-2))})
+">
+<PARAM name="Exercice 1" value="
+titre : crible d'Erathostène~
+énoncé :On cherche à éliminer de cette grille les nombres qui ne sont pas premiers. ¶
+Cliquer sur le plus petit nombre de la grille pour enlever tous ses multiples.~
+définitions : 
+   cliptexte->clip(0,0,800,70,couleur(240,233,250)), 
+   txt1->VLBOX(`Sachant que les multiples des nombres marqués en jaune ont tous été éliminés,`,`si n est un nombre non marqué restant sur la grille, quel est le plus petit nombre`,`premier p, qui puisse diviser n ?`), 
+   pts->mappe(n->{point(qr(n,10)),label(CADRE(`    `,-1,couleur(255,255,255)),centré,14)},(0,1)), 
+   rows->15, 
+   figure->(clip(0,0,560,500,origine(10,10),unités(10,10)),grille(point(0,0),point(50,calcule(3×rows)),5,3,bleu),mappe(c->mappe(r->{point(5×r+2.6,3×c+1.6),caché,label(calcule(10×c+r),centré,14)},seq([0,9])),seq([0,rows])),pts), 
+   P->(3,5,7,11,13,17,19,23,29), next->2, last->choix({3,5,7}), 
+   interactions->(CLIQUER(pM,{point(0,0),caché}),(x,y)->mappe(a->approche(a,-2),opérande(opérande(pM,1))),(r,c)->qr(next,10),correct->calcule(|x-r|)<2.5 et calcule(|y-c|)<1.5 et next<=last,pts->tests(pts,correct,joint(pts,{point(qr(next,10)),label(CADRE(next,-2,couleur(255,255,0)),centré,14)},mappe(n->{point(qr(n×next,10)),label(CADRE(`     `,-1,couleur(255,255,255)),centré,14)},seq([2,approche(150/next-1.5)])))),blancs->{ligne(pts),caché},fig0->joint(figure,blancs),(next,P)->tests((next,P),correct,sépare(P,-1)),texte->tests(texte,correct,puis sur le suivant,next>last,txt1),on->tests(``,next>last,?),clip(560,0,100,500),curseur->{point(0,0),caché,label(on,centré,14)},FIN(pM),PRESSER(touche,rien),FIN(touche),INIT(next>last),curseur->{point(0,0),caché,label(?,centré,14)})~
+vérification : 
+   correct->compare(entrée,next)=0, solution->next, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé :Si on cliquait sur ce nombre p dans la grille, quel serait le plus petit multiple de p éliminé ?~
+définitions : 
+   solution->calcule(next^2), figure->(fig0,clip(560,0,100,500)), 
+   interactions->(PRESSER(touche,rien),FIN(touche),INIT(VRAI),curseur->{point(0,0),caché,label(?,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Si la grille comprenait tous les entiers de 2 à 500, quel serait le dernier nombre à cliquer¶
+pour ne garder que des nombres premiers ?~
+définitions : 
+   p2->choix([200,700]), pre->`Si la grille comprenait tous les entiers de 2 à `, 
+   post1->`, quel serait le dernier nombre à cliquer`, 
+   post2->pour ne garder que des nombres premiers ?, texte->VLBOX(HBOX(pre,p2,post1),post2), 
+   P->(17,19,23,29,31), s->mappe({x^2<p2 : x->x},P), 
+   figure->(fig0,clip(560,0,100,500)), 
+   solution->opérande(s,-1), interactions->(PRESSER(touche,rien),FIN(touche),INIT(VRAI),curseur->{point(0,0),caché,label(?,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

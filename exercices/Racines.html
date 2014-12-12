@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="525" height="374">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="7">
+<PARAM name="importer" value="
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+pgcd->schéma({image->seq : sépare(image)},{(a,b)->image,a->entier,b->entier : pgcd(a,b)}),
+gpe_carrés->gpe_carrés(x)=applique(x,{a×b->image : gpe_carrés(a)×gpe_carrés(b)},{c×a^n->image,non(n=2) : a^n×c},{c×(b^0×b^qb^2)->image : c×b^qb^2},{c×(b^rb×b^0^2)->image : b^rb×c},{c×(b^rb×b^qb^2)->image : b^rb×c×b^qb^2},{a^n->image,n>1,2×q+r->euclide(n,2) : a^r×a^q^2},{a^n->image,n<-1,2×q+0->euclide(calcule(-n),2) : a^(-q)^2},{a^n->image,n<-1,2×q+r->euclide(calcule(-n),2) : a^(-r)×a^(-q)^2},{b^0×b^qb^2->image : STOP(b^qb^2)}),
+sort_carrés->sort_carrés(x)=applique(x,{rac(a^n^2)->image : a^n},{c×rac(a^n^2)->image : c×a^n},{rac(b×a^n^2)->image : a^n×sort_carrés(rac(b))},{c×rac(b×a^n^2)->image : c×a^n×sort_carrés(rac(b))}),
+den_rationnel->den_rationnel(x)=applique(x,{a/rac(b)->x,non(b=1) : STOP((a×rac(b))/b)},{a/(rac(b)+(-1)×rac(c))->x : (a×(rac(b)+rac(c)))/calcule(b-c)},{a/(rac(b)+rac(c))->x,non(b=c) : (a×(rac(b)-rac(c)))/calcule(b-c)},{a/(rac(b)+1×rac(c))->x : (a×(rac(b)-rac(c)))/calcule(b-c)},{a/(-b)->image : -a/b},{a/1->image : a},{-a/1->image : -a}),
+conjugué->conjugué(x)=applique(x,{a+rac(b)->x : a-rac(b)},{a+c×rac(b)->x : a-c×rac(b)}),
+exp_pos->exp_pos(x)=applique(x,{b^(-n)->image : STOP(1/b^n)},{b^n->image : STOP(b^n)},{a×b^(-n)->image : exp_pos(a)/b^n},{b^(-n)×a->image : exp_pos(a)/b^n},{a/b/c->image : a/(b×c)}),
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{a/(-n)->image : -norm(a/n)},{(-a)/n->image : -norm(a/n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+simpl->simpl(x)=applique(x,{-a->x : -STOP(simpl(a))},{1×a->image : STOP(simpl(a))},{a/b->image : simpl(a)/b},{a×b×c->image : simpl(a×(b×c))},{(a×b)/c->image,non(b->entier) : calcule(a/c)×b},{a/c×b->image : assoc(a×b,1)/c}),
+placer->placer(x,s,sens)=applique(joint(s,x),t->sépare(s,1),{non((a,b)->t),compare(t,x)=sens : STOP(x,t)},{(a,b)->t,compare(b,x)×sens>0 : STOP(joint(placer(x,a,sens),b))},{(a,b)->t,compare(b,x)=sens : joint(placer(x,a,sens),b)}),
+trier->trier(s,sens)=applique({non(s->seq) : STOP(s)},t->sépare(s,1),{(a,b)->t : placer(b,trier(a,sens),sens)}),
+suite->suite(x,op)=applique(y->ass(x,op),{a+b->y,op=0 : STOP(joint(suite(a,op),b))},{a×b->y,op=1 : STOP(joint(suite(a,op),b))},{a/b->y,non(compare(a,1)=0),op=1 : STOP(joint(suite(a,1),suite(1/b,1)))},{1/(a×b)->y,op=1 : STOP(joint(suite(1/a,1),suite(1/b,1)))},y),
+compose->compose(s,op)=applique(t->sépare(s,1),{(a,b)->t,op=0 : STOP(compose(a,0)+b)},{(a,b)->t,op=1 : STOP(compose(a,1)×b)},s),
+triop->triop(x,op)=applique({op=0 : compose(trier(suite(x,op),-1),0)},{op=1,-a->x : STOP(-triop(a,1))},{op=1 : compose(trier(suite(x,1),1),1)}),
+ass->ass(x,op)=applique(x,{op=0,a+b->x,non(u+v->b) : STOP(ass(a,0)+b)},{op=1,a×b->x,non(u×v->b) : STOP(ass(a,1)×b)},{op=1,a/b->x : STOP(ass(a,1)/ass(b,1))},{op=0,a+(b+c)->x : STOP(ass(a+b+c,0))},{op=1,a×(b×c)->x : STOP(ass(a×b×c,1))}),
+exp->exp(x)=applique(x,{a^p×a^n->x : STOP(a^calcule(n+p))},{y×a^p×a^n->x : STOP(exp(y×a^calcule(n+p)))},{a×b->x : exp(a)×exp(b)},{1^n×b->image : b}),
+START->2,
+fig->(clip(0,0,700,700,couleur(255,240,240)),{point(0,2),caché,label(question,centré,14)}),
+décotexte->CADRE(texte,5,10,couleur(240,230,250))
+">
+<PARAM name="Exercice 1" value="
+titre : somme~
+énoncé : Factoriser par la racine carrée sans faire le calcul dans la parenthèse ¶
+             par exemple, $3×rac(2)-5×rac(2) = (3-5)×rac(2)$~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,100),
+   (a,b,c,d)->choix({2,5,5,7,11},4), (sa,sb,sc)->choix({-1,1},3), r->rac(d), 
+   q->sa×(a×r)+sb×(b×r)+sc×(c×r), question->norm(q), 
+   format->{point(0,-2),caché,label(?×r,centré,14)}, s->sa×a+sb×b+sc×c, solution->norm(s×r), 
+   s1->norm(calcule(solution)), figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Simplifier le plus possible le calcul~
+définitions : 
+   question->solution, format->{point(0,-2),caché,label(?,centré,14)}, solution->s1, 
+   figure->fig, texte->décotexte~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+">
+<PARAM name="Exercice 2" value="
+titre : produit~
+énoncé :  Appliquer la règle sur les racines carrées :¶
+      $rac(a×b) = rac(a)×rac(b)$~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,100),
+   (a,b)->choix({2,3,5,7,11,13,19},2), b2->calcule(b^2), 
+   question->choix({rac(a×b2),rac(b2×a)}), 
+   format->{point(0,-2),caché,label(rac(?)×rac(?),centré,14)}, 
+   solution->applique(question,schéma({rac(a×b)->image : rac(a)×rac(b)})), figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Sous l'une des racines, on a un carré. Simplifier l'écriture.¶
+ Exemple : $rac(2)×rac(9)$ donne $3×rac(2)$~
+définitions : 
+   question->solution, format->{point(0,-2),caché,label(?×rac(?),centré,14)}, 
+   solution->b×rac(a), figure->fig, texte->décotexte~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+">
+<PARAM name="Exercice 3" value="
+titre : somme et produits~
+énoncé : Simplifier sous les racines carrées¶
+         par exemple, $3×rac(45)-5×rac(20) = 9×rac(5)-10×rac(5)$~
+définitions : 
+   texte->décotexte, cliptexte->clip(0,0,700,100),
+   (a,b,c,d,sa,sb,sc,a1,b1,c1)->choix({2,3,5,7},4,{-1,1},3,{1,1,1,2,3,4,5},3),
+   (a2,b2,c2)->calcule(a1^2×d,b1^2×d,c1^2×d),r->rac(d), 
+   q->sa×(a×rac(a2))+sb×(b×rac(b2))+sc×(c×rac(c2)), 
+   question->norm(q), format->{point(0,-2),caché,label(?,centré,14)}, 
+   s->calcule(sa×a×a1)×r+calcule(sb×b×b1)×r+calcule(sc×c×c1)×r, solution->norm(s), 
+   figure->fig, demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Simplifier le plus possible le calcul~
+définitions : 
+   question->solution, format->{point(0,-2),caché,label(?,centré,14)}, 
+   solution->norm(calcule(sa×a×a1+sb×b×b1+sc×c×c1)×r), figure->fig, texte->décotexte~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+">
+<PARAM name="Exercice 4" value="
+titre : produit et quotient~
+énoncé : Simplifier les quotients en utilisant les règles :¶
+              $rac(a×b) = rac(a)×rac(b)$ ,  $rac(a/b) = rac(a)/rac(b)$¶
+              et si $a > 0$ , $rac(a^2) = a$¶
+   et écrire une expression de la forme $a×rac(b)$~
+définitions : 
+   E->{1,2,3,5,7,11}, texte->décotexte, 
+   (a,b,c,d,e)->choix({1,2,3,5,7,11},5,pgcd(a,c)=1,pgcd(b,d)=1), q0->a^2×b^1×c^(-2)×d^(-1), 
+   s0->ass(gpe_carrés(exp(triop(q0,1))),1), s1->ass(sort_carrés(rac(s0)),1), 
+   s2->applique(s1,schéma({rac(b)->image : rac(exp_pos(b))},{a×rac(b)->image : exp_pos(a)×rac(exp_pos(b))}),schéma({a^1->image : a})), 
+   r0->applique(s2,schéma({a×rac(b)->image : a}),schéma({a×rac(b)->image : a},{rac(b)->image : 1})), 
+   r1->applique(s2,schéma({a×rac(b)->image : b},{rac(b)->image : b})), 
+   q->rac((a^2×b)/(c^2×d)), 
+   question->applique(q,schéma({1^2->image : 1},{1×a->image : a},{a×1->image : a})), 
+   solution->s2, format->{point(0,-2),caché,label(?×rac(?),centré,14)}, figure->fig, 
+   demo->entrées=0, cliptexte->clip(0,0,700,130)~
+vérification : 
+   e0->applique(entrée,schéma({a×rac(b)->image : a},{rac(b)->image : 1})), 
+   e1->applique(entrée,schéma({a×rac(b)->image : b},{rac(b)->image : b})), 
+   correct->calcule(r0/e0)=1 et calcule(r1/e1)=1, {note,total,partie,texte}->standard, 
+   réponse->FIN, texte->décotexte~
+">
+<PARAM name="Exercice 5" value="
+titre : puissances~
+énoncé : Extraire le plus possible de carrés sous la racine,¶
+ trier (sans tenir compte des exposants) et donner le résultat sans faire de calcul¶
+ Exemple :$ rac(5^3×2×3^4×2^2)$ donne $2×3^2×5^2×rac(2×5)$~
+définitions : 
+   cliptexte->clip(0,0,700,100), texte->décotexte,
+   (a1,a2,a3,a4,a5,a6,a7,d1,d2,d3,d4,d5,d6,d7)->choix({1,2,3,5,7,11},7,{1,2,3,4,5,6},7),
+   q->a1^d1×a2^d2×a3^d3×a4^d4×a5^d5×a6^d6, 
+   question->applique(rac(q),schéma({1^a->image : 1},{1×a->image : a},{a×1->image : a},{a^1->image : a})), 
+   q1->exp(triop(q,1)), q3->sort_carrés(rac(ass(gpe_carrés(q1),1))), 
+   solution->applique(q3,schéma({c×a×b->image,compare(a,b)>0 : c×b×a},{a×b->image,compare(a,b)>0 : b×a},{a×(b×c)->image : a×b×c}),schéma({a^1->image : a},{a×rac(1)->image : a})), 
+   format->{point(0,-2),caché,label(?,centré,14)}, figure->fig, demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+">
+<PARAM name="Exercice 6" value="
+titre : dénominateur rationnel~
+énoncé : Pour rendre rationnel le dénominateur d'une fraction, on peut multiplier¶
+  numérateur et dénominateur par un même nombre k¶
+  Exemples : avec $1/rac(2)$, on multiplie par $k = rac(2)$¶
+     avec $3/(rac(2)+rac(3))$, on multiplie par $k = rac(2)-rac(3)$¶
+~
+définitions : 
+   cliptexte->clip(0,0,700,140), texte->décotexte, 
+   (a,b,c,d,e,sa,sb,sc,sd)->choix({1,2,3,5,7,11},5,{-1,1},4,non(c=d),non(b=1)),
+   q->choix({a/rac(b),a/(rac(c)+sc×rac(d)),(a×rac(b))/(rac(c)+sd×rac(d))}), 
+   question->norm(applique(q,schéma({rac(1)->image : 1}))), 
+   format->{point(0,-2),caché,label(k=?,centré,14)}, 
+   s->applique(q,schéma({a/b->image : conjugué(b)},{rac(1)->image : 1})), 
+   solution->k=norm(simpl(s)), figure->fig, demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+énoncé : Simplifier le dénominateur qui doit être positif.¶
+               Exemple : $2×(1+rac(3))/((1-rac(3))×(1+rac(3)))$¶
+                      donne $- 2×(1+rac(3))/2$~
+définitions : 
+   q1->applique((question,s),schéma({(n/d,k)->image : (n×k)/(d×k)})), question->norm(q1), 
+   s1->den_rationnel(q), format->{point(0,-2),caché,label(?/?,centré,14)}, 
+   s2->calcule(triop(applique(s1,schéma({rac(1)->image : 1})),1)), 
+   solution->applique(s2,schéma({a/b×c->image : (a×c)/b},{1×a->image : a})), figure->fig, 
+   texte->décotexte~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+">
+<PARAM name="Exercice 7" value="
+titre : produits de sommes~
+énoncé :On cherche l'aire d'un rectangle ayant les dimensions indiquées sur le dessin.¶
+ Donner la réponse sous la forme la plus simple possible $a+b×rac(c)$~
+définitions : 
+   E->{2,3,5,7}, texte->décotexte, cliptexte->clip(0,0,700,100), F->[1,5], S->{-1,1}, 
+   (a,b,c,d,sa,sb,sc,sd,r)->choix([1,5],4,{-1,1},4,{2,3,5,7}), 
+   {sa,sb}->tests({sa,sb},approche(sa×a+sb×b×rac(r))<0,{calcule(-sa),calcule(-sb)}), 
+   {sc,sd}->tests({sc,sd},approche(sc×c+sd×d×rac(r))<0,{calcule(-sc),calcule(-sd)}), 
+   x->norm(sa×a+sb×b×rac(r)), y->norm(sc×c+sd×d×rac(r)), question->x×y, 
+   s->calcule(sa×sc×a×c+sb×sd×b×d×r)+calcule(sa×a×sd×d+sb×b×sc×c)×rac(r), solution->norm(s), 
+   format->{point(0,-2),caché,label(?+?×rac(r),centré,14)}, demo->entrées=0, 
+   figure->(clip(200,0,500,600),{polygone(point(-3,-2),point(-3,2),point(3,2),point(3,-2)),remplit(240,150,160)},{point(-3,0),caché,label(x,180,10)},{point(0,-2.2),caché,label(y,-90,10)},clip(0,0,200,600),{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   texte->décotexte~
+">
+</APPLET></P>
+</body>
+</html>

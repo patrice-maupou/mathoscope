@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="644" height="396">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="5">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math,
+definitions/couleurs.math,
+definitions/coord.math
+">
+<PARAM name="définitions globales" value="
+cA->cA(M,A,B,m)=applique(approche((m×(abs(B)-abs(M)))/(abs(B)-abs(A)))),
+vA->vA(M,A,B,m)=applique((m×(abs(B)-abs(M)))/(abs(B)-abs(A))),
+point->point(x,y),
+originO->originO(O,v)=applique(v,{vect(A,A)->v : STOP(vect(0))},{vect(A,B)->v,compare(O,B)=0 : STOP((-1)×vect(O,A))},{vect(A,B)->v,non(compare(O,A)=0) : STOP(vect(O,B)+(-1)×vect(O,A))},{-u->v : STOP((-1)×originO(O,u))},{u+w->v : STOP(originO(O,u)+originO(O,w))},{u-w->v : STOP(originO(O,u)+(-1)×originO(O,w))},{n×u->v : STOP(n×originO(O,u))},{u=w->v : originO(u)=originO(w)},{u=w->v : STOP(originO(O,u)=originO(O,w))}),
+dév->dév(v)=applique(v,{vect(A,B)->v : STOP(1×vect(A,B))},{n×(m×u)->v : STOP(dév(calcule(n×m)×u))},{n×(u+w)->v : STOP(calcule(dév(n×u))+calcule(dév(n×w)))},{(n+m)×u->v : STOP(dév(calcule((n+m)×u)))},{u+w->v : STOP(dév(u)+dév(w))},{u=w->v : dév(u)=dév(w)}),
+tri->tri(v)=applique(v,{a+(b+c)->v : STOP(tri(a+b+c))},{a+b+c->v : tri(a+b)+c},{c+n×u+m×u->image : STOP(tri(c+calcule(n+m)×u))},{a+b+c->image,compare(b,c)>0 : STOP(tri(tri(a+c)+tri(b)))},{n×u+m×u->image : calcule(n+m)×u},{0×u->image : STOP(vect(0))},{a×vect(0)+u->image : STOP(tri(u))},{vect(0)+u->image : STOP(tri(u))},{u+a×vect(0)->image : STOP(tri(u))},{a×vect(0)->image : STOP(vect(0))},{u+0×w->image : STOP(tri(u))},{0×w+u->image : STOP(tri(u))},{n×u+m×w->v,compare(u,w)>0 : STOP(m×w+n×u)},{c+n×u+m×u->v : STOP(tri(c+calcule(n+m)×u))},{u=w->v : tri(u)=tri(w)}),
+gauche->gauche(eq)=applique({u=v->eq : u+(-1)×v=vect(0)}),
+isol->isol(eq,v)=applique(eq,{n×u=w->eq,compare(u,v)=0 : STOP(v=1/n×w)},{a+b=c->eq,compare(b,v)=0 : STOP(v=c+(-1)×a)},{a+n×b=c->eq,compare(b,v)=0 : STOP(v=1/n×c+(-1/n)×a)},{a+b=c->eq : STOP(isol(a=(-1)×b+c,v))}),
+dist->dist(A,B)=applique({point(xa,ya)->A,point(xb,yb)->B : calcule(cabs(xb-xa)+cabs(yb-ya))}),
+coef->coef(v,eq)=applique({a×u=vect(0)->eq,compare(u,v)=0 : STOP(a)},{w+a×u=vect(0)->eq,compare(u,v)=0 : STOP(a)},{w+a×u=vect(0)->eq : STOP(coef(v,w=vect(0)))}),
+extrema->extrema(A,B,a,b)=applique(A,{a<b : B}),
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{a=b->x : STOP(norm(a)=norm(b))},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×u->image : STOP(vect(0))},{a×vect(0)->image : STOP(vect(0))},{a+vect(0)->image : STOP(norm(a))},{vect(0)+a->image : STOP(norm(a))},{-vect(0)->image : STOP(vect(0))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+sgncoefs->schéma({-a×u->image : STOP(-?×u)},{a×u->image : STOP(?×u)},{-u->image : STOP(-?×u)},{vect(A,B)->image : STOP(?×vect(A,B))}),
+bandeau->clip(0,0,700,80,couleur(240,230,220))
+">
+<PARAM name="décorations" value="
+{vect(u)->image : ARROW(HBOX(u))},
+{vect(A,B)->image : ARROW(HBOX(A,B))}
+">
+<PARAM name="Exercice 1" value="
+titre : calcul vectoriel~
+énoncé : Utiliser les règles de calcul vectoriel :¶
+ $a×(vect(u)+vect(v)) = a×vect(u)+a×vect(v)$, $(a+b)×vect(u) = a×vect(u)+b×vect(u)$¶
+ pour écrire le vecteur suivant comme combinaison linéaire~
+définitions : 
+   cliptexte->bandeau, (a,b,c,d,e)->choix([-5,5],3,[-3,3],2,non(a×b=0),non(c×d×e=0)), 
+   q0->choix({(a+b)×vect(u)+d×vect(v)+e×vect(v),a×(vect(u)+b×vect(v))+c×(vect(v)+d×vect(u))}), 
+   question->norm(q0), format->{point(0,-2),caché,label(?,centré,14)}, 
+   solution->norm(tri(dév(q0))), 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(250,250,240)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), demo->entrées=0~
+vérification : 
+   correct->compare(solution,entrée)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : Relation de Chasles~
+énoncé : La relation de Chasles permet de fixer l'origine des vecteurs :¶
+ par exemple, $vect(A,B)$ devient $vect(O,B)-vect(O,A)$. ¶
+ Compléter la réponse avec les coefficients qui conviennent~
+définitions : 
+   (a,b,c,d)->choix([-3,3],4,d€[-3,3],non(a×b×c×d=0)), cliptexte->bandeau, 
+   O->choix({A,B,C}), q0->a×vect(A,B)+b×vect(C,B)+c×vect(A,C), question->norm(q0), 
+   q1->originO(O,q0), solution->norm(tri(dév(q1))), 
+   fig0->{polygone(point(-20,-10),point(-20,10),point(20,10),point(20,-10)),caché,remplit(250,250,240)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), 
+   forme->applique(solution,sgncoefs), format->{point(0,-2),caché,label(forme,centré,14)}, 
+   demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : position d'un point~
+énoncé : On cherche à placer un point M par rapport aux points¶
+ A et B en utilisant la relation vectorielle indiquée ci-dessous.¶
+ Mettre l'origine des vecteurs en A à l'aide de la relation de Chasles~
+définitions : 
+   cliptexte->bandeau, (a,b)->choix([-3,3],2,non(a+b=0),non(a×b=0)), 
+   q0->choix({u×vect(A,M)=v×vect(M,B),u×vect(B,A)+v×vect(M,B)=vect(0),u×vect(B,M)=v×vect(A,B)}), 
+   f1->originO(A,q0), q1->applique(q0,u->a,v->b), question->norm(q1), 
+   s1->dév(originO(A,q1)), s2->norm(tri(s1)), solution->s2, 
+   forme->applique(tri(dév(f1)),schéma({a×vect(A,B)->image : ?×vect(A,B)})), 
+   format->{point(0,-2),caché,label(forme,centré,14)}, m->tri(dév(gauche(originO(M,q1)))), 
+   ma->coef(vect(M,A),m), mb->coef(vect(M,B),m), gr->calcule(|2×(ma+mb)|), ca->calcule(ma), 
+   cb->calcule(mb), t->calcule(|ca|+|cb|), pA->point(-6,0), pB->point(6,0), 
+   pM->bary(pA,ca,pB,cb), AB->droite(pA,pB), sep->140, 
+   fond->(clip(0,sep,900,500,origine(0,sep),unités(1,1)),{polygone(point(0,0),point(0,500),point(900,500),point(900,0)),caché,remplit(250,240,250)}), 
+   fig0->(fond,clip(0,sep,900,500,recadre(60)),{pA,label(A)},{pB,label(B)},{AB,couleur(rouge),graduations(gr),sepA(t),sepB(t)},{pM,caché}), 
+   figure->joint(fig0,clip(0,0,900,sep),{point(0,2),caché,label(question,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Isoler maintenant le vecteur $vect(A,M)$ pour faire apparaître une égalité¶
+ de vecteurs de la forme : $vect(A,M) = k×vect(A,B)$¶
+ (Ecrire $vect(A,M) = vect(0)$ si k=0)~
+définitions : 
+   s->norm(tri(dév(isol(tri(dév(gauche(s1))),vect(A,M))))), question->s2, solution->s, 
+   format->{point(0,-2),caché,label(vect(A,M)=?×vect(A,B),centré,14)}, 
+   figure->joint(fig0,clip(0,0,900,sep),{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   incomplet->compare(calcule(entrée),s)=0, correct->compare(entrée,s)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Cliquer maintenant sur le point M convenable de la droite (AB)¶
+ dans la figure ci-dessous~
+définitions : 
+   fig0->joint(clip(0,0,900,sep),{point(0,0),caché,label(s,centré,14)},fig0), 
+   figure->joint(fig0,cliquer(1)), solution->{pM,label(M),couleur(bleu)}~
+vérification : 
+   bA->approche((gr×(abs(pB)-abs(entrée)))/(abs(pB)-abs(pA))), bB->gr-bA, yM->ord(entrée), 
+   R->bary(pA,bA,pB,bB), entrée->{R,label(M),couleur(bleu)}, incomplet->compare(pM,R)=0, 
+   correct->compare(pM,R)=0 et calcule(|yM|)<1, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+">
+<PARAM name="Exercice 4" value="
+titre : triangle~
+énoncé :En utilisant la relation de Chasles, compléter la relation vectorielle¶
+ci-dessous avec un point du triangle ABC.~
+définitions : 
+   cliptexte->bandeau, pA->point(0,0), pB->point(6,0), pC->point(2,6), 
+   (a,r,pR)->choix([1,3],2,{pB,pC}), R->tests(B,compare(pR,pC)=0,C), 
+   question->vect(M,N)=vect(M,?)+vect(?,N), solution->vect(M,N)=vect(M,R)+vect(R,N), 
+   format->{point(0,0),caché,label(question,centré,14)}, pM->bary(pR,r,pA,4-r), 
+   pN->bary(pB,a,pC,4-a), sep->200, 
+   fond->(clip(sep,0,500,500,origine(sep,0),unités(1,1)),{polygone(point(0,0),point(0,400),point(500,400),point(500,0)),caché,remplit(250,245,240)}), 
+   fig0->(fond,clip(sep,0,500,500,recadre(20)),{pA,label(A,225),couleur(bleu)},{pB,label(B,0),couleur(bleu)},{pC,label(C,90),couleur(bleu)},{droite(pA,pB),couleur(bleu),graduations(4)},{droite(pA,pC),couleur(bleu),graduations(4)},{droite(pB,pC),couleur(bleu),graduations(4)},{droite(pM,pN),couleur(rouge)},{pM,label(M,90),couleur(rouge)},{pN,label(N,90),couleur(rouge)},clip(0,0,sep,500)), 
+   figure->fig0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : On remplace les vecteurs précédents par des multiples de vecteurs¶
+ utilisant uniquement les points du triangle ABC. Trouver les coefficients¶
+ convenables.~
+définitions : 
+   format->{point(0,-2),caché,label(vect(M,N)=?×vect(A,R)+?×vect(B,C),centré,14)}, 
+   question->solution, m->tests(4-a,compare(R,C)=0,-a), 
+   solution->vect(M,N)=norm(calcule(1-r/4)×vect(A,R)+calcule(m/4)×vect(B,C)), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Utiliser la relation de Chasles avec le vecteur $vect(B,C)$ pour écrire¶
+$vect(M,N)$ dans la base $vect(A,B)$ et $vect(A,C)$~
+définitions : 
+   format->{point(0,-2),caché,label(vect(M,N)=?×vect(A,B)+?×vect(A,C),centré,14)}, 
+   question->solution, kb->tests(calcule(1-r/4-m/4),compare(R,C)=0,calcule(-m/4)), 
+   kc->tests(calcule(m/4),compare(R,C)=0,calcule(1-r/4+m/4)), 
+   solution->vect(M,N)=norm(kb×vect(A,B)+kc×vect(A,C)), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 5" value="
+titre : transversales~
+énoncé : Les points A', B' et C' situés respectivement sur les droites (BC), (CA) et (AB)¶
+ sont définis par les égalités vectorielles ci-dessous. Dans la première égalité,¶
+ mettre l'origine des vecteurs en C' à l'aide de la relation de Chasles et¶
+ écrire $vect(C',A)$ en fonction de $vect(C',B')$ et $vect(C',C)$.~
+définitions : 
+   cliptexte->bandeau, (a,b,c)->choix([1,5],3,non(a=b)), 
+   qA->a×vect(B',A)+c×vect(B',C)=vect(0), qB->b×vect(A',B)+c×vect(A',C)=vect(0), 
+   qC->a×vect(C',A)+(-b)×vect(C',B)=vect(0), question->VBOX(norm(qA),norm(qB),norm(qC)), 
+   pA->point(2,4), pB->point(0,0), pC->point(5,0), pA'->bary(pB',b,pC',c), 
+   pA1->bary(pB,b,pC,c), pB'->bary(pA,a,pC',c), pB1->bary(pA,a,pC,c), pC'->bary(pA,a,pB,-b), 
+   pE->extrema(pA1,pB1,a,b), pF->extrema(pB,pA,a,b), sep->200, 
+   s->isol(tri(dév(originO(C',qA))),vect(C',A)), solution->norm(tri(dév(s))), 
+   q->applique(opérande(solution,2),sgncoefs), 
+   format->{point(0,-3),caché,label(vect(C',A)=q,centré,14)}, 
+   fond->(clip(sep,0,500,500,origine(sep,0),unités(1,1)),{polygone(point(0,0),point(0,400),point(500,400),point(500,0)),caché,remplit(245,250,240)}), 
+   fig0->(fond,clip(sep,0,500,500,recadre(20)),{ligne(pA,pC,pB),couleur(bleu)},{pA,label(A,90)},{pB,label(B,180)},{pC,label(C,0)},{pA1,label(A',320)},{pB1,label(B',90)},{pC',label(C',135)},{droite(pC',pE),couleur(rouge),sepA(0.5),sepB(0.5)},{droite(pF,pC'),couleur(bleu),sepB(0.5)},clip(0,0,sep,500)), 
+   figure->joint(fig0,{point(0,1),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(solution,entrée)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : A l'aide de la seconde égalité, mettre l'origine de chaque vecteur en C' et¶
+               écrire $vect(C',B)$ en fonction de $vect(C',A')$ et $vect(C',C)$.~
+définitions : 
+   s1->solution, question->VBOX(s1,norm(qB),norm(qC)), 
+   format->{point(0,-3),caché,label(vect(C',B)=?×vect(C',A')+?×vect(C',C),centré,14)}, 
+   s2->vect(C',B)=calcule(1+c/b)×vect(C',A')+calcule(-c/b)×vect(C',C), 
+   solution->norm(tri(dév(s2))), 
+   figure->joint(fig0,{point(0,1),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Dans la troisième égalité, remplacer vect(C',A) et vect(C',B) par les¶
+ valeurs obtenues dans les deux premières et montrer que l'on obtient¶
+ une égalité vectorielle montrant que les points A' , B' et C' sont alignés~
+définitions : 
+   s2->solution, 
+   format->{point(0,-3),caché,label(?×vect(C',A')+?×vect(C',B')=vect(0),centré,14)}, 
+   solution->norm(calcule(-b-c)×vect(C',A')+calcule(a+c)×vect(C',B')=vect(0)), 
+   question->VBOX(s1,s2,norm(qC)), 
+   figure->joint(fig0,{point(0,1),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

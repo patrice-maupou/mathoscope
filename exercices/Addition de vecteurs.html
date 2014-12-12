@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<h3>Addition de vecteurs</h3>
+<APPLET code="root.ExpressionApplet.class" width="596" height="457">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/styles.math,
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+coors->coors(P,Noms,Coors)=applique(mappe({compare(P,X)=0 : (X,Y)->Y},Noms,Coors)),
+nom->nom(c,Noms,Coors)=applique(mappe({compare(c,Y)=0 : (X,Y)->X},Noms,Coors)),
+nomvec->nomvec(cs,Noms,Coors,sgn)=applique((n1,n2)->tests((1,2),sgn<0,(2,1)),vec(nom(opérande(cs,n1),Noms,Coors),nom(opérande(cs,n2),Noms,Coors))),
+vecpts->vecpts(v,Coors)=applique((v0,v1)->v,cs0->mappe({calcule(opérande(x,1)+v0,opérande(x,2)+v1)€Coors : x->x},seq(Coors)),cs->tests({cs0},opérande(cs0,1)->seq,ensemble(cs0)),choix(cs,{mappe((x,y)->calcule(x+y),a,v)})),
+transf->transf(coors,u)=applique((x,y)->coors,(a,b,c,d,e,f)->u,point(calcule(a×x+b×y+c),calcule(d×x+e×y+f))),
+norm->schéma({1×vec(A,B)->image : vec(A,B)},{(-1)×vec(A,B)->image : -vec(A,B)},{x+(-1)×vec(A,B)->image : x-vec(A,B)})
+">
+<PARAM name="décorations" value="
+{vec(A,B)->image : ARROW(HBOX(A,B))}
+">
+<PARAM name="Exercice 1" value="
+titre : sommes de vecteurs~
+énoncé :Indiquer le point du dessin qui permet de compléter l'égalité vectorielle ci-dessous¶
+(On peut tirer les vecteurs en rouge vers une autre position avec le bouton gauche)~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(230,240,250)), NS->(A,B,C,D,E,F), 
+   CS->{(0,1),(1,1),(2,1),(2,0),(1,0),(0,0)}, (X,Y,Z)->arrangement(3,{A,B,C,D,E,F}), 
+   (cX,cY,cZ)->mappe(x->coors(x,NS,seq(CS)),(X,Y,Z)), cXY->mappe((a,b)->calcule(b-a),cX,cY), 
+   cYZ->mappe((a,b)->calcule(b-a),cY,cZ), xy->vecpts(cXY,CS), yz->vecpts(cYZ,CS), 
+   XY->nomvec(xy,NS,seq(CS),1), YZ->nomvec(yz,NS,seq(CS),1), u->(6,0,-6,0,6,-3), 
+   pX->{transf(cX,u),couleur(255,0,0)}, (pXY0,pXY1)->mappe(x->transf(x,u),xy), 
+   (pYZ0,pYZ1)->mappe(x->transf(x,u),yz), 
+   pXY1->{pXY1,couleur(rouge),style(flèche(opérande(cXY,1),opérande(cXY,2),rouge))}, 
+   pYZ1->{pYZ1,couleur(rouge),style(flèche(opérande(cYZ,1),opérande(cYZ,2),rouge))}, 
+   pts->mappe((c,l,p)->{transf(c,u),caché,label(l,p,14)},seq(CS),NS,(135,90,45,-45,-90,225)), 
+   (pA,pB,pC,pD,pE,pF)->pts, 
+   figure->(clip(0,70,700,500),polygone(pD,pF,pB,pD,pC,pE,pB,pC),polygone(pB,pA,pE,pF,pA),pX), 
+   interactions->(TRAINER(D0,{droite(pXY0,pXY1),visible,couleur(255,0,0)}),D0->D0,TRAINER(D1,{droite(pYZ0,pYZ1),visible,couleur(255,0,0)}),D1->D1,clip(0,0,700,70)), 
+   solution->vec(X,Z)=XY+YZ, format->{point(0,0),caché,label(vec(X,?)=XY+YZ,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : différences de vecteurs~
+énoncé :Indiquer le point du dessin qui permet de compléter l'égalité vectorielle ci-dessous¶
+ (On peut tirer les vecteurs en rouge vers une autre position)~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(230,240,250)), NS->(A,B,C,D,E,F), 
+   CS->{(0,1),(1,1),(2,1),(2,0),(1,0),(0,0)}, (X,Y,Z)->arrangement(3,{A,B,C,D,E,F}), 
+   (cX,cY,cZ)->mappe(x->coors(x,NS,seq(CS)),(X,Y,Z)), cXY->mappe((a,b)->calcule(b-a),cX,cY), 
+   cYZ->mappe((a,b)->calcule(b-a),cY,cZ), xy->vecpts(cXY,CS), yz->vecpts(cYZ,CS), 
+   XY->nomvec(xy,NS,seq(CS),1), YZ->nomvec(yz,NS,seq(CS),-1), u->(6,0,-6,0,6,-3), 
+   pX->{transf(cX,u),couleur(255,0,0)}, (pXY0,pXY1)->mappe(x->transf(x,u),xy), 
+   (pYZ0,pYZ1)->mappe(x->transf(x,u),yz), 
+   pXY1->{pXY1,couleur(rouge),style(flèche(opérande(cXY,1),opérande(cXY,2),rouge))}, 
+   pYZ1->{pYZ1,couleur(rouge),style(flèche(opérande(cYZ,1),opérande(cYZ,2),rouge))}, 
+   pts->mappe((c,l,p)->{transf(c,u),caché,label(l,p,14)},seq(CS),NS,(135,90,45,-45,-90,225)), 
+   (pA,pB,pC,pD,pE,pF)->pts, 
+   figure->(clip(0,70,700,500),polygone(pD,pF,pB,pD,pC,pE,pB,pC),polygone(pB,pA,pE,pF,pA),pX), 
+   interactions->(TRAINER(D0,{droite(pXY0,pXY1),visible,couleur(255,0,0)}),D0->D0,TRAINER(D1,{droite(pYZ0,pYZ1),visible,couleur(255,0,0)}),D1->D1,clip(0,0,700,70)), 
+   solution->vec(X,Z)=XY-YZ, format->{point(0,0),caché,label(vec(X,?)=XY-YZ,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : sommes et différences~
+énoncé :Même exercice sur un quadrillage hexagonal (attention aux signes)~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(230,240,250)), NS->(O,A,B,C,D,E,F), 
+   CS->{(0,0),(-1,0),(-1,1),(0,1),(1,0),(1,-1),(0,-1)}, 
+   (X,Y,Z)->arrangement(3,{O,A,B,C,D,E,F}), r3->5.19615, (s0,s1)->choix({-1,1},2), 
+   (cX,cY,cZ)->mappe(x->coors(x,NS,seq(CS)),(X,Y,Z)), cXY->mappe((a,b)->calcule(b-a),cX,cY), 
+   cYZ->mappe((a,b)->calcule(b-a),cY,cZ), xy->vecpts(cXY,CS), yz->vecpts(cYZ,CS), 
+   XY->nomvec(xy,NS,seq(CS),s0), YZ->nomvec(yz,NS,seq(CS),s1), u->(6,3,0,0,r3,0), 
+   pX->{transf(cX,u),couleur(255,0,0)}, (pXY0,pXY1)->mappe(x->transf(x,u),xy), 
+   (pYZ0,pYZ1)->mappe(x->transf(x,u),yz), (vxy1,vxy2)->opérande(transf(cXY,u)), 
+   (vyz1,vyz2)->opérande(transf(cYZ,u)), 
+   pXY1->{pXY1,couleur(255,0,0),style(flèche(vxy1,vxy2,(255,0,0)))}, 
+   pYZ1->{pYZ1,couleur(255,0,0),style(flèche(vyz1,vyz2,(255,0,0)))}, 
+   pts->mappe((c,l,p)->{transf(c,u),caché,label(l,p,14)},seq(CS),NS,(225,180,120,60,0,-60,-120)), 
+   (pO,pA,pB,pC,pD,pE,pF)->pts, 
+   figure->(clip(0,70,700,500),ligne(pD,pA,pB,pC,pF,pE,pD,pC),ligne(pA,pF,pE,pB),pO,pX), 
+   interactions->(TRAINER(D0,{droite(pXY0,pXY1),visible,couleur(255,0,0)}),D0->D0,TRAINER(D1,{droite(pYZ0,pYZ1),visible,couleur(255,0,0)}),D1->D1,clip(0,0,700,70)), 
+   V->applique(s0×XY+s1×YZ,norm), solution->vec(X,Z)=V, 
+   format->{point(0,0),caché,label(vec(X,?)=V,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

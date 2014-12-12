@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="604" height="397">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="6">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math,
+definitions/coord.math,
+definitions/grilles.math
+">
+<PARAM name="définitions globales" value="
+bandeau->clip(0,0,700,70),
+décotexte->CADRE(texte,10,10,couleur(230,220,240)),
+clipdraw->(clip(150,0,443,281),grille(point(-12,-8),point(12,8),1,1,cyan),{droite(point(0,0),point(1,0)),couleur(bleu),sepA(12),sepB(11)},{droite(point(0,0),point(0,1)),couleur(bleu),sepA(20),sepB(20)},{point(1,0),style(flèche(1,0,bleu))},{point(0,1),style(flèche(0,1,bleu))}),
+clipdisplay->clip(0,0,150,500),
+gauche->gauche(eq)=applique({u=v->eq : u+(-1)×v=vect(0)}),
+isol->isol(eq,v)=applique(eq,{n×u=w->eq,compare(u,v)=0 : STOP(v=1/n×w)},{a+b=c->eq,compare(b,v)=0 : STOP(v=c+(-1)×a)},{a+n×b=c->eq,compare(b,v)=0 : STOP(v=1/n×c+(-1/n)×a)},{a+b=c->eq : STOP(isol(a=(-1)×b+c,v))}),
+flèche->flèche(a,b,c)=applique(d->(2×a^2+2×b^2)^(1/2)/5,m->(b-a)/d,n->(b+a)/d,{ligne(point(-n,m),point(0,0),point(m,n)),couleur(c)}),
+coefprop->coefprop(c,a,b)=applique({a=b : STOP(a)},calcule((c-a)/(b-a))),
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+perp->perp(a,b)=applique(approche((angle(a,b)×180)/PI+90,-2))
+">
+<PARAM name="décorations" value="
+{vect(u)->image : ARROW(HBOX(u))},
+{vect(A,B)->image : ARROW(HBOX(A,B))}
+">
+<PARAM name="Exercice 1" value="
+titre : lire les coordonnées~
+énoncé : Ecrire les coordonnées du vecteur $vect(u)$ représenté en rouge~
+définitions : 
+   (xa,ya,xb,yb)->choix([-6,6],[-4,4],[-6,6],[-4,4],non((a-c)^2+(b-d)^2=0)), 
+   texte->décotexte, solution->HBOX(vect(u),BBOX(VBOX(calcule(xb-xa),calcule(yb-ya)))), 
+   s->solution, TOTAL->10, 
+   format->{point(0,0),caché,label(HBOX(vect(u),BLOC(BBOX(VBOX(?,?)))),centré,14)}, 
+   cliptexte->bandeau, 
+   figure->(clipdraw,{droite(point(xa,ya),point(xb,yb)),couleur(rouge)},{point(xb,yb),couleur(rouge),style(flèche(xb-xa,yb-ya,rouge))},clipdisplay)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : conditions vectorielles~
+énoncé :  Ecrire les coordonnées du point D~
+définitions : 
+   (xa,ya,xb,yb,xc,yc)->choix([-6,6],[-4,4],[-6,6],[-4,4],[-6,6],[-4,4]), 
+   cliptexte->bandeau, texte->décotexte, xd->calcule((xc+xb)-xa), yd->calcule((yc+yb)-ya), 
+   pA->point(xa,ya), pB->point(xb,yb), pC->point(xc,yc), pD->point(xd,yd), 
+   question->vect(A,B)=vect(C,D), 
+   format->{point(0,-2),caché,label(HBOX(D,BBOX((?,?))),centré,14)}, TOTAL->10, 
+   figure->(clipdraw,{droite(pA,pB),couleur(rouge)},{pB,couleur(rouge),style(flèche(xb-xa,yb-ya,rouge))},{pC,couleur(rouge),label(C)},{pA,caché,label(A)},{pB,caché,label(B)},clipdisplay,{point(0,2),caché,label(vect(A,B)=vect(C,D),centré,14)}), 
+   s->(xd,yd), solution->HBOX(D,BBOX(s))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : vecteurs colinéaires~
+énoncé :Trouver le coefficient x tel que l'égalité vectorielle soit vérifiée.¶
+  (Utiliser le quadrillage et le théorème de Thalès)~
+définitions : 
+   texte->décotexte, cliptexte->bandeau, 
+   (xa,ya,xb,yb)->choix([-6,6],[-4,4],[-6,6],[-4,4],(a-c)^2+(b-d)^2>10,non(b=d),non(a=c)), 
+   question->vect(A,C)=x×vect(A,B), xA->min(xa,xb), xB->max(xa,xb), yA->min(ya,yb), 
+   yB->max(ya,yb), (xc,yc)->choix([xA+1,xB-1],[yA+1,yB-1]), TOTAL->10, 
+   xk->coefprop(xc,xA,xB), yk->coefprop(yc,yA,yB), k->min(calcule(xk),calcule(yk)), 
+   solution->x=k, format->{point(0,-2),caché,label(x=?,centré,14)}, 
+   xC->calcule(k×(xb-xa)+xa), yC->calcule(k×(yb-ya)+ya), pC->point(xC,yC), 
+   fig0->(clipdraw,{droite(point(xa,ya),point(xb,yb)),couleur(rouge)},{point(xa,ya),couleur(rouge),label(A)},{point(xb,yb),couleur(rouge),label(B)},{pC,couleur(rouge),label(C)},clipdisplay), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé :Trouver les coordonnées des vecteurs $vect(A,B)$ et $vect(A,C)~
+définitions : 
+   question->vect(A,C)=k×vect(A,B), texte->décotexte, 
+   (xAB,yAB)->(calcule(xb-xa),calcule(yb-ya)), (xAC,yAC)->(calcule(k×xAB),calcule(k×yAB)), 
+   solution->(HBOX(vect(A,B),BBOX(VBOX(xAB,yAB))),HBOX(vect(A,C),BBOX(VBOX(xAC,yAC)))), 
+   format->({point(0,0),caché,label(HBOX(vect(A,B),BLOC(BBOX(VBOX(?,?)))),centré,14)},{point(0,-3),caché,label(HBOX(vect(A,C),BLOC(BBOX(VBOX(?,?)))),centré,14)}), 
+   figure->joint(fig0,{point(0,3),caché,label(question,centré,14)})~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, texte->décotexte, réponse->FIN~
+énoncé : En déduire les coordonnées du point C à l'aide de la relation de Chasles :¶
+	$vect(O,C)=vect(O,A)+vect(A,C)$~
+définitions : 
+   question->HBOX(vect(A,C),BBOX(VBOX(xAC,yAC))), texte->décotexte, 
+   solution->HBOX(C,BBOX((xC,yC))), 
+   format->{point(0,-2),caché,label(HBOX(C,BBOX((?,?))),centré,14)}, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 4" value="
+titre : combinaisons linéaires~
+énoncé : Ecrire les coordonnées du vecteur indiqué à gauche en lisant¶
+ sur la figure les coordonnées des vecteurs $vect(u)$ et $vect(v)$~
+définitions : 
+   texte->décotexte, cliptexte->bandeau, 
+   (xu,yu,xv,yv)->choix([-4,4],[-4,4],[-4,4],[-4,4],a^2+b^2>0,c^2+d^2>0), 
+   (xa,ya,xb,yb)->choix([-6,-2],[-1,1],[2,6],[-1,1]), 
+   (a0,a1,b0,b1)->choix({-3,-2,-1,1,2,3},4), 
+   q->calcule(a0/a1)×vect(u)+calcule(b0/b1)×vect(v), Pu->point(xa+xu/2,ya+yu/2), 
+   Pv->point(xb+xv/2,yb+yv/2), question->vect(w)=norm(q), 
+   format->{point(0,-2),caché,label(HBOX(vect(w),BBOX((?,?))),centré,14)}, 
+   s->(calcule(a0/a1×xu+b0/b1×xv),calcule(a0/a1×yu+b0/b1×yv)), TOTAL->10, 
+   solution->HBOX(vect(w),BBOX(s)), 
+   fig0->joint({droite(point(xa,ya),point(xa+xu,ya+yu)),couleur(rouge)},{point(xa+xu,ya+yu),couleur(rouge),style(flèche(xu,yu,rouge))},{Pu,caché,label(vect(u),perp(xu,yu)),couleur(rouge)},{droite(point(xb,yb),point(xb+xv,yb+yv)),couleur(rouge)},{point(xb+xv,yb+yv),couleur(rouge),style(flèche(xv,yv,rouge))},{Pv,caché,label(vect(v),perp(xv,yv)),couleur(rouge)},clipdisplay), 
+   figure->joint(clipdraw,fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 5" value="
+titre : equations d'une droite~
+énoncé : Ecrire les coordonnées des vecteurs dans le repère bleu~
+définitions : 
+   texte->décotexte, cliptexte->bandeau, (xa,ya,xb,yb)->choix([-6,-3],[-4,4],[3,6],[-4,4]), 
+   xc->choix([xa+2,xb-2],a->décimal(1),a^2>1), (a,b)->calcule(yb-ya,xb-xa), 
+   format->({point(0,4),caché,label(HBOX(vect(A,B),BBOX(VBOX(?,?))),centré,14)},{point(0,1),caché,label(HBOX(vect(A,M),BBOX(VBOX(?,?))),centré,14)}), 
+   vAB->HBOX(vect(A,B),BBOX(VBOX(b,a))), 
+   vAM->HBOX(vect(A,M),BBOX(VBOX(norm(x-xa),norm(y-ya)))), solution->(vAB,vAM), 
+   k->coefprop(xc,xa,xb), yc->calcule(k×a+ya), pC->point(xc,yc), xC->point(xc,0), 
+   yC->point(0,yc), ax->tests(90,yc>0,-90), ay->tests(0,xc>0,180), sep->150, 
+   fig0->(clipdraw,{droite(point(xa,ya),point(xb,yb)),sepA(5),sepB(5),couleur(rouge)},{point(xa,ya),couleur(rouge),label(A)},{point(xb,yb),couleur(rouge),label(B)},{pC,couleur(rouge),label(M)},{ligne(xC,pC,yC),couleur(vert)},{point(xc,0),caché,label(x,ax,10)},{point(0,yc),caché,label(y,ay,10)},clipdisplay), 
+   figure->fig0, demo->entrées=0~
+vérification : 
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : Ecrire la condition de colinéarité entre les coordonnées de ces vecteurs¶
+ (placer la variable x à gauche du signe égal et la variable y à droite)~
+définitions : 
+   texte->décotexte, 
+   figure->joint(fig0,{point(0,4),caché,label(vAB,centré,14)},{point(0,1),caché,label(vAM,centré,14)}), 
+   format->{point(0,-3),caché,label(?=?,centré,14)}, solution->norm(a×(x-xa))=norm(b×(y-ya))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : Simplifier la relation obtenue entre x et y pour obtenir l'équation réduite de la droite sous¶
+ l'une des formes :  y = a×x +b , x = b~
+définitions : 
+   texte->décotexte, figure->joint(fig0,{point(0,2),caché,label(solution,centré,14)}), 
+   format->{point(0,-2),caché,label(?=?,centré,14)}, c->b×ya-a×xa, m->calcule(a/b), 
+   p->calcule(c/b), solution->y=norm(m×x+p)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 6" value="
+titre : parallèles~
+énoncé : On cherche l'équation de la droite parallèle à (AB) passant par le point C.¶
+  Ecrire les coordonnées des vecteurs ci-dessous.~
+définitions : 
+   (xa,ya,xb,yb,xc,yc)->choix([-6,-3],[-4,4],[3,6],[-4,4],[-6,6],[-4,4]), 
+   k->choix([0.5,1],a->décimal(1)), (a,b)->calcule(yb-ya,xb-xa), xd->calcule(xc+b), 
+   yd->calcule(yc+a), texte->décotexte, 
+   format->({point(0,4),caché,label(HBOX(vect(A,B),BBOX(VBOX(?,?))),centré,14)},{point(0,1),caché,label(HBOX(vect(C,M),BBOX(VBOX(?,?))),centré,14)}), 
+   cliptexte->bandeau, vAB->HBOX(vect(A,B),BBOX(VBOX(b,a))), 
+   vCM->HBOX(vect(C,M),BBOX(VBOX(norm(x-xc),norm(y-yc)))), solution->(vAB,vCM), 
+   am->tests(k,xc>0,-k), xm->calcule(am×b+xc), ym->calcule(am×a+yc), pM->point(xm,ym), 
+   xM->point(xm,0), yM->point(0,ym), ax->tests(90,ym>0,-90), ay->tests(0,xm>0,180), 
+   sep->150, 
+   fig0->(clipdraw,{droite(point(xa,ya),point(xb,yb)),sepA(5),sepB(5),couleur(rouge)},{droite(point(xc,yc),pM),sepA(5),sepB(5),couleur(rouge)},{point(xa,ya),couleur(rouge),label(A)},{point(xb,yb),couleur(rouge),label(B)},{point(xc,yc),couleur(rouge),label(C)},{pM,couleur(rouge),label(M)},{ligne(xM,pM,yM),couleur(vert)},{point(xm,0),caché,label(x,ax,10)},{point(0,ym),caché,label(y,ay,10)},clipdisplay), 
+   figure->fig0, demo->entrées=0~
+vérification : 
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : Ecrire la condition de colinéarité entre les coordonnées de ces vecteurs¶
+ (placer la variable x à gauche du signe égal et la variable y à droite)~
+définitions : 
+   texte->décotexte, 
+   figure->joint(fig0,{point(0,4),caché,label(vAB,centré,14)},{point(0,1),caché,label(vCM,centré,14)}), 
+   format->{point(0,-3),caché,label(?=?,centré,14)}, solution->norm(a×(x-xc))=norm(b×(y-yc))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : Simplifier la relation obtenue entre x et y pour obtenir l'équation réduite de la droite sous¶
+ l'une des formes :  y = a×x +b , x = b~
+définitions : 
+   texte->décotexte, figure->joint(fig0,{point(0,2),caché,label(solution,centré,14)}), 
+   format->{point(0,-2),caché,label(?=?,centré,14)}, c->b×yc-a×xc, m->calcule(a/b), 
+   p->calcule(c/b), solution->y=norm(m×x+p)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<definitions>
+DNorm->DNorm(x,m,s)=applique(t->-((x-m)/s)^2,approche(exp(t)/rac(2×PI),-8)),
+regroupe->regroupe(n,cls,dt,seuil)=applique((a0,b0)->opérande(dt,[n-1,n]),(a1,b1)->opérande(cls,[n-1,n]),t->[opérande(a1,1),opérande(b1,2)[,s->calcule(a0+b0),(c,d)->tests(((a1,b1),(a0,b0)),s<seuil,(t,s)),{n=2 : STOP(joint(c,opérande(cls,[3,-1])),joint(d,opérande(dt,[3,-1])))},{n=card(dt) : STOP(regroupe(n-1,joint(opérande(cls,[1,n-2]),c),joint(opérande(dt,[1,n-2]),d),seuil))},regroupe(n-1,joint(opérande(cls,[1,n-2]),c,opérande(cls,[n+1,-1])),joint(opérande(dt,[1,n-2]),d,opérande(dt,[n+1,-1])),seuil)),
+table->table(c1,c2,x,y,w,h)=applique(rows->card(c1),v->mappe(n->droite(point(calcule(x+n×w),y),point(calcule(x+n×w),calcule(y+rows×h))),seq([0,2])),horz->mappe(n->droite(point(x,calcule(y+n×h)),point(calcule(x+2×w),calcule(y+n×h))),seq([0,rows])),x0->x+w/2,d1->mappe((x,n)->{point(x0,(y+n×h)-h/2),caché,label(x,centré,14)},c1,seq([1,rows])),d2->mappe((x,n)->{point(x0+w,(y+n×h)-h/2),caché,label(x,centré,14)},c2,seq([1,rows])),joint(horz,v,d1,d2))
+</definitions>
+<commentaires>
+DNorm->``
+</commentaires>
+<history>
+regroupe(7,([1,2[,[2,3[,[3,4[,[4,5[,[5,6[,[6,7[,[7,8[),(1,2,3,4,5,2,3),6),
+regroupe(7,c,(1,2,3,4,5,2,3),6),
+regroupe(7,c,(1,2,3,4,5,6,7),6),
+regroupe(3,c,(1,2,3,4,5,6,7),6),
+regroupe(2,c,(1,2,3,4,5,6,7),6),
+regroupe(7,c,(1,2,3,4,5,6,7),6),
+regroupe(5,c,(1,2,3,4,5,6,7),6),
+regroupe(3,c,(1,2,3,4,5,6,7),6),
+regroupe(c,((1,4,1,7,8),(5,Ø)),6),
+regroupe(c,((1,1,2,4),Ø),6),
+regroupe(c,((1,1,2,3),Ø),6),
+regroupe(c,((1,1,1,2,3),Ø),6),
+regroupe(c,((1,4,1,7,8,2,3),Ø),6),
+regroupe(c,((1,4,2,7,8,2,3),Ø),6),
+regroupe(c,((1,2,7,8,3,2),Ø),2),
+</history>

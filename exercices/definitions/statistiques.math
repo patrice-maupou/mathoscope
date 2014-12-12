@@ -1,0 +1,37 @@
+<definitions>
+DNorm->DNorm(x,m,s)=applique(t->-((x-m)/s)^2,approche(exp(t)/rac(2×PI),-8)),
+aléa->aléa(x,y)=applique(choix([x,y],a->décimal(18))),
+AleaNorm->AleaNorm(m,s)=applique(x1->-aléa(-1/2,0),x2->aléa(-1/2,0),approche(m+s×rac(-2×ln(x1))×cos(2×PI×x2),-8)),
+cumul->cumul(data)=applique({card(data)=1 : STOP(data)},(d0,d1)->sépare(data,-1),{card(d1)=1 : STOP(joint(d0,calcule(d0+d1)))},(d2,d3)->sépare(d1,-1),joint(d0,cumul(joint(calcule(d0+d2),d3)))),
+regroupe->regroupe(n,tableau,seuil)=applique((cls,dt)->tableau,(d0,d1)->opérande(dt,[n-1,n]),(c0,c1)->opérande(cls,[n-1,n]),s->calcule(d0+d1),(d,c)->tests(((d0,d1),(c0,c1)),s<seuil ou d0=0 ou d1=0,(s,[opérande(c0,1),opérande(c1,2)[)),{n=2 : STOP(joint(c,opérande(cls,[3,-1])),joint(d,opérande(dt,[3,-1])))},{n=card(dt) : STOP(joint(opérande(cls,[1,n-2]),c),joint(opérande(dt,[1,n-2]),d))},(joint(opérande(cls,[1,n-2]),c,opérande(cls,[n+1,-1])),joint(opérande(dt,[1,n-2]),d,opérande(dt,[n+1,-1])))),
+bar->bar(cls,nb,org,unit,c,f)=applique((c0,c1)->(calcule(opérande(cls,1)-org),calcule(opérande(cls,2)-org)),h->calcule((nb×unit)/(c1-c0)),{polygone(point(c0,0),point(c0,h),point(c1,h),point(c1,0)),couleur(c),remplit(f)}),
+histog->histog(cls,dt,org,unit,c,f)=applique(mappe((x,y)->bar(x,y,org,unit,c,f),cls,dt)),
+ptpoly->ptpoly(cls,nb,org,unit)=applique(point(calcule((opérande(cls,1)+opérande(cls,2))/2-org),calcule((nb×unit)/(opérande(cls,2)-opérande(cls,1))))),
+class->class(x,cls,dt)=applique(mappe({opérande(c,1)<a et a<opérande(c,2) : (a,c,d)->(c,d)},x,cls,dt)),
+table->table(cols,x,y,w,h)=applique(c1->opérande(cols,1),(rows,ncols)->tests((card(cols),1),c1->seq,(card(c1),card(cols))),ws->mappe((x,n)->x,w,seq([1,ncols])),cw->cumul(ws),lv->mappe(w->droite(point(calcule(x+w),y),point(calcule(x+w),calcule(y+rows×h))),joint(0,cw)),lh->mappe(n->droite(point(x,calcule(y+n×h)),point(calcule(x+opérande(cw,ncols)),calcule(y+n×h))),seq([0,rows])),txt->joint(mappe({non(compare(d,Ø)=0) : (d,t,s)->colonne(d,(x+t)-s/2,y,h)},cols,cw,ws)),joint(lv,lh,txt)),
+colonne->colonne(data,x0,y0,h)=applique(mappe((x,n)->{point(x0,calcule((y0+n×h)-h/2)),caché,label(x,centré,14)},data,seq([1,card(data)]))),
+figure->(clip(0,0,800,800,unités(20,20)),table(((1,2,3,4),(4,5,6,7),(7,8,9,10)),-5,-2,3,2))
+</definitions>
+<commentaires>
+tiret->` Définit la manière de marquer un point, à utiliser avec l'option style :¶ trace un petit trait de couleur c et de direction perpendiculaire au vecteur (a,b)¶ Exemple : figure->{point(2,1),style(tiret(2,1,(255,0,0))}`,
+flèche->``
+</commentaires>
+<history>
+AleaNorm(0,1),
+figure,
+cumul(2,1,3,4),
+cumul(1),
+cumul(1,2,3),
+figure->(clip(0,0,800,800,unités(20,20)),table(((1,2,3,4),(4,5,6,7),(7,8,9,10)),-5,-2,4,2)),
+table(((1,2,3),Ø,(7,8,9)),-5,-2,4,2),
+figure,
+colonne((7,8,9),-3,-2,2),
+table(((1,2,3),(4,5,6),(7,8,9)),-5,-2,4,2),
+AleaNorm(0,1),
+aléa(-1/2,0),
+aléa(-1/2,0),
+aléa(-1/2,0),
+aléa(-1/2,0),
+aléa(-1/2,0),
+aléa(-1/2,0)
+</history>

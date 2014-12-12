@@ -1,0 +1,30 @@
+# definition of tokens
+TOKEN:integer:(["0"-"9"]+ | ["i"-"r"])
+TOKEN:float:(["0"-"9"]+"."["0"-"9"]+ | ["a"-"h"] | ["t"-"z"])
+TOKEN:binaryOp:("PLUS" | "MOINS" | "MUL" | "DIV" | "POW" )
+TOKEN:binaryLogOp:("OU" | "ET" | "DONC")
+TOKEN:comparator:("INF" | "INFEG" | "SUP" | "SUPE")
+TOKEN:unaryOp:("ABS" | "SQR")
+TOKEN:unaryLOgOp:("NOT")
+TOKEN:intervals:("IF" | "IO" | "IFO" | "IOF")
+TOKEN:separator:(",")
+
+# definition of grammar
+S = sequence;
+sequence = (expression)*;
+expression = (number | set | relationNum);
+number = (<integer> | <float> | <binaryOp> "(" number "," number ")" | <unaryOp> "(" number ")");
+set = ("SET(" sequence ")" | <intervals> "(" number "," number ")" );
+relationNum = (<comparator> "(" number "," number ")");
+
+# traductions
+# number:("a" | "b")
+# "a+b" = "PLUS(a,b)";
+# "a-b" = "MOINS(a,b)";
+# "a*b" = "MUL(a,b)";
+# "a/b" = "DIV(a,b)";
+# "|a|" = "ABS(a)";
+# "[a,b]" = "IF(a,b)"
+# "]a,b[" = "IO(a,b)"
+# "[a,b[" = "IFO(a,b)"
+# "]a,b]" = "IOF(a,b)"

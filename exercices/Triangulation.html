@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="627" height="414">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+droit->droit(a,b,l,c)=applique(d->(a^2+b^2)^(1/2)/l,{ligne(point(a/d,b/d),point((a+b)/d,(b-a)/d),point(b/d,-a/d)),couleur(c)})
+">
+<PARAM name="décorations" value="
+{angle(A,B,C)->image : STOP(DECO(NORD,HBOX(A,B,C),hat,6))},
+hat->ligne(point(0,60),point(30,0),point(60,60)),
+{cos(a)->image : cos(a)},
+{sin(a)->image : sin(a)},
+{tan(a)->image : tan(a)}
+">
+<PARAM name="Exercice 1" value="
+titre : distances~
+énoncé :Le triangle ABC est rectangle en B. Si on donne un des côtés du triangle ABC ¶
+et l'angle $angle(B,A,C)$ , on peut calculer les autres côtés à l'aide des formules : ¶
+$cos(angle(B,A,C))=AB/AC$ , $sin(angle(B,A,C))=BC/AC$ , $tan(angle(B,A,C))=BC/AB$~
+définitions : 
+   cliptexte->clip(0,0,800,100,couleur(vertpale)), (u,x,t)->choix([30,70],[3,12],[1,3]), 
+   i->VBOX(angle(B,A,C)=u,tests(AB=x,t=2,BC=x,t=3,AC=x)), question->VLBOX(`on donne :`,i), 
+   f->tests((BC=?,AC=?),t=2,(AB=?,AC=?),t=3,(AB=?,BC=?)), 
+   s->tests((BC=x×tan(m),AC=x/cos(m)),t=2,(AB=x/tan(m),AC=x/sin(m)),t=3,(AB=x×cos(m),BC=x×sin(m))), 
+   solution->applique(s,m->u), 
+   format->({point(0,-2),caché,label(opérande(f,1),centré,14)},{point(0,-4),caché,label(opérande(f,2),centré,14)}), 
+   pA->{point(-3,-3),caché,label(A,225,14)}, 
+   pB->{point(4,-3),style(droit(0,-1,10,bleu)),label(B,-45,14)}, 
+   pC->{point(4,2),caché,label(C,45,14)}, 
+   fig0->(clip(200,0,500,500,couleur(bleupale)),pA,pB,pC,{polygone(pA,pB,pC),couleur(bleu)},clip(0,0,200,500)), 
+   figure->(fig0,{point(0,3),caché,label(question,centré,14)},{point(0,0),caché,label(`on calcule :`,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Donner une valeur approchée des côtés à 1/10 près~
+définitions : 
+   figure->(fig0,{point(0,2),caché,label(VBOX(solution),centré,14)}), 
+   format->({point(0,-2),caché,label(opérande(f,1),centré,14)},{point(0,-4),caché,label(opérande(f,2),centré,14)}), 
+   s->applique(s,m->(u×PI)/180), 
+   solution->mappe(x->opérande(x,1)=approche(opérande(x,2),-1),s)~
+vérification : 
+   e->opérande(entrée,1)=approche(opérande(entrée,2),-1), R->joint(réponse,e), 
+   correct->compare(R,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : angles~
+énoncé :Indiquer la formule de trigonométrie (cos, sin, tan) permettant de calculer l'angle $angle(B,A,C)$ à l'aide¶
+de deux côtés de l'angle droit (cliquer sur le bouton droit pour obtenir angles et fonctions)~
+définitions : 
+   cliptexte->clip(0,0,700,80,couleur(bleupale)), (x,y,t)->choix([3,12],2,[1,3],a+4<b), 
+   i->tests(VBOX(AB=x,BC=y),t=2,VBOX(BC=x,AC=y),t=3,VBOX(AB=x,AC=y)), 
+   question->VLBOX(`on donne :`,i), 
+   solution->tests(tan(angle(B,A,C))=calcule(y/x),t=2,sin(angle(B,A,C))=calcule(x/y),t=3,cos(angle(B,A,C))=calcule(x/y)), 
+   pA->{point(-3,-3),caché,label(A,225,14)}, 
+   pB->{point(4,-3),style(droit(0,-1,10,bleu)),label(B,-45,14)}, 
+   pC->{point(4,2),caché,label(C,45,14)}, format->{point(0,-2),caché,label(?,centré,14)}, 
+   fig0->(clip(200,0,500,500,couleur(bleupale)),pA,pB,pC,{polygone(pA,pB,pC),couleur(bleu)},clip(0,0,200,500)), 
+   figure->(fig0,{point(0,3),caché,label(question,centré,14)},{point(0,0),caché,label(`on calcule :`,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   correct->compare(mappe(calcule,opérande(entrée)),mappe(calcule,opérande(solution)))=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Avec une calculatrice scientifique, utiliser les touches des fonctions trigonométriques¶
+inverses pour donner l'angle en degrés à un degré près.~
+définitions : 
+   format->{point(0,-2),caché,label(angle(B,A,C)=?,centré,14)}, 
+   figure->(fig0,{point(0,2),caché,label(solution,centré,14)}), 
+   s->tests(approche((angle(x,y)×180)/PI),t=2,approche((angle(rac(y^2-x^2),x)×180)/PI),t=3,approche((angle(x,rac(y^2-x^2))×180)/PI)), 
+   solution->angle(B,A,C)=s~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : avec deux triangles~
+énoncé :Utiliser les formules de trigonométrie pour calculer à 1/10 près les distances demandées~
+définitions : 
+   (ab,a0,a1,t)->choix([3,12],[10,40],2,[1,3],a->décimal(1)), a->calcule(a0+a1), 
+   bd->approche(ab×tan((a0×PI)/180),-1), bc->approche(ab×tan((a×PI)/180),-1), 
+   cd->approche(bc-bd,-1), ac->approche(ab/cos((a×PI)/180),-1), 
+   ad->approche(ab/cos((a0×PI)/180),-1), cliptexte->clip(0,0,700,80,couleur(bleupale)), 
+   (d0,d1,s0)->arrangement(3,{angle(B,A,D)=a0,angle(D,A,C)=a1,angle(B,A,C)=a}), 
+   (l,s1,s2,s3)->arrangement(4,{AB=ab,BD=bd,BC=bc,AC=ac}), 
+   question->VLBOX(`on donne :`,VBOX(d0,d1,l)), pA->{point(-3,-3),caché,label(A,225,14)}, 
+   pB->{point(4,-3),style(droit(0,-1,10,bleu)),label(B,-45,14)}, 
+   pC->{point(4,2),caché,label(C,45,14)}, 
+   format->mappe((t,y)->{point(0,y),caché,label(opérande(t,1)=?,centré,14)},(s0,s1,s2,s3),(-2,-3,-4,-5)), 
+   solution->(s0,s1,s2,s3), pD->{point(4,0),caché,label(D,10,14)}, 
+   fig0->(clip(200,0,500,500,couleur(bleupale)),pA,pB,pC,pD,{polygone(pA,pB,pC),couleur(bleu)},{droite(pA,pD),couleur(bleu)},clip(0,0,200,500)), 
+   figure->(fig0,{point(0,4),caché,label(question,centré,14)},{point(0,0),caché,label(`on calcule :`,centré,14)}), 
+   demo->entrées=0~
+vérification : 
+   e->opérande(entrée,1)=approche(opérande(entrée,2),-1), R->joint(réponse,e), 
+   correct->compare(R,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

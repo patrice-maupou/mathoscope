@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="528" height="394">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="2">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math
+">
+<PARAM name="définitions globales" value="
+angle->angle(xa,ya,xb,yb)=applique(A->approche(180/PI×angle(xa,xb),-8),B->approche(180/PI×angle(ya,yb),-8),approche(A-B)),
+carré->carré(x)=applique(x^2,{rac(a)->x,a>0 : STOP(a)},{rac(a)->x,a<0 : STOP(calcule(-a))},{b×rac(a)->x : STOP(calcule(b^2×carré(rac(a))))}),
+simpl_rac->simpl_rac(x,prms)=applique(rac(x),p->sépare(prms,1),{compare(p,prms)=0,x=p^2 : STOP(p)},{compare(p,prms)=0,d->calcule(p^2),d×c+0->euclide(x,d) : p×simpl_rac(c,prms)},{(p1,b)->p,x=b^2 : STOP(b)},{(p1,b)->p : simpl_rac(x,p1)},{(p1,b)->p,d->calcule(b^2),d×c+0->euclide(x,d) : b×simpl_rac(c,p1)},{a×(b×rac(c))->image : STOP(calcule(a×b)×rac(c))},{a×b->image,b->entier : STOP(calcule(a×b))}),
+P->(2,3,5,7),
+BON->` Bonne réponse ! (appuyer sur entrée)`,
+DETAIL->` Indication supplémentaire (appuyer sur entrée)`,
+affiche->affiche(expr,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(0,0),caché,label(expr,centré,14)})),
+droit->droit(a,b,l,c)=applique(d->(a^2+b^2)^(1/2)/l,{ligne(point(a/d,b/d),point((a+b)/d,(b-a)/d),point(b/d,-a/d)),couleur(c)})
+">
+<PARAM name="Exercice 1" value="
+titre : application directe~
+énoncé : Théorème de Pythagore : ¶
+  un triangle ABC est rectangle en A si et seulement si $BC^2=AB^2+AC^2$.¶
+  Donc, si le triangle ABC est rectangle en A et si on connait les longueurs de deux côtés, ¶
+  on peut calculer la longueur du dernier côté.~
+définitions : 
+   cliptexte->clip(0,0,700,90,couleur(220,230,250)), 
+   (b2,c2,type)->choix([4,64],2,{0,1,2}), a2->calcule(b2+c2), 
+   (a1,b1,c1)->mappe(x->simpl_rac(x,(2,3,5,7)),(a2,b2,c2)), 
+   (a,b,c)->calcule(rac(a2),rac(b2),rac(c2)), 
+   q->tests(VBOX(AB=c1,AC=b1),type=1,VBOX(BC=a1,AC=b1),type=2,VBOX(AB=c1,BC=a1)), 
+   question->VBOX(q,BC^2=AB^2+AC^2), sep->230, 
+   pA->{point(0,0),label(A,225,14),style(droit(1,0,5,bleu))}, 
+   pB->{point(approche(c,-2),0),caché,label(B,-45,14)}, 
+   pC->{point(0,approche(b,-2)),caché,label(C,90,14)}, 
+   fond->(clip(sep,0,600,500,recadre(20),couleur(bleupale)),pA,pB,pC,{polygone(pA,pB,pC),couleur(bleu)},clip(0,0,sep,500)), 
+   figure->joint(fond,{point(0,0),caché,label(question,centré,14)}), 
+   format->tests(BC^2=c1^2+b1^2,type=1,a1^2=AB^2+b1^2,type=2,a1^2=c1^2+AC^2), 
+   solution->format~
+énoncé : On effectue les calculs de carrés~
+définitions : 
+   figure->joint(affiche(solution,0,0,sep,500),fond), 
+   solution->tests(BC^2=c2+b2,type=1,a2=AB^2+b2,type=2,a2=c2+AC^2), format->solution~
+énoncé : Enfin on en déduit la longueur manquante, en simplifiant¶
+ si possible la racine carrée~
+définitions : 
+   a3->simpl_rac(calcule(b2+c2),prems), b3->simpl_rac(calcule(a2-c2),prems), 
+   c3->simpl_rac(calcule(a2-b2),prems), s->solution, 
+   solution->tests(BC=a3,type=1,AB=c3,type=2,AC=b3), format->solution, 
+   figure->joint(affiche(VBOX(s,solution),0,0,sep,500),fond)~
+énoncé : Le triangle ABC est rectangle en A. Ecrire la relation¶
+ $BC^2 = AB^2+AC^2$ en remplaçant les distances connues¶
+ Exemple : si $AB=3$ , $BC=rac(52)$ on écrira $52=9+AC^2$~
+définitions : 
+   (b2,c2,type)->choix([4,64],2,{0,1,2}), a2->calcule(b2+c2), P->(2,3,5,7),
+   {a1,b1,c1}->{simpl_rac(a2,P),simpl_rac(b2,P),simpl_rac(c2,P)}, 
+   (a,b,c)->calcule(rac(a2),rac(b2),rac(c2)), 
+   q->tests(VBOX(AB=c1,AC=b1),type=1,VBOX(BC=a1,AC=b1),type=2,VBOX(AB=c1,BC=a1)), sep->230, 
+   pA->{point(0,0),label(A,225,14),style(droit(1,0,5,bleu))}, 
+   format->{point(0,-2),caché,label(?=?,centré,14)}, 
+   pB->{point(approche(c,-2),0),caché,label(B,-45,14)}, 
+   pC->{point(0,approche(b,-2)),caché,label(C,90,14)}, 
+   fig0->(clip(sep,0,600,500,recadre(20),couleur(bleupale)),pA,pB,pC,{polygone(pA,pB,pC),couleur(bleu)},clip(0,0,sep,600)), 
+   figure->joint(fig0,affiche(q,0,2,sep,500)), 
+   solution->tests(BC^2=c2+b2,type=1,a2=AB^2+b2,type=2,a2=c2+AC^2), 
+   suivant->calcule(partie+1)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En déduire la valeur exacte et simplifiée de la dernière longueur~
+définitions : 
+   a3->simpl_rac(calcule(b2+c2),P), suivant->3, b3->simpl_rac(calcule(a2-c2),P), 
+   figure->joint(fig0,affiche(solution,0,2,sep,500)), c3->simpl_rac(calcule(a2-b2),P), 
+   solution->tests(BC=a3,type=1,AB=c3,type=2,AC=b3), 
+   forme->tests(BC=?,type=1,AB=?,type=2,AC=?), 
+   format->{point(0,-2),caché,label(forme,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : carrés~
+énoncé : ABCD est un carré de côté 4. Les points E, F, G et H sont les intersections¶
+ des arcs de cercle de centres A, B, C et D de rayon 4. Le but est de calculer¶
+ l'aire du carré EFGH.¶
+ Observer le dessin. Quelle est la distance ED ?~
+définitions : 
+   question->AB=4, solution->ED=4, format->{point(0,-2),caché,label(ED=?,centré,14)}, 
+   suivant->1, s->0, pA->{point(-4,4),caché,label(A,135,12)}, 
+   pB->{point(4,4),caché,label(B,45,12)}, pC->{point(4,-4),caché,label(C,-45,12)}, 
+   pD->{point(-4,-4),caché,label(D,-135,12)}, pI->point(0,-4), ei->4×rac(3), d->4×rac(3)-4, 
+   d1->approche(d,-4), pE->point(0,d1), pF->point(d1,0), pH->point(-d1,0), pG->point(0,-d1), 
+   sep->160, cliptexte->clip(0,0,700,90,couleur(220,230,250)), 
+   fig0->(clip(sep,0,500,500,couleur(220,250,245)),{droite(point(0,-4),point(0,4)),couleur(rouge)},{droite(pD,pE),couleur(rouge)},{arc(pA,8,8,0,-90),couleur(vert)},{arc(pB,8,8,180,90),couleur(vert)},{arc(pC,8,8,90,90),couleur(vert)},{arc(pD,8,8,0,90),couleur(vert)},{polygone(pA,pB,pC,pD),couleur(bleu)},pA,pB,pC,pD,{pE,label(E),caché},{pF,label(F),caché},{pI,label(I,270),caché},{point(0,4),label(J),caché},{pG,label(G,0)},{pH,label(H)},clip(0,0,sep,500)), 
+   figure->joint(fig0,{point(0,2),caché,label(AB=4,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En utilisant le théorème de Pythagore, donner la distance EI¶
+ de manière exacte (en simplifiant les racines carrées le plus possible)~
+définitions : 
+   question->tests(ED=4,non(compare(s,0)=0),VBOX(s,ED=4)), 
+   format->{point(0,-2),caché,label(EI=?,centré,14)}, solution->EI=2×rac(3), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(12,carré(opérande(entrée,2)))=0, 
+   {note,total,partie,texte}->tests(REFAIRE,essai=0,{note+1,total+1,2,DETAIL},correct,{note+1,total+1,3,BON}), 
+   réponse->FIN~
+énoncé : Ecrire le carré de EI à l'aide de DE et DI~
+définitions : 
+   question->solution, figure->fig0, format->{point(0,-2),caché,label(EI^2=?,centré,14)}, 
+   solution->EI^2=DE^2-DI^2, s->solution, suivant->1~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Calculer maintenant la distance EG, qui est la diagonale du carré intérieur~
+définitions : 
+   question->VBOX(IJ=4,EJ=4-2×rac(3)), format->{point(0,-2),caché,label(EG=?,centré,14)}, 
+   solution->EG=4×rac(3)-4, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), suivant->partie+1~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Trouver la nature du triangle EFG. En déduire le calcul de $EF^2$ en fonction¶
+ de $EG^2$~
+définitions : 
+   question->VBOX(solution,EF^2=?×EG^2), eg->solution, 
+   format->{point(0,-2),caché,label(EF^2=?×EG^2,centré,14)}, solution->EF^2=1/2×EG^2, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), suivant->partie+1~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : En déduire la valeur exacte de EF (factoriser le plus possible)~
+définitions : 
+   question->VBOX(eg,solution), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), 
+   format->{point(0,-2),caché,label(EF=4×?,centré,14)}, solution->EF=4×(2-rac(3))~
+vérification : 
+   correct->compare(entrée,solution)=0, 
+   partie->tests(partie,total>4 et correct ou essai=3,-1), 
+   {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

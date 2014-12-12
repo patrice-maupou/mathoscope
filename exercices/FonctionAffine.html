@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="550" height="426">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="4">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/couleurs.math
+">
+<PARAM name="définitions globales" value="
+PointEntier->PointEntier(P)=applique({point(x,y)->P : point(approche(x),approche(y))}),
+norm->norm(x)=applique(x,{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+droiteAB->droiteAB(s,c,sep)=applique(s,{(a,b)->image : (a,b,{droite(a,b),couleur(c),sepA(sep),sepB(sep)})}),
+décotexte->CADRE(texte,5,10,couleur(240,230,250)),
+cliptexte->clip(0,0,700,130),
+Ox->{droite(point(-12,0),point(12,0)),couleur(rouge),graduations(24),style({droite(point(0,2),point(0,-2)),couleur(rouge)})},
+Oy->{droite(point(0,-12),point(0,12)),couleur(rouge),graduations(24),style({droite(point(2,0),point(-2,0)),couleur(rouge)})},
+clipdraw->clipdraw(r,g,b,Ox,Oy)=applique((clip(140,0,400,260,couleur(r,g,b)),Ox,Oy))
+">
+<PARAM name="Exercice 1" value="
+titre : Ordonnée à l'origine~
+énoncé : Si on connait un point $A(x[0],y[0])$ et l'ordonnée à l'origine b on peut calculer ¶
+ le coefficient directeur $a = (y[0]-b)/(x[0]-0)$  et donc déterminer l'équation de la droite ¶
+ $y = ax+b$  (ou la fonction affine $f(x) =  ax+b$)~
+définitions : 
+   texte->décotexte, (xa,ya,b0)->choix([-6,6],[-4,4],[-4,4],non(a=0)), question->f(x)=a×x+b, 
+   pA->point(xa,ya), pB->point(0,b0), format->{point(0,0),caché,label(f(x)=?,centré,14)}, 
+   fig0->(clipdraw(200,255,255,Ox,Oy),{pA,label(A),couleur(bleu)},{pB,label(b0),couleur(bleu)},{droite(pA,pB),couleur(bleu),sepA(10),sepB(10)},clip(0,0,140,500)), 
+   figure->fig0, a->calcule((ya-b0)/xa), solution->f(x)=norm(a×x+b0)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : Avec deux points~
+énoncé : Si on connait deux points $A(x[0],y[0])$ et $B(x[1],y[1])$ on peut calculer¶
+ le coefficient directeur $a = (y[1]-y[0])/(x[1]-x[0])$.¶
+ Donne la valeur de a sous forme de fraction irréductible.~
+définitions : 
+   (xa,xb,ya,yb)->choix([-6,-1],[1,6],[-4,4],[-4,4]), texte->décotexte, question->f(x)=a×x+b, 
+   pA->point(xa,ya), pB->point(xb,yb), 
+   fig1->(clipdraw(255,220,255,Ox,Oy),{pA,label(A),couleur(bleu)},{pB,label(B),couleur(bleu)},{droite(pA,pB),couleur(bleu),sepA(10),sepB(10)},clip(0,0,140,400)), 
+   figure->joint(fig1,{point(0,2),caché,label(CADRE(question,-5,0,couleur(220,220,250)),centré,14)}), 
+   format->{point(0,-2),caché,label(a=?,centré,14)}, a0->calcule((yb-ya)/(xb-xa)), 
+   solution->a=a0~
+vérification : 
+   correct->compare(entrée,solution)=0, incomplet->compare(calcule(entrée),solution)=0, 
+   {note,total,partie,texte}->standard, texte->décotexte, réponse->FIN~
+énoncé : On peut maintenant calculer l'ordonnée à l'origine b en remarquant que¶
+ $b = f(x) - a × x$ , x étant remplacé par l'abscisse du point A (ou B) et¶
+ $f(x)$ par son ordonnée.¶
+           Faire ce calcul et donner l'expression de $f(x)$.  ~
+définitions : 
+   question->CADRE(f(x)=norm(a0×x+b),-5,-1,couleur(220,220,250)), texte->décotexte, 
+   figure->joint(fig1,{point(0,2),caché,label(CADRE(question,-5,0,couleur(220,220,250)),centré,14)}), 
+   format->{point(0,-2),caché,label(f(x)=norm(a0×x+?),centré,14)}, b1->calcule(ya-a0×xa), 
+   solution->f(x)=norm(a0×x+b1)~
+vérification : 
+   correct->compare(entrée,solution)=0, incomplet->compare(calcule(entrée),solution)=0, 
+   {note,total,partie,texte}->standard, texte->décotexte, réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : Droite représentative~
+énoncé : Si f est une fonction affine de la forme $f(x) = ax + b$¶
+ le nombre b est l'ordonnée à l'origine. Cliquer sur le point donnant¶
+ la valeur de b et sur le second point d'abscisse x indiquée¶
+ (l'ordonnée est à trouver)~
+définitions : 
+   texte->décotexte, (xa,ya,b)->choix({-1,1},[-4,4],2), a->calcule((ya-b)/xa), 
+   question->CADRE(VBOX(f(x)=norm(a×x+b),x=xa),-10,-1,couleur(210,210,255)), 
+   fig0->(clip(0,0,140,500),{point(0,0),caché,label(question,centré,14)},clipdraw(255,220,255,Ox,Oy)), 
+   figure->joint(fig0,cliquer(2)), pA->point(xa,calcule(a×xa+b)), pB->point(0,b), 
+   solution->(pB,pA,{droite(pA,pB),couleur(bleu),sepA(10),sepB(10)}), demo->entrées=0~
+vérification : 
+   entrée->PointEntier(entrée), R->joint(réponse,entrée), T->(pB,pA), 
+   correct->compare(T,R)=0, {note,total,partie,texte}->standard, 
+   réponse->tests(droiteAB(R,bleu,10),essai=ESSAIS et actions=0,solution), texte->décotexte, 
+   partie->STOP~
+">
+<PARAM name="Exercice 4" value="
+titre : Intersections~
+énoncé : Trouver l'expression de la fonction affine f¶
+ dont la droite (AB) est la représentation graphique~
+définitions : 
+   (xa,xb,ya,yb)->choix([-5,-1],[1,5],[-4,4],2), 
+   (xc,xd,yc,yd)->choix([-5,-1],[1,5],[-4,4],2,non((xb-xa)×(d-c)=(b-a)×(yb-ya))), 
+   a0->calcule((yb-ya)/(xb-xa)), 
+   a1->calcule((yd-yc)/(xd-xc)), b0->calcule(ya-a0×xa), b1->calcule(yc-a1×xc), 
+   texte->décotexte, question->CADRE(f(x)=a×x+b,-10,-1,couleur(255,250,210)), 
+   format->{point(0,-2),caché,label(f(x)=?,centré,14)}, s0->f(x)=norm(a0×x+b0), 
+   solution->s0, pA->point(xa,ya), pB->point(xb,yb), pC->point(xc,yc), pD->point(xd,yd), 
+   fig0->(clipdraw(220,255,210,Ox,Oy),{pA,label(A),couleur(bleu)},{pB,label(B),couleur(bleu)},{pC,label(C),couleur(bleu)},{pD,label(D),couleur(bleu)},{droite(pA,pB),couleur(bleu),sepA(10),sepB(10)},{droite(pC,pD),couleur(bleu),sepA(10),sepB(10)},clip(0,0,140,350)), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : Trouver également l'expression de la fonction affine g¶
+ dont la droite CD est la représentation graphique~
+définitions : 
+   question->CADRE(solution,-10,-1,couleur(255,250,210)), 
+   format->{point(0,-2),caché,label(g(x)=?,centré,14)}, texte->décotexte, 
+   solution->g(x)=norm(a1×x+b1), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : Pour trouver l'abscisse du point d'intersection des droites, ¶
+ résoudre l'équation  $f(x) = g(x)$~
+définitions : 
+   question->CADRE(VBOX(s0,solution),-10,-1,couleur(255,250,210)), texte->décotexte, 
+   sys->question, x0->calcule((b1-b0)/(a0-a1)), 
+   format->{point(0,-2),caché,label(x=?,centré,14)}, solution->x=x0, 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN~
+énoncé : En déduire les coordonnées x et y du point d'intersection¶
+ des deux droites~
+définitions : 
+   question->sys, texte->décotexte, y0->calcule(a0×x0+b0), 
+   format->{point(0,-3),caché,label(VBOX(x=x0,y=?),centré,14)}, solution->VBOX(x=x0,y=y0), 
+   figure->joint(fig0,{point(0,3),caché,label(sys,centré,14)})~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

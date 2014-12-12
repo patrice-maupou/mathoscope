@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="655" height="409">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/evaluations.math,
+definitions/grilles.math,
+definitions/styles.math
+">
+<PARAM name="définitions globales" value="
+PointEntier->PointEntier(P)=applique({point(x,y)->P : point(approche(x),approche(y))}),
+trimul->trimul(x)=applique(x,{a×(b/2)->x : (a×b)/2},{(a×b)/2->image,compare(b,a)<0 : (b×a)/2})
+">
+<PARAM name="décorations" value="
+{a×b->image : HBOX(a,`×`,b)}
+">
+<PARAM name="Exercice 1" value="
+titre : dans un rectangle~
+énoncé :On cherche l'aire du quadrilatère DEFG inscrit dans le rectangle ABCD. Il suffit¶
+ de retrancher les aires de quatre triangles de celle du rectangle.~
+définitions : 
+   (ae,bf,cg,dh)->choix([2,5],4), eb->calcule(10-ae), fc->calcule(8-bf), 
+   R->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,14)},(-5,5,5,-5),(4,4,-4),(A,B,C,D),(135,45,-45,-135)), 
+   Q->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,14)},(-5+ae,5,5-cg,-5),(4,4-bf,-4,-4+dh),(E,F,G,H),(90,0,-90,180)), 
+   V->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,14)},(-5+ae/2,5,5-cg/2,-5,5-eb/2,5),(4,4-bf/2,-4,-4+dh/2,4,fc/2-4),(ae,bf,cg,dh,eb,fc),(90,0,-90,180,90,0)), 
+   cliptexte->clip(0,0,700,70,couleur(210,220,230)), 
+   fig->(clip(200,0,500,500),R,Q,V,{polygone(R),couleur(bleu)},{polygone(Q),couleur(vert),remplit(230,210,200)},clip(0,0,200,500)), 
+   figure->fig, hauteurs->(4,2,0,-2), 
+   format->mappe((h,n)->{point(0,h),caché,label(aire(n)=?,centré,14)},hauteurs,(AEH,BFE,CGF,DHG)), 
+   aires->(approche((ae×(8-dh))/2,-1),approche((eb×bf)/2,-1),approche((fc×cg)/2,-1),approche(dh×(5-cg/2),-1)), 
+   solution->mappe((n,s)->aire(n)=s,(AEH,BFE,CGF,DHG),aires)~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :En déduire l'aire du quadrilatère EFGH~
+définitions : 
+   figure->(fig,mappe((h,x)->{point(0,h),caché,label(x,centré,14)},hauteurs,solution)), 
+   format->{point(0,-4),caché,label(aire(EFGH)=?,centré,14)}, 
+   solution->aire(EFGH)=approche(80-mappe(x->image+x,aires,opérande(aires,1)),-1)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : dans une grille~
+énoncé :Cliquer sur les sommets du plus petit rectangle contenant le polygone ABCDE représenté¶
+ sur la figure~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(210,220,230)), 
+   (x0,x1,y0,y1)->choix([-10,-7],[7,10],[-6,-4],[4,6]), 
+   (a,b,c,d)->choix([x0+4,x1],[y0,y1],[x0,x1],[y0,y1-3]), 
+   (xe,ye)->choix([x0+1,a-1],[d+1,y1-3],calcule((xe-x0)×(y1-d)-(a-x0)×(ye-d))<-1), 
+   R->mappe((x,y)->point(x,y),(x0,x0,x1),(y0,y1,y1,y0)), 
+   P->mappe((x,y)->point(x,y),(x0,xe,a,x1,c),(d,ye,y1,b,y0)), 
+   fig->(clip(200,0,443,281),clip(200,10,443,281),grille(point(-12,-8),point(12,8),1,1,cyan),autour,{polygone(P),couleur(rouge),remplit(230,220,240)}), 
+   solution->{polygone(R),couleur(bleu)}, figure->(fig,cliquer(4))~
+vérification : 
+   entrée->PointEntier(entrée), T->joint(réponse,entrée), correct->ensemble(T)=ensemble(R), 
+   {note,total,partie,texte}->standard, réponse->tests(T,essai=ESSAIS et actions=0,solution)~
+énoncé :L'aire du polygone se calcule en retranchant de l'aire du grand rectangle les aires de plusieurs¶
+triangles et l'aire d'un petit rectangle intérieur. Cliquer sur les sommets de ce petit rectangle.~
+définitions : 
+   r->mappe((x,y)->point(x,y),(x0,xe,xe,x0),(y1,y1,ye,ye)), 
+   autour->{polygone(R),couleur(bleu)}, figure->(fig,cliquer(4))~
+vérification : 
+   entrée->PointEntier(entrée), T->joint(réponse,entrée), correct->ensemble(T)=ensemble(r), 
+   {note,total,partie,texte}->standard, réponse->tests(T,essai=ESSAIS et actions=0,solution)~
+énoncé :Terminer par le calcul de l'aire du polygone~
+définitions : 
+   figure->(fig,{polygone(r),couleur(bleu)},clip(0,0,200,600)), 
+   format->{point(0,0),caché,label(aire=?,centré,14)}, a0->calcule((xe-x0)×(y1-ye)), 
+   a1->calcule(((a-xe)×(y1-ye))/2), a2->calcule(((x1-a)×(y1-b))/2), 
+   a3->calcule(((x1-c)×(b-y0))/2), a4->calcule(((c-x0)×(d-y0))/2), 
+   a5->calcule(((xe-x0)×(ye-d))/2), 
+   solution->aire=approche((x1-x0)×(y1-y0)-a0-a1-a2-a3-a4-a5,-1)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : Thalès et aires~
+énoncé :Soient B, D et C trois points alignés. Les triangles ABD et ADC ont une hauteur  ¶
+commune [AH]. Exprimer les aires de ces deux triangles à l'aide de longueurs.~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(250,230,220)), pA->{point(0,4),caché,label(A,90,14)}, 
+   pH->{point(0,-3),style(droit(0,-1,8,(255,0,0))),label(H,-90,14)}, 
+   pD->{point(2,-3),caché,label(D,-90,14)}, pC->{point(5,-3),caché,label(C,-90,14)}, 
+   pB->{point(-3,-3),caché,label(B,-90,14)}, 
+   fig->(clip(200,0,400,500),pA,pB,pC,pD,{polygone(pA,pB,pD),remplit(240,230,220)},{polygone(pA,pD,pC),remplit(220,230,240)},droite(pA,pH),pH,clip(0,0,200,500)), 
+   figure->fig, 
+   format->mappe((n,h)->{point(0,h),caché,label(n,centré,14)},(aire(ABD)=?,aire(ADC)=?),(4,1)), 
+   solution->(aire(ABD)=(AH×BD)/2,aire(ADC)=(AH×DC)/2), R->Ø~
+vérification : 
+   e->opérande(entrée,1)=trimul(opérande(entrée,2)), R->tests(joint(R,e),compare(R,Ø)=0,e), 
+   correct->compare(R,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :En déduire une expression simplifiée du rapport des aires~
+définitions : 
+   format->{point(0,-3),caché,label(aire(ABD)/aire(ADC)=?,centré,14)}, 
+   figure->(fig,mappe((n,h)->{point(0,h),caché,label(n,centré,14)},solution,(4,1))), 
+   solution->aire(ABD)/aire(ADC)=BD/DC~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :On note h la distance entre les droites parallèles (BC) et (DE). Exprimer en fonction de h¶
+et BC les aires de deux triangles.~
+définitions : 
+   pts->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,14)},(0,9,-2,3,-6),(0,-7.5,-2.5,-2.5,-7.5),(A,E,B,C,D),(90,-90,135,45,-90)), 
+   pH->{point(10,-2.5),style(flèche(0,1,rouge))}, 
+   pK->{point(10,-7.5),style(flèche(0,-1,rouge))}, (pA,pE,pB,pC,pD)->pts, 
+   fig->(clip(200,0,400,500,origine(380,40)),{droite(pB,pC),sepA(2),sepB(2),couleur(bleu)},{droite(pD,pE),sepA(1),sepB(1),couleur(bleu)},polygone(pts),pts,{droite(pH,pK),couleur(rouge)},{point(10,-5),caché,label(h,180,14),couleur(rouge)},pH,pK,clip(0,0,200,500)), 
+   figure->fig, 
+   format->mappe((n,h)->{point(0,h),caché,label(n,centré,14)},(aire(BCE)=?,aire(BCD)=?),(4,1)), 
+   s->(aire(BCE)=(h×BC)/2,aire(BCD)=(h×BC)/2), solution->s~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,s)=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé :En déduire une égalité entre les aires de deux triangles~
+définitions : 
+   format->{point(0,-4),caché,label(aire(?)=aire(?),centré,14)}, 
+   figure->(fig,mappe((h,n)->{point(0,h),caché,label(n,centré,14)},(4,1),s)), 
+   solution->aire(BCE)=aire(BCD)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Utilser le résultat de la première question pour remplacer l'égalité sur le rapport¶
+des aires par une égalité sur des rapports de longueurs~
+définitions : 
+   figure->(fig,{point(0,2),caché,label(aire(BCE)/aire(BCA)=aire(BCD)/aire(BCA),centré,14)}), 
+   format->{point(0,-2),caché,label(?/?=?/?,centré,14)}, solution->BD/BA=CE/CA~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET>
+</body>
+</html>

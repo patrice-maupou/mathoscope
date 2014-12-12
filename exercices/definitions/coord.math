@@ -1,0 +1,33 @@
+<definitions>
+bary0->bary0(s)=applique(?,{(point(x,y),a)->s : STOP(s)},{(point(x,y),a,point(x',y'),a')->s : STOP(point(calcule((a×x+a'×x')/(a+a')),calcule((a×y+a'×y')/(a+a'))),calcule(a+a'))},t->sépare(s,2),{(a,b)->t,non(compare(sépare(a,2),a)=0) : bary0(joint(bary0(a),b))}),
+bary->bary(s)=applique(t->bary0(s),{(a,b)->t : a}),
+abs->abs(M)=applique({point(x,y)->M : STOP(x)},abs(opérande(M,1))),
+ord->ord(M)=applique({point(x,y)->M : STOP(y)},ord(opérande(M,1))),
+xM->xM(M,A,B,d)=applique(calcule((d×(abs(M)-abs(A)))/(abs(B)-abs(A)))),
+yM->yM(M,A,B,d)=applique(calcule((d×(ord(M)-ord(A)))/(ord(B)-ord(A)))),
+PointEntier->PointEntier(P)=applique((p,r)->tests(({P},Ø),P->ensemble,opérande(sépare(P,-1))),(x,y)->opérande(opérande(p,1)),joint({point(approche(x),approche(y))} union r),{card(image)=1 : opérande(image,1)})
+</definitions>
+<commentaires>
+abs->` abscisse d'un point ou ensemble des abscisses d'un ensemble de points¶ Exemple : abs({point(2,3),point(5,-1)})`,
+ord->` ordonnée d'un point ou ensemble des ordonnées d'un ensemble de points¶ Exemple : ord({point(2,3),point(5,-1)})`,
+xM->` Dans le repère de Ox d'origine l'abscisse de A et tel que d représente la mesure algébrique¶ de la projection du segment AB sur Ox, la fonction renvoie l'abscisse de M.¶ Exemple : xM(point(3,1),point(1,2),point(5,3),8)`,
+yM->` Dans le repère de Oy d'origine la projection de A sur Oy et tel que d représente la mesure¶ algébrique de la projection du segment AB sur Oy, la fonction renvoie l'ordonnée de M.¶ Exemple : yM(point(3,1),point(1,2),point(5,3),8)`,
+bary0->` Si les arguments consistent en une suite formée de points avec chacun un coefficient numérique,¶ la fonction renvoie le barycentre avec la somme des coefficients`
+</commentaires>
+<history>
+PointEntier({point(2.8,-8.4),label(4,12,12)}),
+card({point(3,-8)}),
+joint({point(3,-8)},Ø),
+PointEntier(point(2.8,-8.4)),
+sépare({1,2,3,4},-1),
+sépare({1,2,3,4}),
+abs({{point(1,2),label(a,0,12)},point(2,3)}),
+abs({point(1,2),point(2,3)}),
+bary0(point(0,0),1,point(1,0),1,point(0,1),1),
+yM(point(3,1),point(1,2),point(5,3),8),
+xM(point(3,1),point(1,2),point(5,3),8),
+ord(point(2,3)),
+ord({point(2,3),point(5,-1)}),
+abs(point(2,3)),
+abs({point(2,3),point(5,-1)})
+</history>

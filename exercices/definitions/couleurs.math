@@ -1,0 +1,16 @@
+<definitions>
+couleur->couleur(c)=applique(couleur,c),
+remplit->remplit(c)=applique(remplit,c),
+noir->(0,0,0),
+bleu->(0,0,255),
+rouge->(255,0,0),
+vert->(0,255,0),
+jaune->(255,255,0),
+cyan->(0,255,255),
+magenta->(255,0,255),
+bleupale->(240,240,255),
+vertpale->(240,255,240),
+rose->(255,240,240)
+</definitions>
+<history>
+</history>

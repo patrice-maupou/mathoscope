@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="332">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="7">
+<PARAM name="importer" value="
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+trier_produit->schéma({a×b->image,a>b,a->entier,b->entier : b×a},{c×a×b->image,a>b,a->entier,b->entier : c×b×a},{1×a->image : a}),
+norm->norm(x)=applique(x,{a=b->x : STOP(norm(a)=norm(b))},{a+b->image : norm(a)+norm(b)},{a-b->image : norm(a)-norm(b)},{a×b->image : norm(a)×norm(b)},{a/b->image : norm(a)/norm(b)},{a^n->image : norm(a)^norm(n)},{(-n)×a->image : -norm(n×a)},{a×(-n)->image : -norm(a×n)},{1×a->image : STOP(norm(a))},{a×1->image : STOP(norm(a))},{0×a->image : STOP(0)},{a×0->image : STOP(0)},{a-0->image : STOP(norm(a))},{-0+a->image : STOP(norm(a))},{-0-a->image : STOP(norm(a))},{a+0->image : STOP(norm(a))},{0+a->image : STOP(norm(a))},{a-(-b)->image : STOP(norm(a+b))},{a+(-b)->image : STOP(norm(a-b))},{-(-b)->image : STOP(norm(b))}),
+pos->pos(x)=applique(x,{a-b->x,non(compare(a,0)=0 et compare(b,1)=0) : pos(a+(-1)×b)},{a+b->x : pos(a)+pos(b)},{0+a->x : pos(a)},{a+0->x : pos(a)},{a/n->x,n->num,non(a->num) : 1/n×pos(a)},{a×b->x : pos(a)×pos(b)},{a/b->x : pos(a)/pos(b)},{a^n->x : pos(a)^n},{a×(b×c)->x : a×b×c}),
+forme->?,
+décalage->1,
+fig->(clip(0,0,600,120),{point(0,0),caché,label(CADRE(question,10,10,couleur(230,230,255)),centré,14)},clip(0,120,600,600))
+">
+<PARAM name="Exercice 1" value="
+titre : simplifier (déf)~
+énoncé : Ecrit la fraction simplifiée au maximum en appliquant la règle :¶
+                         $(a×d)/(b×d) = a/b$~
+définitions : 
+   (a,b,c)->choix({2,3,4,5,6,7,8,9},3,pgcd(a,b)=1), 
+   cliptexte->clip(0,0,700,70,couleur(250,220,230)), question->(a×c)/(b×c), solution->a/b, 
+   format->FORMAT, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : simplifier (calcul)~
+énoncé : Trouver le facteur commun d pour simplifier selon la règle :¶
+                             $(a×d)/(b×d) = a/b$~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(230,220,250)), 
+   (a,b,c)->choix({2,3,4,5,6,7,8,9},3,pgcd(a,b)=1), question->calcule(a×c)/calcule(b×c), solution->a/b, 
+   format->FORMAT, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : multiplier~
+énoncé : Ecrire le résultat de la multiplication sans faire le calcul¶
+           en utilisant la règle suivante :  $(a/b)×(c/d) = (a×c)/(b×d)$~
+définitions : 
+   cliptexte->clip(0,0,700,70,couleur(220,230,250)), 
+   (a,b,c,d)->choix({2,3,4,5,6,7,8,9},4,pgcd(a,b)=1,pgcd(c,d)=1), (s0,s1)->choix({-1,1},2), 
+   n1->norm(s0×(a/b)), solution->applique(norm(calcule(s0×s1)×((a×c)/(b×d))),trier_produit), 
+   n2->norm(s1×(c/d)), question->n1×n2, format->FORMAT, figure->fig~
+vérification : 
+   r->applique(entrée,trier_produit), correct->compare(r,solution)=0, 
+   raccourci->compare(entrée,calcule(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : Simplifier le résultat obtenu~
+définitions : 
+   question->solution, solution->calcule(question), format->FORMAT, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 4" value="
+titre : diviser~
+énoncé : Ecrit le résultat du quotient sans faire le calcul  en utilisant la règle suivante :¶
+   $(a/b)/(c/d) = (a×d)/(b×c)$     Exemple : $(7/6)/(-7/4) = -(4×7)/(6×7)$~
+définitions : 
+   cliptexte->clip(0,0,700,100,couleur(240,230,240)), 
+   (a,b,c,d)->choix({2,3,4,5,6,7,8,9},4,non(b=1),non(c=1),pgcd(a,b)=1,pgcd(c,d)=1), 
+   (s0,s1)->choix({-1,1},2), f1->applique(norm(s0×(a/b)),schéma({a/1->image : a})), 
+   f2->applique(norm(s1×(c/d)),schéma({a/1->image : a})), question->f1/f2, 
+   solution->norm(applique(calcule(s0×s1)×((a×d)/(b×c)),trier_produit)), format->FORMAT, 
+   figure->fig~
+vérification : 
+   r->norm(applique(entrée,trier_produit)), raccourci->compare(entrée,calcule(solution))=0, 
+   correct->compare(r,solution)=0 ou raccourci, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : Donner le résultat sous la forme la plus simple possible~
+définitions : 
+   question->solution, solution->calcule(solution), format->FORMAT, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 5" value="
+titre : ajouter~
+énoncé :  Ecrit le résultat de l'addition ou de la soustraction sans faire le calcul¶
+  en utilisant la règle :   $a/b + c/d = (a×d + c×b)/(b×d)$¶
+     Exemple : $-1/2-8/3 = (-3-2×8)/(2×3)$~
+définitions : 
+   cliptexte->clip(0,0,700,100,couleur(220,240,240)), 
+   (a,b,c,d)->choix({2,3,4,5,6,7,8,9},4,non(b=1),non(c=1),pgcd(a,b)=1,pgcd(c,d)=1,pgcd(b,d)=1), 
+   (s0,s1)->choix({-1,1},2), 
+   question->applique(norm(s0×(a/b)+s1×(c/d)),schéma({a/1->image : a})), 
+   solution->applique(norm((s0×(a×d)+s1×(b×c))/(b×d)),trier_produit), s->calcule(solution), 
+   format->FORMAT, figure->fig~
+vérification : 
+   r->applique(entrée,trier_produit), correct->compare(r,solution)=0, 
+   raccourci->compare(r,s)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Donner la résultat le plus simple possible~
+définitions : 
+   question->solution, solution->s, format->FORMAT, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 6" value="
+titre : ajouter (ppcm)~
+énoncé :  Si les dénominateurs ont un multiple commun, on peut utiliser ce multiple ¶
+  comme dénominateur :  $a/(d×b) + c/(d×e) = (a×e + c×b)/(d×b×e)$¶
+        Exemple : $3/(5×7)+1/(5×2) = (3×2+1×7)/(5×7×2)$~
+définitions : 
+   cliptexte->clip(0,0,700,110,couleur(240,240,220)), 
+   (s0,s1)->choix({-1,1},2), 
+   (a,b,c,d,k)->choix({1,2,3,4,5,6,7,8,9},5,non(k=1),non(b=1),non(c=1),pgcd(a,b)=1,pgcd(c,d)=1,pgcd(b,d)=1), 
+   question->norm(s0×(a/(k×b))+s1×(c/(k×d))), 
+   solution->norm(applique((s0×(a×d)+s1×(c×b))/(k×b×d),trier_produit)), 
+   s->calcule(solution), format->FORMAT, figure->fig~
+vérification : 
+   r->norm(applique(entrée,trier_produit)), correct->compare(r,solution)=0, 
+   raccourci->compare(r,s)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Terminer le calcul et simplifier au maximum la fraction~
+définitions : 
+   question->solution, solution->s, format->FORMAT, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 7" value="
+titre : mélange~
+énoncé :   Ecrire le résultat simplifié des opérations successives~
+définitions : 
+   cliptexte->clip(0,0,700,60,couleur(240,230,220)), 
+   (a,b,c,d)->choix({2,3,4,5,6,7,8,9},4,non(b=1),non(c=1),pgcd(a,b)=1,pgcd(c,d)=1), 
+   (s0,s1)->choix({-1,1},2), 
+   q->choix({s0×a×(b+s1×(c/d)),(s0×a+s1×c)/(b+d),(s0×a+s1×(c/b))/d}), 
+   question->applique(norm(q),schéma({a/1->image : a})), solution->calcule(q), 
+   format->FORMAT, plan->vertical(0,1), figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

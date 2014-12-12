@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="523" height="363">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+point->point(x,y),
+angle->angle(A,O,B),
+clip->clip(x,x,w,h),
+abs->abs(P)=applique({{point(x,y),label(e,p,t)}->P : x},{point(x,y)->P : x},{{point(x,y),l,style(s)}->P : x}),
+ord->ord(P)=applique({{point(x,y),label(e,p,t)}->P : y},{point(x,y)->P : y},{{point(x,y),l,style(s)}->P : y}),
+arg->arg(A,B)=applique(xb->abs(B),xa->abs(A),ya->ord(A),yb->ord(B),approche((angle(xb-xa,yb-ya)×180)/PI,-8)),
+deg->deg(A,B,C)=applique(a->arg(B,C)-arg(B,A),tests(approche(a),a<0,approche(a+360))),
+markangle->markangle(A,O,B,c)=applique({arc(point(abs(O),ord(O)),0.8,0.8,arg(O,A),deg(A,O,B)),couleur(c)}),
+ajout->ajout(E,e)=applique({E->ensemble : joint(E union {e})}),
+nompt->nompt(s)=applique(t->sépare(s),{t1->ensemble,t0->ensemble,t1 union t0->t : STOP(joint(nompt(t1) union nompt(t0)))},{{a}->s : {var(p,a)}}),
+rec->rec(R,t)=applique(a->approche((t×PI)/18,-8),(approche(R×cos(a),-4),approche(R×sin(a),-4))),
+PtPol->PtPol(a,R,name)=applique({point(rec(R,a)),label(name,calcule(10×a),12)}),
+intersect->intersect(A,B,C,D)=applique((xa,xb,xc,xd)->(abs(A),abs(B),abs(C),abs(D)),(ya,yb,yc,yd)->(ord(A),ord(B),ord(C),ord(D)),k->calcule(((xa-xc)×(yc-yd)-(xc-xd)×(ya-yc))/((xa-xb)×(yc-yd)-(xc-xd)×(ya-yb))),point(calcule(k×(xb-xa)+xa),calcule(k×(yb-ya)+ya))),
+drPts->drPts(e)=applique({perp(droite(A,B),droite(C,D))->e : applique({{A,B},{C,D}},tripaire)}),
+tripaire->schéma({{A,B}->image,compare(A,B)>0 : {B,A}}),
+affiche->affiche(exprs,hauteurs)=applique(E->sépare(exprs,1),H->sépare(hauteurs,1),{(E0,a)->E,(H0,b)->H : STOP(affiche(E0,H0),{point(b),caché,label(a,centré,14)})},{point(H),caché,label(E,centré,14)}),
+droit->droit(a,b,l,c)=applique(d->(a^2+b^2)^(1/2)/l,{ligne(point(-b/d,-a/d),point((a-b)/d,-(a+b)/d),point(a/d,-b/d)),couleur(c)})
+">
+<PARAM name="décorations" value="
+{angle(A,B,C)->image : STOP(DECO(NORD,HBOX(A,B,C),hat,6))},
+{arc(A,B)->image : STOP(DECO(NORD,TBOX(A,B),demi,6))},
+{droite(A,B)->image : STOP(BBOX(HBOX(A,B),`()`))},
+{perp(a,b)->image : HBOX(a,UNICODE(`22A5`),b)},
+{pi->constant,pi->image : UNICODE(`3c0`)},
+hat->ligne(point(0,60),point(30,0),point(60,60)),
+Tinv->{droite(point(0,60),point(60,60)),droite(point(30,0),point(30,60))},
+demi->arc(point(30,60),30,50,0,180)
+">
+<PARAM name="Exercice 1" value="
+titre : angles au centre~
+énoncé : Les points A, B, C appartiennent au cercle de centre O.¶
+ On donne la mesure d'un angle, en déduire l'angle indiqué en degrés¶
+ en utilisant le théorème de l'angle inscrit.~
+définitions :
+   E->[2,10], (a,b,c,o)->choix(E,E,E,{0,1},a+b+c<30), {b,c}->{calcule(a+b),calcule(a+b+c)},
+   r->5, pO->{point(0,0),label(O,225,12)},
+   (pA,pB,pC)->(PtPol(a,r,A),PtPol(b,r,B),PtPol(c,r,C)), (t,s)->arrangement(2,{{B,A,C},{B,O,C}}),
+   {tA,tO,tB}->nompt(t), {sA,sO,sB}->nompt(s), mrk1->markangle(sA,sO,sB,rouge),
+   q->angle(seq(t))=deg(tA,tO,tB), f->angle(seq(s))=?,
+   solution->angle(seq(s))=deg(sA,sO,sB), place->(0,3.5), format->affiche(f,place),
+   sep->200, bk->(240,255,234), cliptexte->clip(0,0,700,56,couleur(230,250,240)),
+   fig0->(clip(sep,0,700,500,couleur(240,255,234)),{cercle(pO,5)},pO,pA,pB,pC,{droite(pA,pB),couleur(bleu)},{droite(pO,pB),couleur(rouge)},{droite(pO,pC),couleur(rouge)},{droite(pA,pC),couleur(bleu)},{droite(pB,pC),couleur(bleu)},d1,telque(mrk1,2),mrk2,clip(0,0,sep,500),{point(0,5),caché,label(q,centré,14)}),
+   figure->fig0~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN~
+énoncé : On ajoute maintenant un autre angle, même question.~
+définitions :
+   d1->{droite(pO,pA),couleur(rouge)}, (t,s)->arrangement(2,{{A,O,C},{A,C,B},{C,B,A}}),
+   {tA,tO,tB}->nompt(t), {sA,sO,sB}->nompt(s), q->angle(seq(t))=deg(tA,tO,tB),
+   f->angle(seq(s))=?, mrk1->rien, mrk2->markangle(sA,sO,sB,rouge),
+   fig0->joint(fig0,affiche(solution,place),affiche(q,(0,0))), figure->fig0,
+   solution->angle(seq(s))=deg(sA,sO,sB), place->(0,-1.5), format->affiche(f,place)~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : avec un diamètre~
+énoncé : Les points A, B, C appartiennent au cercle de centre O et le segment [BD]¶
+ est un diamètre de ce cercle. Indiquer deux angles de mesure +90 degrés.~
+définitions :
+   E->[2,10], q->angle(A,O,B)=deg({pA,pO,pB}), (a,b,c,o)->choix(E,E,E,{0,1},a+b+c<30),
+   {b,c}->{calcule(a+b),calcule(a+b+c)}, d->calcule(b+18), r->5,
+   pO->{point(0,0),label(O,225,12)},
+   {pA,pB,pC,pD}->{PtPol(a,r,A),PtPol(b,r,B),PtPol(c,r,C),PtPol(d,r,D)},
+   f->(angle(B,?,?)=90,angle(D,?,?)=90), solution->(angle(B,A,D)=90,angle(D,C,B)=90),
+   places->((0,4),(0,2.5)), format->affiche(f,places),
+   cliptexte->clip(0,0,700,40,couleur(230,250,240)), sep->200,
+   fig0->(clip(sep,0,700,500,couleur(240,255,234)),{cercle(pO,5)},pO,pA,pB,pC,pD,{polygone(pA,pB,pC,pD),couleur(bleu)},{droite(pO,pA),couleur(rouge)},{droite(pO,pC),couleur(rouge)},{droite(pA,pC),couleur(bleu)},{droite(pB,pD),couleur(rouge)},Adroit,pF,Cdroit,mrk2,clip(0,0,sep,500)),
+   figure->fig0~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN~
+énoncé : On ajoute maintenant deux angles au centre, même question.~
+définitions :
+   s->choix({{B,A,C},{A,C,B},{C,B,A},{C,A,D},{D,C,A},{C,A,D},{A,D,B},{B,D,C},{C,B,D}}),
+   {sA,sO,sB}->nompt(s),
+   q->HBOX(angle(A,O,B)=deg(pA,pO,pB),`  `,angle(C,O,D)=deg(pC,pO,pD)), f->angle(seq(s))=?,
+   mrk2->markangle(sA,sO,sB,rouge),
+   Adroit->ajout(pA,style(droit(abs(pB)-abs(pA),ord(pB)-ord(pA),6,bleu))),
+   Cdroit->ajout(pC,style(droit(abs(pD)-abs(pC),ord(pD)-ord(pC),6,bleu))),
+   fig0->joint(fig0,affiche(solution,places),affiche(q,(0,0))), figure->fig0,
+   solution->angle(seq(s))=deg(sA,sO,sB), place->(0,-1.5), format->affiche(f,place)~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN~
+énoncé : Le point I est l'intersection des droites (AC) et (BD)~
+définitions :
+   f->angle(A,I,B)=?, format->affiche(f,(0,-4.5)),
+   pF->{intersect(pO,pB,pA,pC),label(I,90,14)}, fig0->joint(fig0,affiche(solution,place)),
+   figure->fig0, solution->angle(A,I,B)=deg(pA,pF,pB)~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN, partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : angles droits~
+énoncé : Les points A, B, C, D appartiennent au cercle de centre O.¶
+ Les droites (AC) et (BD) sont perpendiculaires et se coupent en un point I.¶
+ Trouver deux triangles ayant leurs 3 angles respectivement égaux~
+définitions :
+   E->[2,10], (a,b,c)->choix(E,E,E,a+b+c<20), {b,c}->{calcule(a+b),calcule(a+b+c)}, r->5,
+   {pA,pB,pC,pD}->{PtPol(a,r,A),PtPol(b,r,B),PtPol(c,r,C),PtPol((c+a)-b-18,r,D)},
+   pO->{point(0,0),label(O,225,12)},
+   pF->{intersect(pD,pB,pA,pC),label(I,-45,14),style(droit(abs(pC)-abs(pA),ord(pC)-ord(pA),8,rouge))},
+   places->(0,4.5), format->affiche(HBOX(BLOC(HBOX(I,A,B,`  et  `,I)),?,?),places),
+   solution->HBOX(HBOX(I,A,B,`  et  `,I),D,C), sep->150,
+   fig0->(clip(sep,0,700,500,couleur(vertpale)),{cercle(pO,5)},pO,pA,pB,pC,pD,{droite(pA,pB),couleur(bleu)},{droite(pA,pC),couleur(bleu)},{droite(pB,pC),couleur(bleu)},{droite(pB,pD),couleur(bleu)},{droite(pC,pD),couleur(bleu)},{droite(pA,pD),couleur(bleu)},pF,pM,pN,MN,clip(0,0,sep,500),affiche(`ont leurs angles égaux`,(0,3.5))),
+   cliptexte->clip(0,0,700,60,couleur(230,250,240)), figure->fig0~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN~
+énoncé : M est le milieu du segment [CD] et la droite (MI) coupe la droite (AB) en N.¶
+   Trouver deux angles égaux à l'angle $angle(N,I,B)$ (angles orientés !)~
+définitions :
+   pM->{point((abs(pC)+abs(pD))/2,(ord(pC)+ord(pD))/2),label(M,(a+b+9)/2,centré)},
+   pN->{intersect(pM,pF,pA,pB),label(N,(a+b)/2,14)}, MN->{droite(pM,pN),couleur(rouge)},
+   fig0->joint(fig0,affiche(solution,places)), figure->fig0,
+   solution->HBOX(angle(N,I,B),` = `,angle(M,I,D),` = `,angle(I,D,M)), places->(0,1),
+   format->affiche(HBOX(angle(N,I,B),` = `,angle(M,?,?),` = `,angle(I,?,?)),places)~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN~
+énoncé : En déduire un triangle ayant deux angles égaux à ceux du¶
+ triangle IBN.~
+définitions :
+   fig0->joint(fig0,affiche(solution,places),affiche(`ont leurs angles égaux`,(0,-2.5))),
+   figure->fig0, places->(0,-1.5), format->affiche(HBOX(I,B,N,`  et  `,?,?,?),places),
+   solution->HBOX(I,B,N,`  et  `,D,C,I)~
+vérification :
+   correct->compare(joint(réponse,entrée),solution)=0, {note,total,partie,texte}->standard,
+   réponse->FIN~
+énoncé : En déduire deux droites perpendiculaires~
+définitions :
+   fig0->joint(fig0,affiche(solution,places)), figure->fig0,
+   f->perp(droite(?,?),droite(?,?)), format->affiche(f,(0,-4)),
+   solution->perp(droite(M,N),droite(A,B))~
+vérification :
+   correct->drPts(entrée)=drPts(solution), {note,total,partie,texte}->standard,
+   réponse->FIN, partie->tests(partie,correct ou essai=ESSAIS,-1)~
+">
+</APPLET></P>
+</body>
+</html>

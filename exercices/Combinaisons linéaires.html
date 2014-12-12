@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="604" height="397">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="1">
+<PARAM name="importer" value="
+definitions/evaluations.math,
+definitions/tris.math,
+definitions/couleurs.math,
+definitions/grilles.math,
+definitions/styles.math
+">
+<PARAM name="définitions globales" value="
+bandeau->clip(0,0,700,75),
+décotexte->décotexte(e)=applique(CADRE(e,10,10,couleur(230,220,240))),
+clipdraw->(clip(150,0,443,281),grille(point(-12,-8),point(12,8),1,1,cyan)),
+clipdisplay->clip(0,0,150,500),
+norm->schéma({0×vect(u)+x->image : x},{x+0×vect(u)->image : x},{1×vect(u)->image : vect(u)},{x+(-1)×vect(u)->image : x-vect(u)},{x+(-a)×vect(u)->image : x-a×vect(u)},{(-1)×vect(u)->image : -vect(u)},{(-a)×vect(u)->image : -a×vect(u)}),
+perp->perp(a,b)=applique(approche((angle(a,b)×180)/PI+90,-2)),
+croissant->croissant(a,b)=applique(a>b),
+choixvec->choixvec(xm,xM,ym,yM,va,vb,dv)=applique(bornes->calcule((xm×dv)/va,(xM×dv)/va,(ym×dv)/vb,(yM×dv)/vb),(c0,c1)->opérande(triseq(bornes,croissant),(2,3)),calcule(choix([c0,c1],non(a=0))/dv)),
+PointEntier->PointEntier(P)=applique(p->tests(P,P->ensemble,opérande(P,1)),(x,y)->opérande(p),point(approche(x),approche(y))),
+coors->coors(pt)=applique({pt->ensemble : STOP(coors(opérande(sépare(pt,-1),1)))},opérande(pt))
+">
+<PARAM name="décorations" value="
+{vect(u)->image : ARROW(HBOX(u))},
+{vect(A,B)->image : ARROW(HBOX(A,B))}
+">
+<PARAM name="Exercice 1" value="
+titre : combinaisons linéaires~
+énoncé :Cliquer sur le point B du quadrillage tel que $vect(A,B)$ soit le multiple de $vect(u)$¶
+puis sur le point C tel que$vect(B,C)$ soit le multiple de $vect(v)$~
+définitions : 
+   texte->décotexte(texte), cliptexte->bandeau, 
+   (xu,yu,xv,yv)->choix({-4,-3,-2,-1,1,2,3,4},4,non(a×d-b×c=0)), 
+   (xa,ya,xb,yb)->choix([-6,-2],[-1,1],[2,6],[-1,1]), du->pgcd(calcule(|xu|),calcule(|yu|)), 
+   dv->pgcd(calcule(|xv|),calcule(|yv|)), 
+   (x0,y0)->choix({-8,-7,-6,-5,-4,4,5,6,7,8},{-6,5,-4,-3,3,4,5,6}), 
+   ku->choixvec(-6,6,-4,4,xu,yu,du), (xB,yB)->calcule(ku×xu,ku×yu), 
+   pB->{point(xB,yB),label(B,-90,14),couleur(bleu),style(flèche(ku×xu,ku×yu,bleu))}, 
+   kv->choixvec(-10-xB,10-xB,-6-yB,6-yB,xv,yv,dv), (xC,yC)->calcule(xB+kv×xv,yB+kv×yv), 
+   pC->{point(xC,yC),label(C,-90,14),couleur(bleu),style(flèche(kv×xv,kv×yv,bleu))}, 
+   q->ku×vect(u)+kv×vect(v), Pu->point(xa+xu/2,ya+yu/2), Pv->point(xb+xv/2,yb+yv/2), 
+   question->VBOX(vect(A,B)=applique(ku×vect(u),norm),vect(A,C)=applique(q,norm)), 
+   TOTAL->10, pA->{point(0,0),couleur(bleu),label(A,-90,14)}, pO->pA, pts->pA, 
+   fig0->({droite(point(xa,ya),point(xa+xu,ya+yu)),couleur(rouge)},{point(xa+xu,ya+yu),couleur(rouge),style(flèche(xu,yu,rouge))},{Pu,caché,label(vect(u),perp(xu,yu)),couleur(rouge)},{droite(point(xb,yb),point(xb+xv,yb+yv)),couleur(rouge)},{point(xb+xv,yb+yv),couleur(rouge),style(flèche(xv,yv,rouge))},{Pv,caché,label(vect(v),perp(xv,yv)),couleur(rouge)},pA), 
+   figure->joint(clipdisplay,{point(0,0),caché,label(question,centré,14)},clipdraw,fig0), 
+   nbclics->0, 
+   interactions->(CLIQUER(pM,point(0,0),nbclics<3),essai->tests(essai,nbclics=0,calcule(essai+1)),nom->tests(A,nbclics=1,B,nbclics=2,C),nbclics->calcule(nbclics+1),(fa,fb)->mappe((x,y)->x-y,coors(pM),coors(pO)),pM->tests({PointEntier(pM),label(nom,-90,14),couleur(bleu),style(flèche(fa,fb,bleu))},essai=2 et nbclics=3,pC),pts->joint(pts,pM),poly->tests({ligne(pts),couleur(bleu)},essai=2 et nbclics=3,{ligne(pA,pB,pC),couleur(bleu)}),correct->compare(opérande(pB,1),opérande(pO,1))=0 et compare(opérande(pC,1),opérande(pM,1))=0,texte->tests(texte,nbclics=2,décotexte(`Cliquer maintenant sur le point C !`),nbclics=3,décotexte(`Mauvaise réponse !`),nbclics=3 et essai=2,décotexte(`Mauvaise réponse, voici la solution`),nbclics=3 et correct,décotexte(`Bonne réponse !`)),pO->pM,FIN(pM),PRESSER(touche,?,non(nbclics=2)),exécuter->tests(-1,essai=2,0,correct,0,non(compare(touche,Entrée)=0),-3))~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, 
+   texte->décotexte, réponse->FIN, partie->STOP~
+">
+</APPLET></P>
+</body>
+</html>

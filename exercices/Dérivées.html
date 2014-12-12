@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="637" height="471">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="1">
+<PARAM name="importer" value="
+definitions/développements.math
+">
+<PARAM name="définitions globales" value="
+dérivation->schéma({der(a×f,x)->image,hors(x,a) : a×der(f,x)},{der(1/f,x)->image,dans(x,f) : -der(f,x)/f^2},{der(f/g,x)->image,dans(x,g) : (der(f,x)×g-f×der(g,x))/g^2},{der(f+g,x)->image : der(f,x)+der(g,x)},{der(f-g,x)->image : der(f,x)-der(g,x)},{der(f×g,x)->image : der(f,x)×g+f×der(g,x)},{der(a,x)->image,hors(x,a) : STOP(0)},{der(x,x)->image : STOP(1)},{der(x^n,x)->image,hors(x,n) : STOP(calcule(n)×x^calcule(n-1))},{der(f^n,x)->image : calcule(n)×der(f,x)×f^calcule(n-1)}),
+factoriser->schéma({a×b+a×c->image,dans(x,a) : a×(b+c)},{b×a+a×c->image,dans(x,a) : a×(b+c)},{a×b+c×a->image,dans(x,a) : a×(b+c)},{b×a+c×a->image,dans(x,a) : a×(b+c)},{b×a-c×a->image,dans(x,a) : a×(b-c)},{a×b-c×a->image,dans(x,a) : a×(b-c)},{a×b-a×c->image,dans(x,a) : a×(b-c)},{b×a-a×c->image,dans(x,a) : a×(b-c)})
+">
+<PARAM name="Exercice 1" value="
+titre : échantillon~
+énoncé :~
+définitions : 
+   P->(3×x+1,(-2/3×x^3+5/4×x)-1,(2/3×x-1)×(x-3),1/(x^2+1),(2×x-3)/(3×x+2),(x+1)^2,(x-1)/(x+2)^2), 
+   Q->mappe(f->norm(calcule(applique(der(f,x),dérivation))),P), 
+   R->mappe((f,g)->BBOX(f)^TBOX(`'`)=développe(g,x),P,Q), 
+   figure->{point(0,0),caché,label(VBOX(R),centré,14)}~
+énoncé :Quelques calculs de dérivées~
+définitions : 
+   P->(3×x+1,(-2×x^3+5/4×x)-1), Q->mappe(f->applique(der(f,x),dérivation),P)~
+">
+</APPLET></P>
+</body>
+</html>

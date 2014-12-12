@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="411">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="2">
+<PARAM name="importer" value="
+definitions/développements.math,
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+div->div(a,b,q,x)=applique(q1->divmn(tête(a),tête(b),x),{degré(q1,x)<0 ou 0×x^n->a : STOP((q,a))},r->red(stri(ass(dev(a+(-1)×x^0×q1×b,x),0),x),x),div(r,b,red(stri(ass(q1+q,0),x),x),x)),
+divise->divise(a,b,x)=applique(div(stnd(a,x),stnd(b,x),0×x^0,x)),
+divmn->divmn(a,b,x)=applique({c×x^m->a,d×x^n->b : calcule(c/d)×x^calcule(m-n)}),
+exp->exp(x)=applique({a×a->x : STOP(exp(a^2))},{a×a^n->x : STOP(exp(a^calcule(n+1)))},{y×a×a->x : STOP(exp(y×a^2))},{y×a×a^n->x : STOP(exp(y×a^calcule(n+1)))},{a^n^p->x : STOP(a^calcule(n×p))},{y×a^n^p->x : STOP(y×a^calcule(n×p))},{a×b->x : STOP(exp(a)×exp(b))},x),
+tête->tête(p)=applique(p,{a+b->p : tête(a)}),
+degré->degré(p,x)=applique({x^n->p : STOP(n)},{x->p : STOP(1)},{a×x^n->p,a->num : STOP(n)},{a×x->p,a->num : STOP(1)},{p->num : STOP(0)}),
+trier->trier(e)=applique({-b->e : STOP(-trier(b))},{a-b->e : STOP(trier(a+(-b)))},ass(e,0),{a+b->image : ass(trier(a)+trier(b),0)},{c+a+b->image,compare(a,b)>0 : STOP(trier(c+b+a))},{a+b->image,compare(a,b)>0 : STOP(b+a)},{a×b->image : trier(a)×trier(b)},{c×a×b->image,compare(a,b)>0 : STOP(trier(c×b×a))},{a×b->image,compare(a,b)>0 : STOP(b×a)},{a/b->image : STOP(trier(a)/trier(b))}),
+affiche->affiche(expr,clpx,clpy,clpw,clph)=applique((clip(clpx,clpy,clpw,clph),{point(0,0),caché,label(expr,centré,14)}))
+">
+<PARAM name="Exercice 1" value="
+titre : réduction~
+énoncé : Les valeurs interdites d'une fonction rationnelle sont celles qui annulent¶
+ un dénominateur quelconque. Ecrire l'ensemble des valeurs interdites.¶
+ Exemple :$ -(2×x+1)/(2×x+2)-(x+1)/(3×x-1)$ , écrire ${-1,1/3}$~
+définitions : 
+   (c0,d0,c1,d1)->choix([0,3],[-3,3],3,non(a×d=c×b),10×c+d>0,10×a+b>0), 
+   (a0,b0)->choix([-3,3],2,non(a×d0=b×c0),non(a^2+b^2=0)), 
+   (a1,b1)->choix([-3,3],2,non(a×d1=b×c1),non(a^2+b^2=0)), a->a0×x^1+b0×x^0, 
+   b->c0×x^1+d0×x^0, c->a1×x^1+b1×x^0, d->c1×x^1+d1×x^0, 
+   I0->tests(Ø,non(c0=0),{calcule(-d0/c0)}), I1->tests(Ø,non(c1=0),{calcule(-d1/c1)}), 
+   f0->tests(a/b,a0<0,-((-a0)×x+(-b0))/b), f1->tests(c/d,a1<0,-((-a1)×x+(-b1))/d), 
+   question->norm(f0+f1), solution->tests(joint(I0 union I1),I0=I1,I0), 
+   format->{point(0,-2),caché,label({?},centré,14)}, 
+   cliptexte->clip(0,0,700,120,couleur(210,230,240)), 
+   figure->{point(0,2),caché,label(question,centré,14)}~
+vérification : 
+   correct->entrée=solution, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Pour réduire au même dénominateur, on applique généralement la règle : ¶
+	$a/b+c/d = (ad+bc)/(bd)$¶
+ Effectuer la réduction en tenant compte des signes, par exemple :¶
+ $-(2×x+1)/(2×x+2)-(x+1)/(3×x-1)=(-(2×x+1)×(3×x-1)-(2×x+2)×(x+1))/((2×x+2)×(3×x-1))$~
+définitions : 
+   ad->tests(a×d,a0<0,-((-a0)×x+(-b0))×d), bc->tests(b×c,a1<0,-b×((-a1)×x+(-b1))), 
+   solution->ass(norm((ad+bc)/(b×d)),0), 
+   format->{point(0,-2),caché,label(?/norm(b×d),centré,14)}, 
+   figure->{point(0,2),caché,label(question,centré,14)}~
+vérification : 
+   te->trier(entrée), ts->trier(solution), correct->compare(te,ts)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé : Développer et réduire le numérateur~
+définitions : 
+   question->solution, format->{point(0,-2),caché,label(?/norm(b×d),centré,14)}, 
+   solution->développe(a×d+b×c,x)/norm(b×d), 
+   figure->{point(0,2),caché,label(question,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : décomposition~
+énoncé : Une fonction rationnelle de la forme $(p×x + q)/(c×x + d)$ peut s'écrire ¶
+ $a + b/(c×x + d)$ , où a, b,  c, d, p, q sont des constantes.¶
+  Réduire d'abord l'expression  $a + b/(c×x + d)$ au même dénominateur.~
+définitions : 
+   (a0,b0,c,d)->choix({-4,-3,-2,-1,1,2,3,4},4), 
+   f->norm(ass(calcule(a0×c)×x+calcule(a0×d+b0),0)/(c×x+d)), question->f=norm(a+b/(c×x+d)), 
+   solution->norm(ass(calcule(a×c)×x+calcule(a×d+b),0)/(c×x+d)), 
+   format->{point(0,-2),caché,label(?/norm(c×x+d),centré,14)}, 
+   cliptexte->clip(0,0,700,140,couleur(250,240,220)), 
+   figure->{point(0,2),caché,label(question,centré,14)}, demo->entrées=0~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : En comparant les coefficients de même degré aux numérateurs, écrire un ¶
+ système d'équations en a et b qui permette de valider l'égalité ci-dessous.~
+définitions : 
+   question->f=solution, 
+   solution->BBOX(VBOX(norm(c×a)=calcule(c×a0),norm(d×a+b)=calcule(d×a0+b0)),`{`), 
+   format->{point(0,-2),caché,label(BBOX(VBOX(?=?,?=?),`{`),centré,14)}, 
+   figure->{point(0,2),caché,label(question,centré,14)}~
+vérification : 
+   correct->compare(trier(entrée),trier(solution))=0, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+énoncé : En déduire la décomposition cherchée~
+définitions : 
+   question->VBOX(norm(a+b/(c×x+d)),solution), 
+   format->{point(0,-2),caché,label(?+?/norm(c×x+d),centré,14)}, s->norm(a0+b0/(c×x+d)), 
+   solution->s, figure->{point(0,2),caché,label(question,centré,14)}~
+vérification : 
+   correct->compare(entrée,s)=0, {note,total,partie,texte}->standard, solution->f=s, 
+   réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

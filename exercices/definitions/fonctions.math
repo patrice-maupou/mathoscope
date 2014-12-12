@@ -1,0 +1,21 @@
+<definitions>
+graphe->graphe(exp,x,a,b,p)=applique(t->calcule(applique(exp,x->a)),{non(a<b) : STOP(point(a,t))},joint(point(a,t),graphe(exp,x,calcule(a+p),b,p))),
+courbe->courbe(s,t,a,b,p)=applique((Px,Py)->calcule(applique(s,t->a)),{non(a<b) : STOP(point(Px,Py))},joint(point(Px,Py),courbe(s,t,calcule(a+p),b,p))),
+lagrange2->lagrange2(x,xa,ya,xb,yb,xc,yc)=applique(calcule((ya×(x-xb)×(x-xc))/((xa-xb)×(xa-xc))+(yb×(x-xa)×(x-xc))/((xb-xa)×(xb-xc))+(yc×(x-xa)×(x-xb))/((xc-xb)×(xc-xa)))),
+pol2->pol2(a,b,c,t)=applique(calcule(a×(1-t)^2+2×b×t×(1-t)+c×t^2)),
+pol3->pol3(a,b,c,d,t)=applique(calcule((1-t)^3×a+3×(1-t)^2×t×b+3×(1-t)×t^2×c+t^3×d)),
+Ox->Ox(a,c)=applique({droite(point(-a,0),point(a,0)),graduations(calcule(|2×a|)),couleur(c),style({droite(point(0,2),point(0,-2)),couleur(c)})}),
+Oy->Oy(a,c)=applique({droite(point(0,-a),point(0,a)),graduations(calcule(|2×a|)),couleur(c),style({droite(point(2,0),point(-2,0)),couleur(c)})})
+</definitions>
+<commentaires>
+graphe->` Liste de points appartenant au graphe d'une fonction¶ exp : formule donnant l'image de x¶ a : abscisse du point de départ, b : abscisse du point d'arrivée¶ p : pas de calcul`,
+courbe->` Renvoie une liste de points d'une courbe de paramètre t¶ s : point paramétré de la forme point(f(t),g(t))¶ a : valeur initiale de t, b : valeur finale de t¶ p : pas de calcul`,
+apprEns->``
+</commentaires>
+<history>
+graphe(x+1,x,-1,1,0.5),
+figure->ligne(courbe((t,t^2),t,0,3,0.25)),
+lagrange2(x,1,-2,2,0,4,2),
+figure->ligne(courbe((t,t^2),0,3,0.25)),
+lagrange2(x,1,-2,2,0,4,2)
+</history>

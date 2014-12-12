@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="734" height="451">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="4">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/grilles.math,
+definitions/styles.math,
+definitions/evaluations.math,
+definitions/statistiques.math
+">
+<PARAM name="Exercice 1" value="
+titre : retrouver les effectifs~
+énoncé :Retrouver l'effectif de chaque classe sachant qu'il est proportionnel à l'aire ¶
+du rectangle qui le représente (le petit rectangle en haut à gauche donne l'unité).~
+définitions : 
+   (p,s0,n0)->choix({5,10,20,50,100},[5,40],[1,5]), s1->calcule(s0×p), 
+   cls->mappe(n->[calcule(s1+n×p),calcule(s1+n×p+p)[,seq([0,9])), 
+   data->mappe(n->approche(DNorm(-2+0.4×n+0.2,0,1)×(1+aléa(-0.5,0.5))×n0×100),seq([0,9])), 
+   (cm,M)->mappe((x,y)->tests((x,y),y<opérande(image,2),image),cls,data,(x,y)), 
+   ma->approche(log(M)-0.5), m->calcule(approche(M/10^ma+0.5)×10^ma), 
+   {cl0,dt0}->{opérande(mappe(x->[opérande(x,2),opérande(x,1)[,cls),seq([10,1])),opérande(data,seq([10,1]))}, 
+   (cl1,dt1)->mappe(n->regroupe(n,image,M/4),seq([11,6]),(cl0,dt0)), n->card(cl1), 
+   {cl2,dt2}->{opérande(mappe(x->[opérande(x,2),opérande(x,1)[,cl1),seq([n,1])),opérande(dt1,seq([n,1]))}, 
+   (cls,dt3)->mappe(n->regroupe(n,image,M/4),seq([n+1,6]),(cl2,dt2)), 
+   (cls,data)->(cls,mappe(x->approche(x,m/5),dt3)), 
+   {c0,c1}->{opérande(opérande(cls,1),1),opérande(opérande(cls,n),2)}, w->calcule(c1-c0), 
+   {A,B}->{point(20,20),point(160,420)}, cliptexte->clip(0,0,800,60,couleur(230,200,250)), 
+   format->mappe(n->{point(160,(60+n×20)-10),caché,label(?,centré,14)},seq([1,card(cls)])), 
+   fig->(clip(230,0,500,800,recadre(60)),{point(0,m),caché},mappe(x->{point(opérande(x,1)-c0,0),caché,label(opérande(x,1),-90,10)},cls),{point(w,0),caché,label(c1,-90,10)},{droite(point(0,0),point(c1-c0,0)),couleur(bleu),graduations(10),style(tiret(1,0,bleu))},{droite(point(0,0),point(0,m)),couleur(bleu)},mappe(n->{droite(point(0,(n×m)/10),point(c1-c0,(n×m)/10)),couleur(200,200,200)},seq([1,10])),mappe((x,y)->bar(x,y,c0,p,bleu,vert),cls,data),{polygone(point(0,0.9×m),point(0,m),point(p,m),point(p,0.9×m)),couleur(bleu),remplit(vert)},{point(p,0.95×m),caché,label(approche(m/10),0,12),couleur(rouge)},clip(0,0,230,800,origine(0,0),unités(1,1),couleur(220,230,200)),table((cls,Ø),15,60,100,20),{point(60,40),caché,label(classes,centré,14)},{point(160,40),caché,label(effectifs,centré,14)}), 
+   figure->fig, solution->data~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : tracer un histogramme~
+énoncé :L'aire du rectangle vert est égale à l'effectif de la classe modale, le petit rectangle en haut à gauche donne l'unité.¶
+Cliquer à une hauteur telle que l'aire du rectangle représente l'effectif de la classe.~
+définitions : 
+   (p,s0,n0)->choix({5,10,20,50,100},[5,40],[1,5]), s1->calcule(s0×p), 
+   cls->mappe(n->[calcule(s1+n×p),calcule(s1+n×p+p)[,seq([0,9])), 
+   data->mappe(n->approche(DNorm(-2+0.4×n+0.2,0,1)×(1+aléa(-0.9,0.9))×n0×100),seq([0,9])), 
+   mode->mappe((x,y)->tests((x,y),y<opérande(image,2),image),cls,data,(x,y)), 
+   {cm,M}->ensemble(mode), ma->approche(log(M)-0.5), 
+   m->calcule(approche(M/10^ma+0.5)×10^ma), 
+   {cl0,dt0}->{opérande(mappe(x->[opérande(x,2),opérande(x,1)[,cls),seq([10,1])),opérande(data,seq([10,1]))}, 
+   (cl1,dt1)->mappe(n->regroupe(n,image,M/4),seq([11,6]),(cl0,dt0)), n->card(cl1), 
+   {cl2,dt2}->{opérande(mappe(x->[opérande(x,2),opérande(x,1)[,cl1),seq([n,1])),opérande(dt1,seq([n,1]))}, 
+   (cls,data)->mappe(n->regroupe(n,image,M/4),seq([n+1,6]),(cl2,dt2)), 
+   {c0,c1}->{opérande(opérande(cls,1),1),opérande(opérande(cls,n),2)}, w->calcule(c1-c0), 
+   nbclics->calcule(card(cls)-1), fait->{cm}, {A,B}->{point(20,20),point(160,420)}, 
+   cliptexte->clip(0,0,800,60,couleur(230,200,250)), 
+   fig->(clip(0,0,230,800,origine(0,0),unités(1,1),couleur(220,230,200)),table((cls,data),15,60,100,20),{point(60,40),caché,label(classes,centré,14)},{point(160,40),caché,label(effectifs,centré,14)},clip(230,0,500,800,recadre(60)),{point(0,m),caché},mappe(x->{point(opérande(x,1)-c0,0),caché,label(opérande(x,1),-90,10)},cls),{point(w,0),caché,label(c1,-90,10)},{droite(point(0,0),point(c1-c0,0)),couleur(bleu),graduations(10),style(tiret(1,0,bleu))},{droite(point(0,0),point(0,m)),couleur(bleu),graduations(calcule(10×ma)),style(tiret(0,1,bleu))},mappe(n->{droite(point(0,(n×m)/(2×ma)),point(c1-c0,(n×m)/(2×ma))),couleur(200,200,200)},seq([1,2×ma])),bar(cm,M,c0,p,bleu,vert),{polygone(point(0,0.95×m),point(0,m),point(p,m),point(p,0.95×m)),couleur(bleu),remplit(vert)},{point(p,0.975×m),caché,label(approche(m/20),0,12),couleur(rouge)}), 
+   figure->joint(fig,cliquer(nbclics)), 
+   solution->mappe((x,y)->bar(x,y,c0,p,bleu,vert),cls,data)~
+vérification : 
+   abscisse->approche(opérande(entrée,1)+c0), ordonnée->approche(opérande(entrée,2)), 
+   (c,d)->class(abscisse,cls,data), cw->calcule(opérande(c,2)-opérande(c,1)), 
+   e->approche(|ordonnée-(d×p)/cw|), correct->e<calcule(m/(10×ma)), 
+   {note,total,partie,texte}->tests(REFAIRE,essai=ESSAIS,FAUX,incomplet,INCOMPLET,correct,JUSTE,actions×clics>0 et correct,CLIC), 
+   nbar->bar(c,ordonnée,c0,cw,bleu,vert), redite->c€fait, 
+   (fait,réponse)->tests((joint(fait union {c}),nbar),clics>actions+1,(joint(fait union {c}),(réponse,nbar)),c€fait,(fait,réponse)), 
+   (actions,fait)->tests((0,{cm}),correct,(actions,fait),redite et correct,(calcule(actions+1),{cm})), 
+   réponse->tests(réponse,essai=ESSAIS et actions=0,solution)~
+">
+<PARAM name="Exercice 3" value="
+titre : polygone des effectifs~
+énoncé :Pour comprendre comment tracer le polygone des effectifs, on représente d'abord l'histogramme,¶
+puis on trace les segments qui joignent les milieux, de cette manière, l'aire du polygone sera la même¶
+que celle de l'histogramme.~
+définitions : 
+   (p,s0,n0)->choix({5,10,20,50,100},[5,40],[1,5]), s1->calcule(s0×p), 
+   cls->mappe(n->[calcule(s1+n×p),calcule(s1+n×p+p)[,seq([0,9])), 
+   data->mappe(n->approche(DNorm(-2+0.4×n+0.2,0,1)×(1+aléa(-0.5,0.5))×n0×100),seq([0,9])), 
+   (cm,M)->mappe((x,y)->tests((x,y),y<opérande(image,2),image),cls,data,(x,y)), 
+   ma->approche(log(M)-0.5), m->calcule(approche(M/10^ma+0.5)×10^ma), n->10, 
+   {c0,c1}->{opérande(opérande(cls,1),1),opérande(opérande(cls,n),2)}, 
+   (first,last)->(opérande(cls,1),opérande(cls,n)), 
+   sh->calcule((opérande(first,2)-opérande(first,1))/2), c0->calcule(opérande(first,1)-sh), 
+   c2->opérande(last,2), c1->calcule(1.5×c2-0.5×opérande(last,1)), w->calcule(c1-c0), 
+   {A,B}->{point(20,20),point(160,420)}, solution->mappe((x,y)->ptpoly(x,y,c0,p),cls,data), 
+   Abs->joint(mappe(p->opérande(p,1),solution),c1-c0), 
+   cliptexte->clip(0,0,800,70,couleur(230,200,250)), demo->entrées=0, 
+   texte->tests(`Cliquer sur les extrémités successives des segments qui formeront le polygone`,demo,texte), 
+   histo->tests(dummy,demo,mappe((x,y)->bar(x,y,c0,p,bleu,vert),cls,data)), 
+   sol->{ligne(joint(point(0,0),solution,point(w,0))),couleur(rouge)}, 
+   Lsol->tests(dummy,demo,sol), R->point(0,0), 
+   figure->(clip(0,0,230,800,origine(0,0),unités(1,1),couleur(220,230,200)),table((cls,data),10,60,100,20),{point(60,40),caché,label(classes,centré,14)},{point(160,40),caché,label(effectifs,centré,14)},clip(230,0,500,800,recadre(60)),{point(0,m),caché},{point(w,0),caché},mappe(x->{point(opérande(x,1)-c0,0),caché,label(opérande(x,1),-90,10)},cls),R,{point(c2-c0,0),caché,label(c2,-90,10)},{droite(point(0,0),point(c1-c0,0)),couleur(bleu)},{droite(point(0,0),point(0,m)),couleur(bleu)},mappe(n->{droite(point(0,(n×m)/10),point(c1-c0,(n×m)/10)),couleur(200,200,200)},seq([1,10])),mappe(x->{droite(point(x,0),point(x,m)),couleur(200,200,200)},Abs),histo,Lsol,{polygone(point(0,0.9×m),point(0,m),point(p,m),point(p,0.9×m)),couleur(bleu),remplit(vert)},{point(p,0.95×m),caché,label(approche(m/10),0,12),couleur(rouge)},cliquer(10))~
+vérification : 
+   abscisse->approche(opérande(entrée,1)), ordonnée->approche(opérande(entrée,2)), 
+   ptsol->opérande(solution,clics-actions), 
+   (ex,ey)->(approche(|abscisse-opérande(ptsol,1)|/p,-2),approche(|ordonnée-opérande(ptsol,2)|/m,-2)), 
+   correct->ex<0.6 et ey<0.03, 
+   ligne0->tests({droite(R,entrée),couleur(bleu)},correct,{droite(R,ptsol),couleur(bleu)}), 
+   ligne->tests(ligne0,correct et actions=0,joint(ligne0,{droite(ptsol,point(w,0)),couleur(bleu)})), 
+   réponse->tests(ligne,clics>actions+1,joint(réponse,ligne),essai=ESSAIS et non(correct),sol), 
+   (clics,actions)->tests((0,0),correct,(clics,actions)), 
+   {note,total,partie,texte}->tests(REFAIRE,essai=ESSAIS,FAUX,incomplet,INCOMPLET,correct,JUSTE,actions>0 et correct,CLIC), 
+   R->tests(entrée,correct,ptsol,actions=0,point(0,0))~
+">
+<PARAM name="Exercice 4" value="
+titre : effectifs cumulés~
+énoncé :Dans la dernière colonne, on a calculé les effectifs cumulés, c'est-à-dire la somme¶
+des effectifs des classes précédentes avec l'effectif de la classe courante.~
+définitions : 
+   (p,s0,n0)->choix({5,10,20,50,100},[5,40],[1,5]), s1->calcule(s0×p), 
+   cls->mappe(n->[calcule(s1+n×p),calcule(s1+n×p+p)[,seq([0,9])), 
+   data->mappe(n->approche(DNorm(-2+0.4×n+0.2,0,1)×(1+aléa(-0.5,0.5))×n0×100,5),seq([0,9])), 
+   cdata->cumul(data), M->opérande(cdata,-1), ma->approche(log(M)-0.5), 
+   m0->approche(M/10^ma+0.5), m->calcule(m0×10^ma), n->10, ny->approche(10,m0), 
+   rg->mappe({opérande(cdata,x)<=M/2 : x->x},seq([1,10]),x), 
+   (inf,sup)->(approche(opérande(opérande(cls,rg),1)+p/2,0.5),approche(opérande(opérande(cls,rg+1),1)+p/2,0.5)), 
+   (low,high)->opérande(cdata,(rg,rg+1)), 
+   med->approche(inf+((M/2-low)×(sup-inf))/(high-low),0.1), 
+   {c0,c1}->{opérande(opérande(cls,1),1),opérande(opérande(cls,10),2)}, 
+   (first,last)->(opérande(cls,1),opérande(cls,10)), 
+   sh->calcule((opérande(first,2)-opérande(first,1))/2), c0->calcule(opérande(first,1)-sh), 
+   c2->opérande(last,2), c1->calcule(1.5×c2-0.5×opérande(last,1)), w->calcule(c1-c0), 
+   {A,B}->{point(20,20),point(160,420)}, ptspoly->mappe((x,y)->ptpoly(x,y,c0,p),cls,cdata), 
+   Abs->joint(mappe(p->opérande(p,1),ptspoly),c1-c0), solution->cumul(data), 
+   format->mappe(n->{point(190,(60+n×20)-10),caché,label(?,centré,14)},seq([1,10])), 
+   cliptexte->clip(0,0,800,70,couleur(230,200,250)), demo->entrées=0, 
+   texte->tests(`Remplir la dernière colonne avec les effectifs cumulés`,demo,texte), 
+   figtable->(clip(0,0,230,800,origine(0,0),unités(1,1),couleur(220,230,200)),table((cls,data,Ø),15,60,(100,50,50),20),{point(60,40),caché,label(classes,centré,14)},{point(160,40),caché,label(effectifs,centré,14)}), 
+   graphe->(clip(230,0,500,800,recadre(60)),mappe(n->{point(0,approche((n×m)/ny)),caché,label(approche((n×m)/ny),180,10)},seq([1,ny])),{point(w,0),caché},mappe(x->{point(opérande(x,1)-c0,0),caché,label(opérande(x,1),-90,10)},cls),{point(c2-c0,0),caché,label(c2,-90,10)},{droite(point(0,0),point(c1-c0,0)),couleur(bleu)},{droite(point(0,0),point(0,m)),couleur(bleu)},mappe(n->{droite(point(0,(n×m)/ny),point(c1-c0,(n×m)/ny)),couleur(200,200,200)},seq([1,ny])),mappe(x->{droite(point(x,0),point(x,m)),couleur(200,200,200)},Abs)), 
+   figure->joint(graphe,figtable)~
+vérification : 
+   R->joint(réponse,entrée), correct->compare(R,solution)=0, décalage->3, 
+   raccourci->total>3, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :On représente maintenant le polygone des effectifs cumulés, c'est une ligne brisée dont les¶
+sommets ont pour abscisses les centres des classes et les ordonnées sont les effectifs cumulés.~
+définitions : 
+   figtable->joint(figtable,mappe((n,s)->{point(185,50+n×20),caché,label(s,centré,14)},seq([1,10]),solution)), 
+   solution->ptspoly, R->point(0,0), 
+   Lsol->{ligne(joint(point(0,0),solution,point(w,M))),couleur(rouge)}, 
+   sol->tests(dummy,demo,Lsol), figure->joint(figtable,graphe,R,sol,cliquer(10))~
+vérification : 
+   abscisse->approche(opérande(entrée,1)), ordonnée->approche(opérande(entrée,2)), 
+   ptsol->opérande(solution,clics-actions), 
+   (ex,ey)->(approche(|abscisse-opérande(ptsol,1)|/p,-2),approche(|ordonnée-opérande(ptsol,2)|/m,-2)), 
+   correct->ex<0.6 et ey<0.03, 
+   ligne0->tests({droite(R,entrée),couleur(bleu)},correct,{droite(R,ptsol),couleur(bleu)}), 
+   ligne->tests(ligne0,correct et actions=0,joint(ligne0,{droite(ptsol,point(w,M)),couleur(bleu)})), 
+   réponse->tests(ligne,clics>actions+1,joint(réponse,ligne),essai=ESSAIS et non(correct),Lsol), 
+   (clics,actions)->tests((0,0),correct,(clics,actions)), 
+   {note,total,partie,texte}->tests(REFAIRE,essai=ESSAIS,FAUX,incomplet,INCOMPLET,correct,JUSTE,actions>0 et correct,CLIC), 
+   R->tests(entrée,correct,ptsol,actions=0,point(0,0))~
+énoncé :Pour obtenir graphiquement la médiane, on cherche sur l'axe des ordonnées l'effectif¶
+valant la moitié de l'effectif total. Cliquer sur ce point.~
+définitions : 
+   graphe->joint(graphe,Lsol), figure->joint(figtable,graphe,cliquer(1)), 
+   solution->point(0,M/2)~
+vérification : 
+   y->opérande(entrée,2), correct->calcule(|y-M/2|)/m<0.03, {note,total,partie,texte}->standard, 
+   réponse->tests({droite(point(0,y),point(w,y)),couleur(vert)},essai=ESSAIS ou correct,{droite(point(0,M/2),point(w,M/2)),couleur(vert)})~
+énoncé :La médiane partage les effectifs en deux parties égales.Cliquer sur le point de l'axe des abscisses¶
+correspondant à la médiane.~
+définitions : 
+   graphe->joint(graphe,{droite(point(0,M/2),point(w,M/2)),couleur(vert)}), 
+   solution->{droite(point(med-c0,0),point(med-c0,M/2)),couleur(vert)}, 
+   seg->tests(seg,demo,solution), figure->joint(figtable,graphe,cliquer(1)), 
+   texte->tests(`Cliquer sur la médiane`,demo,texte)~
+vérification : 
+   abscisse->opérande(entrée,1), ordonnée->opérande(entrée,2), 
+   (ex,ey)->(approche(|abscisse-med+c0|/p,-2),approche(|ordonnée|/(10×ma),-2)), 
+   correct->ex<1.5 et ey<1.5, 
+   {note,total,partie,texte}->tests(REFAIRE,essai=ESSAIS,FAUX,incomplet,INCOMPLET,correct,JUSTE,actions>0 et correct,CLIC), 
+   réponse->tests({droite(entrée,point(abscisse,M/2)),couleur(vert)},essai=ESSAIS,solution)~
+énoncé :Représenter graphiquement les effectifs cumulés sur le cahier, faire la construction¶
+pour obtenir la médiane et donner une valeur approchée de la médiane.~
+définitions :
+   cumuls->mappe((n,s)->{point(185,50+n×20),caché,label(s,centré,14)},seq([1,10]),solution),
+   figtable->tests(joint(solution,figtable),raccourci,joint(figtable,cumuls)),
+   texte->tests(texte,total<6,`Donner une valeur approchée de la médiane`), 
+   figure->joint(graphe,figtable,{point(80,300),caché,label(`médiane :`,centré,14)}), 
+   solution->approche(med), format->{point(130,300),caché,label(?,0,14)}~
+vérification : 
+   correct->calcule(|entrée-solution|/m)<0.03, {note,total,partie,texte}->standard, 
+   réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

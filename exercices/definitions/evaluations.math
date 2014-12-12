@@ -1,0 +1,20 @@
+<definitions>
+suivant->calcule(partie+1),
+ESSAIS->2,
+TOTAL->10,
+JUSTE->{calcule(note+1),calcule(total+1),suivant,` Bonne réponse ! (appuyer sur entrée)`},
+MIEUX->{calcule(note+1),calcule(total+1),suivant+décalage,` Bonne réponse ! (appuyer sur entrée)`},
+FAUX->{note,total+1,suivant,` Ce n'est pas encore celà . Voici la solution : (appuyer sur entrée)`},
+REFAIRE->{note,calcule(total+1),partie,` Essaie une autre réponse`},
+INCOMPLET->{note,total,partie,` Réponse imprécise ou insuffisante`},
+FORMAT->{point(0,0),caché,label(forme,centré,14)},
+ENTRE->tests(entrée,essai=ESSAIS,solution),
+FIN->tests(joint(réponse,entrée),(essai=ESSAIS) et (actions=0),solution),
+STOP->tests(partie,(total>=TOTAL) et (essai=ESSAIS),-1),
+CLIC->{note,total,partie,`Cliquer encore sur un autre point`},
+ENCORE->{note,total,partie,`Ecrire l'expression suivante`},
+correct->compare(entrée,solution)=0,
+standard->tests(REFAIRE,essai=ESSAIS,FAUX,incomplet,INCOMPLET,correct,JUSTE,raccourci,MIEUX,actions>0,ENCORE,actions*clics>0,CLIC)
+</definitions>
+<history>
+</history>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<HR WIDTH="100%"><H3>Exercices mathématiques</H3><HR WIDTH="100%">
+<APPLET code="root.ExpressionApplet.class" width="635" height="490">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="2">
+<PARAM name="importer" value="
+definitions/coord.math,
+definitions/evaluations.math,
+definitions/couleurs.math
+">
+<PARAM name="définitions globales" value="
+ptpol->ptpol(o,r,a)=applique(d->(a×PI)/180,(x0,y0)->opérande(o),point(approche(x0+r×cos(d),-4),approche(y0+r×sin(d),-4))),
+proj->proj(pt,cercle)=applique(Pt->tests(pt,pt->ensemble,opérande(pt,1)),C->tests(cercle,cercle->ensemble,opérande(cercle,1)),(o,r)->opérande(C),(x0,y0)->opérande(o),(x,y)->opérande(Pt),k->rac((x-x0)^2+(y-y0)^2),point(approche(x0+(r×(x-x0))/k,-8),approche(y0+(r×(y-y0))/k,-8))),
+intersect->intersect(A,B,C,D)=applique((xa,xb,xc,xd)->(abs(A),abs(B),abs(C),abs(D)),(ya,yb,yc,yd)->(ord(A),ord(B),ord(C),ord(D)),k->calcule(((xa-xc)×(yc-yd)-(xc-xd)×(ya-yc))/((xa-xb)×(yc-yd)-(xc-xd)×(ya-yb))),point(calcule(k×(xb-xa)+xa),calcule(k×(yb-ya)+ya)))
+">
+<PARAM name="décorations" value="
+{perpendiculaires->constant,perpendiculaires->image : perpendiculaires},
+{parallèles->constant,parallèles->image : parallèles},
+{sécantes->constant,sécantes->image : sécantes},
+{l'orthocentre->constant,l'orthocentre->image : l'orthocentre},
+{le centre de gravité->constant,le centre de gravité->image : le centre de gravité},
+{le centre du cercle inscrit->constant,le centre du cercle inscrit->image : le centre du cercle inscrit},
+{le centre du cercle circonscrit->constant,le centre du cercle circonscrit->image : le centre du cercle circonscrit}
+">
+<PARAM name="Exercice 1" value="
+titre : sécantes du cercle~
+énoncé :Les points M et N sont sur le cercle de diamètre [AB]. Observer la position des droites (AB)¶
+ et (FG) en tirant le point M ou le point N et compléter par le mot qui convient.~
+définitions : 
+   cliptexte->clip(0,0,800,80,couleur(205,235,210)), pA->{point(-5,-4),label(A,-45,12)}, 
+   pB->{point(5,-4),label(B,-45,12)}, pO->point(0,-4), 
+   fig0->(clip(0,0,400,800),{cercle(pO,5),couleur(bleu)},ligne(pA,pB)), figure->fig0, 
+   interactions->(TRAINER(pM,{ptpol(pO,5,120),label(M,135,12),couleur(rouge)}),pM->{proj(pM,cercle(pO,5)),couleur(rouge),label(M,135,12)},BM->{droite(pB,pM),couleur(vert),sepA(10),sepB(10)},TRAINER(pN,{ptpol(pO,5,30),label(N,45,12),couleur(rouge)}),pN->{proj(pN,cercle(pO,5)),couleur(rouge),label(N,45,12)},AN->{droite(pA,pN),couleur(vert),sepA(10),sepB(10)},pF->{interLL(droite(pA,pM),droite(pB,pN)),caché,label(F,0,12)},pG->{interLL(droite(pA,pN),droite(pB,pM)),caché,label(G,0,12)},FG->{droite(pF,pG),sepA(10),sepB(10)},FA->{droite(pF,pA),couleur(vert),sepA(10),sepB(10)},FB->{droite(pF,pB),couleur(vert),sepA(10),sepB(10)},clip(400,0,400,800)), 
+   form->VBOX(`Les droites (FG) et (AB) sont`,?), 
+   format->{point(0,0),caché,label(form,centré,14)}, 
+   solution->VBOX(`Les droites (FG) et (AB) sont`,perpendiculaires)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Indiquer deux triangles rectangles qui admettent le segment [AB] comme hypoténuse.~
+définitions : 
+   figure->fig0, 
+   format->{point(0,0),caché,label(VBOX(HBOX(triangle,A,?,B),HBOX(triangle,A,?,B)),centré,14)}, 
+   solution->VBOX(HBOX(triangle,A,M,B),HBOX(triangle,A,N,B)), s->{M,N}~
+vérification : 
+   (r1,r2)->opérande(entrée), correct->{opérande(r1,3),opérande(r2,3)}=s, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Comment s'appelle le point G par rapport au triangle  ABF ?~
+définitions : 
+   figure->fig0, 
+   format->{point(0,0),caché,label(VBOX(HBOX(G est,?),du triangle ABF),centré,14)}, 
+   solution->VBOX(HBOX(G est,l' orthocentre),du triangle ABF)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Compléter la phrase suivante qui indique pourquoi les droites¶
+(AB) et (FG) sont perpendiculaires~
+définitions : 
+   figure->fig0, 
+   format->{point(0,0),caché,label(VBOX(`la droite (FG) est une`,?,du triangle ABF),centré,14)}, 
+   solution->VBOX(`la droite (FG) est une`,hauteur,du triangle ABF)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : tangentes~
+énoncé :A partir du point  M (que l'on peut traîner) extérieur au cercle, on trace deux¶
+tangentes (AM) et (BM). Indiquer deux triangles rectangles ayant pour sommet O.~
+définitions : 
+   cliptexte->clip(0,0,800,80,couleur(205,235,210)), pO->{point(0,0),label(O,225,14)}, 
+   fig0->(clip(0,0,400,800),{cercle(pO,5),couleur(bleu)},pO), figure->fig0, 
+   interactions->(TRAINER(pM,{point(7,2),label(M,90,14),couleur(rouge)}),pM->pM,(a,b)->opérande(opérande(pM,1)),d->approche(a^2+b^2,-4),c->approche(rac(d-25),-4),pA->{point((25×a-5×b×c)/d,(25×b+5×a×c)/d),label(A,90,14)},pB->{point((25×a+5×b×c)/d,(25×b-5×a×c)/d),label(B,90,14)},AM->{droite(pM,pA),couleur(rouge),sepB(1)},BM->{droite(pM,pB),couleur(rouge),sepB(1)},AB->{droite(pA,pB),couleur(rouge)},AOB->ligne(pA,pO,pB),OM->droite(pO,pM),clip(400,0,400,800)), 
+   format->{point(0,0),caché,label(VBOX(HBOX(triangle,O,?,?),HBOX(triangle,O,?,?)),centré,14)}, 
+   solution->VBOX(HBOX(triangle,O,A,M),HBOX(triangle,O,B,M))~
+vérification : 
+   (e0,e1)->opérande(entrée), (s0,s1)->opérande(solution), 
+   (E0,E1,S0,S1)->mappe(x->ensemble(opérande(x)),(e0,e1,s0,s1)), correct->E0=S0 et E1=S1, 
+   {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Soit P le mileu de [OM]. Ecrire quatre distances égales à partir du point P.~
+définitions : 
+   figure->fig0, format->{point(0,0),caché,label({?,?,?,?},centré,14)}, 
+   interactions->(TRAINER(pM,{point(7,2),label(M,90,14),couleur(rouge)}),pM->pM,(a,b)->opérande(opérande(pM,1)),d->approche(a^2+b^2,-4),c->approche(rac(d-25),-4),pA->{point((25×a-5×b×c)/d,(25×b+5×a×c)/d),label(A,90,14)},pB->{point((25×a+5×b×c)/d,(25×b-5×a×c)/d),label(B,90,14)},AM->{droite(pM,pA),couleur(rouge),sepB(1)},BM->{droite(pM,pB),couleur(rouge),sepB(1)},AB->{droite(pA,pB),couleur(rouge)},AOB->ligne(pA,pO,pB),OM->droite(pO,pM),pP->{point(a/2,b/2),label(P,90,14)},clip(400,0,400,800)), 
+   solution->{PA,PB,PM,PO}~
+vérification : 
+   correct->entrée=solution, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :Que peut-on dire du point P par rapport au triangle ABM ?~
+définitions : 
+   figure->fig0, format->{point(0,0),caché,label(VBOX(C' est,?,au triangle ABM),centré,14)}, 
+   solution->VBOX(C' est,le centre du cercle circonscrit,au triangle ABM)~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<definitions>
+abs->abs(x)=applique({point(a,b)->x : a}),
+ord->ord(x)=applique({point(a,b)->x : b}),
+grh->grh(A,B,dy,c)=applique(a->calcule(ord(A)+dy),A'->point(abs(A),a),B'->point(abs(B),ord(A)),{ord(B)<a : STOP({droite(A,B'),couleur(c)})},joint({droite(A,B'),couleur(c)},grh(A',B,dy,c))),
+grv->grv(A,B,dx,c)=applique(a->calcule(abs(A)+dx),A'->point(a,ord(A)),B'->point(abs(A),ord(B)),{abs(B)<a : STOP({droite(A,B'),couleur(c)})},joint({droite(A,B'),couleur(c)},grv(A',B,dx,c))),
+grille->grille(A,B,dx,dy,c)=applique(joint(grh(A,B,dy,c),grv(A,B,dx,c))),
+barfrac->barfrac(x0,a,b,dy,c0,c1)=applique(A->point(x0,0),A'->point(x0+1,0),m->max(a,b),B->point(x0+1,m×dy),C->point(x0,a×dy),C'->point(x0+1,a×dy),joint({polygone(A,C,C',A'),remplit(c1)},grille(A,B,1,dy,c0),{A,caché},{B,caché})),
+min->min(s)=mappe({x<=image : x->x},s,x),
+max->max(s)=mappe({x>=image : x->x},s,x)
+</definitions>
+<commentaires>
+barfrac->` Représente la fraction a/b par une barre verticale avec b subdivisions.¶ x0 : abscisse du point en bas à gauche, a : le numérateur, b : le dénominateur¶ dy : hauteur de chaque subdivision¶ c0 : couleur de tracé, c1 : couleur de remplissage`,
+grh->` Tracé d'une suite de droites horizontales¶ A : point de départ en bas à gauche, B : point limite en haut à droite¶ dy : distance entre deux droites successives¶ c : couleur de tracé`,
+grv->`Tracé d'une suite de droites verticales¶ A : point de départ en bas à gauche, B : point limite en haut à droite¶ dx : distance horizontale entre deux droites successives¶ c : couleur de tracé`,
+grille->` Tracé d'une grille de couleur c¶ A : point en bas à gauche, B : point en haut à droite¶ dx : distance entre deux droites verticales, dy : distance entre deux droites horizontales¶ Exemple : grille(point(-4,-3),point(4,3),2,1,bleu)`
+</commentaires>
+<history>
+</history>

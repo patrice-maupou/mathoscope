@@ -1,0 +1,18 @@
+<importer>
+développements.math
+</importer>
+<definitions>
+degré->degré(p,x)=applique({x^n->p : STOP(n)},{a+b->p : STOP(max(degré(a,x),degré(b,x)))},{x->p : STOP(1)},{a×x^n->p,a->num : STOP(n)},{a×x->p,a->num : STOP(1)},{p->num : STOP(0)}),
+tête->tête(p)=applique(p,{a+b->p : tête(a)}),
+divmn->divmn(a,b,x)=applique({c×x^m->a,d×x^n->b : calcule(c/d)×x^calcule(m-n)}),
+div->div(a,b,q,x)=applique(q1->divmn(tête(a),tête(b),x),{degré(q1,x)<0 ou 0×x^n->a : STOP((q,a))},r->red(stri(ass(dev(a+(-1)×x^0×q1×b,x),0),x),x),div(r,b,red(stri(ass(q1+q,0),x),x),x)),
+divise->divise(a,b,x)=applique(div(stnd(a,x),stnd(b,x),0×x^0,x)),
+numden->numden(f)=applique({f,1×x^0},{a/b->f : STOP({a,b})},{a/b×x^0->f : STOP({a×x^0,b×x^0})},{(-a/b)×x^0->f : STOP({(-a)×x^0,b×x^0})})
+</definitions>
+<commentaires>
+</commentaires>
+<history>
+stnd((2×x-3)×(-5×x-4),x),
+norm((2×x+(-3))×((-5)×x-4)),
+norm((-3)×x+4)
+</history>

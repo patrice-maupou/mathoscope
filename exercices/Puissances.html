@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="520" height="295">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/couleurs.math,
+definitions/evaluations.math
+">
+<PARAM name="définitions globales" value="
+min->min(a,b)=applique(a,{b<a : b}),
+ntri_puissances->schéma({a^p×b^n->image,compare(a,b)>0 : b^n×a^p},{c×a^p×b^n->image,compare(a,b)>0 : c×b^n×a^p},{a^p×a^n->image : a^calcule(p+n)},{c×a^p×a^n->image : c×a^calcule(p+n)},{1^n->image : 1},{1×a->image : a}),
+nexp_standard->schéma({a^n^p->image : a^calcule(n×p)},{(a×b)^n->image : a^n×b^n},{a/b->image : a×b^(-1)},{a×b->image,a->entier : a^1×b},{b×a->image,a->entier : b×a^1},{a×(b×c)->image : a×b×c}),
+nexp_positifs->schéma({a×b->image,non(n×p->a),compare(a,b)>0 : b×a},{c×a×b->image,compare(a,b)>0 : c×b×a},{a^0->image : 1},{a^1->image : a},{a^(-n)->image,n>0 : 1/a^n},{a×(b/c)->image,non(n/p->a) : (a×b)/c},{b/c×a->image,non(n/p->a) : (b×a)/c},{a/b×(c/d)->image : (a×c)/(b×d)},{1×a->image : a},{a×1->image : a}),
+bandeau->clip(0,0,700,80,couleur(230,230,210)),
+fig->(clip(0,0,700,600),{point(0,2),caché,label(CADRE(question,10,10,couleur(210,230,230)),centré,14)})
+">
+<PARAM name="décorations" value="
+{Ø->image : Ø},
+{[a,b]->image : [a,b]},
+{]a,b]->image : ]a,b]},
+{[a,b[->image : [a,b[},
+{]a,b[->image : ]a,b[},
+{A->ensemble,B->ensemble,A union B->image : A union B}
+">
+<PARAM name="Exercice 1" value="
+titre : quotient de produits~
+énoncé : Simplifier les puissances en utilisant les règles :¶
+     $a^n×a^p = a^(n+p)$ , $a^n/a^p = a^(n-p)$~
+définitions : 
+   (x,y,z)->choix({1,3,5,7,11,13},3), 
+   (a1,a2,a3,a4,a5,a6)->choix({x,y,z},6), (e1,e2,e3,e4,e5,e6)->choix([-5,5],6), 
+   q->(a1^e1×a2^e2×a3^e3)/(a4^e4×a5^e5×a6^e6), 
+   question->applique(q,schéma({a^0->image : 1},{a^1->image : a},{1^n->image : 1},{1×a->image : a},{a×1->image : a},{a/1->image : a})), 
+   s->applique(question,nexp_standard,ntri_puissances,nexp_positifs), solution->s, 
+   format->{point(0,-2),caché,label(?,centré,14)}, cliptexte->bandeau, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 2" value="
+titre : puissances successives~
+énoncé : On utilise maintenant les règles supplémentaires :¶
+    $ (a^n)^p = a^(n×p)$ et $(a×b)^n = a^n×b^n$~
+définitions : 
+   E->{1,3,5,7,11,13}, P->[-5,5], (e1,e2,e3,e4,e5,e6,e7,e8,e9)->choix([-5,5],6,E,3), 
+   N->{x,y,z,x^e7,y^e8,z^e9,x^e8,y^e9,z^e7,x×y,y×x,x×z,z×x,y×z,z×y}, (x,y,z)->choix(E,3), 
+   (a1,a2,a3,a4,a5,a6)->choix(N,6), 
+   q->(a1^e1×a2^e2×a3^e3)/(a4^e4×a5^e5×a6^e6), 
+   question->applique(q,schéma({a^0->image : 1},{a^1->image : a},{1^n->image : 1},{1×a->image : a},{a×1->image : a},{a/1->image : a})), 
+   solution->applique(question,nexp_standard,ntri_puissances,nexp_positifs), 
+   format->{point(0,-2),caché,label(?,centré,14)}, cliptexte->bandeau, figure->fig~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+<PARAM name="Exercice 3" value="
+titre : factorisations~
+énoncé : Une somme de puissances d'un même nombre¶
+ peut se factoriser avec le plus petit des deux exposants¶
+ Exemple :$ 6^3+6^5 = 6^3×(1+6^2)$   Effectuer ci-dessous cette transformation~
+définitions : 
+   E->[2,10], P->{2,3,4,5}, 
+   (a,b,c,a0,a1,b0,c0)->choix([2,10],3,{2,3,4,5},4,non(a=b),non(a=c),non(b=c)), 
+   q->choix({a^a0×b^b0+a^a1×c^c0,b^b0×a^a0+a^a1×c^c0}), question->q, m->min(a0,a1), 
+   s->a^m×(a^calcule(a0-m)×b^b0+a^calcule(a1-m)×c^c0), 
+   solution->applique(s,nexp_positifs,schéma({(a+b)×c->image : c×(a+b)})), 
+   format->{point(0,-2),caché,label(?,centré,14)}, cliptexte->bandeau, figure->fig, 
+   demo->entrées=0~
+vérification : 
+   r->applique(entrée,schéma({a×b->image,non(n+p->b),compare(a,b)>0 : b×a})), 
+   correct->compare(r,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

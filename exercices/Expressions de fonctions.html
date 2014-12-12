@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Applet HTML Page</title>
+</head>
+<body>
+<P>
+<H3><HR WIDTH="100%">Exercices mathématiques<HR WIDTH="100%"></H3>
+<APPLET code="root.ExpressionApplet.class" width="568" height="337">
+<PARAM name="archive" value="maths.jar">
+<PARAM name="nombre d'exercices" value="3">
+<PARAM name="importer" value="
+definitions/signes.math,
+definitions/développements.math,
+definitions/evaluations.math,
+definitions/coord.math
+">
+<PARAM name="définitions globales" value="
+remplace->remplace(t,q)=applique({{A=a,B=b,C=c,D=d}->q : applique(t,A->a,B->b,C->c,D->d)}),
+calcule->calcule(e)=applique(e,{e->num : applique(calcule,e)},{a=b->e : calcule(a)=calcule(b)}),
+data->data(q)=applique({{A=a,B=b,C=c,D=d}->q : VBOX(A=a,B=b,C=c,D=d)})
+">
+<PARAM name="décorations" value="
+{f(x)->image : f(x)}
+">
+<PARAM name="Exercice 1" value="
+titre : aire d'un triangle~
+énoncé :La variable x est la distance CM. Donner les aires des triangles CEM et ¶
+AMD en fonction de x.~
+définitions : 
+   cliptexte->clip(0,0,600,60,couleur(220,230,240)), 
+   (a,b,x0,t)->choix([1,3],4), 
+   pts->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,14)},(-4+2×x0,-4,4,-4,-4,4),(-4,4-2×a,4,4,-4),(M,E,A,B,C,D),(-60,220,45,135,225,-45)), 
+   AEM->mappe((x,n)->opérande(x,n),seq(pts),seq([1,3])), 
+   EFGH->mappe((x,n)->opérande(x,n),seq(pts),seq([3,6])), 
+   mrks->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,12)},(-4+x0,-4,0,4),(-4,4-a,4,0),(x,a,4),(-90,180,90,0)), 
+   pX->{point(-4+x0/2,-4),caché,label(x,-90,12)}, 
+   fig->(clip(0,0,300,500),pts,polygone(EFGH),{polygone(AEM),remplit(255,180,255)},mrks,clip(300,0,200,500)), 
+   figure->fig, TOTAL->8, 
+   format->({point(0,2),caché,label(aire(CEM)=?,centré,14)},{point(0,-2),caché,label(aire(AMD)=?,centré,14)}), 
+   solution->(aire(CEM)=norm(calcule((4-a)/2)×x),aire(AMD)=-2×x+8), R->réponse~
+vérification : 
+   R->joint(R,opérande(entrée,1)=norm(calcule(développe(opérande(entrée,2),x)))), 
+   correct->compare(R,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :En déduire l'expression de l'image de x par la fonction f qui à tout nombre x¶
+de l'intervalle [0,4] associe l'aire f(x) du triangle AEM~
+définitions : 
+   figure->(fig,mappe((h,e)->{point(0,h),caché,label(e,centré,14)},(3,1),solution)), 
+   solution->f(x)=norm(calcule(2-a/2)×x-calcule(2×a)), 
+   format->{point(0,-2),caché,label(f(x)=?×x+?,centré,14)}~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 2" value="
+titre : aire d'un rectangle~
+énoncé :La fonction f associe au bord de largeur x l'aire du rectangle colorié.¶
+Indiquer l'expression de f(x) sous forme de polynome réduit.~
+définitions : 
+   cliptexte->clip(0,0,700,60,couleur(220,230,200)), TOTAL->8, 
+   (a,b,x0)->choix([5,10],[3,8],[1,4],a>b+1,c<b/2), 
+   pts->mappe((x,y)->point(x,y),(-a,-a,a,a),(b,-b,-b,b)), 
+   pts2->mappe((x,y)->point(x,y),(-a,-a,a-x0,a-x0),(b-x0,-b,-b,b-x0)), 
+   mrks->mappe((x,y,n,p)->{point(x,y),caché,label(n,p,12)},(0,a,-a,a-x0/2),(b,0,b-x0/2,-b),(a,b,x,x),(90,0,180,-90)), 
+   fig->(clip(0,0,300,500,recadre(20)),polygone(pts),{polygone(pts2),remplit(230,240,210)},mrks,clip(300,0,200,500)), 
+   figure->fig, format->{point(0,0),caché,label(f(x)=?,centré,14)}, 
+   s->développe((a-x)×(b-x),x), solution->f(x)=s~
+vérification : 
+   r->développe(opérande(entrée,2),x), incomplet->compare(r,s)=0, 
+   INCOMPLET->{note,total,partie,`Réponse juste, mais il faut développer et réduire`}, 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN, 
+   partie->STOP~
+">
+<PARAM name="Exercice 3" value="
+titre : longueurs~
+énoncé : Ecrire une relation entre x et f(x) en écrivant $OA/OB=OD/OC$¶
+ avec les distances marquées ci-dessous~
+définitions : 
+   cliptexte->clip(0,0,700,80,couleur(230,240,220)), 
+   (a,b,c,d,e)->choix([2,9],4,[1,3]), 
+   E->({OA=a,OB=calcule(a+b),OC=calcule(c+d),OD=d},{OA=a,AB=b,DC=c,OD=d},{OA=a,AB=b,OC=calcule(c+d),OD=d}), 
+   F->opérande(E,e), (v,i,d0,d1)->arrangement(4,F), v->opérande(v,1)=x, i->opérande(i,1)=f(x), 
+   i0->opérande(i,1)=y, 
+   t0->tests(OA/OB=OD/OC,e=2,OA/(OA+AB)=OD/(OD+DC),e=3,OA/(OA+AB)=OD/OC), 
+   f0->remplace(t0,{v,i,d0,d1}), f1->remplace(t0,{v,i0,d0,d1}), f->calcule(remplace(f1,F)), 
+   solution->applique(f,y->f(x)), format->{point(0,-3),caché,label(?/?=?/?,centré,14)}, 
+   pO->point(-6,3), pB->point(5,1), pC->point(2,-3), pA->bary(pO,b,pB,a), 
+   pD->bary(pO,b,pC,a), 
+   pts->mappe((p,l)->{p,label(l,-90,14),couleur(bleu)},(pO,pA,pB,pC,pD),(O,A,B,C,D)), 
+   fig0->(clip(140,0,500,500,couleur(255,240,255)),pts,{droite(pO,pB),couleur(0,0,255),sepA(0.5),sepB(0.5)},{droite(pO,pC),couleur(0,0,255),sepA(0.5),sepB(0.5)},{droite(pA,pD),couleur(255,0,0),sepA(0.5),sepB(0.5)},{droite(pB,pC),couleur(255,0,0),sepA(0.5),sepB(0.5)},clip(0,0,140,500)), 
+   question->VBOX(d0,d1,v,i), 
+   figure->joint(fig0,{point(0,2),caché,label(question,centré,14)}), demo->entrées=0~
+vérification : 
+   correct->compare(entrée,solution)=0, {note,total,partie,texte}->standard, réponse->FIN~
+énoncé :En déduire l'expression de f(x) en fonction de la variable x~
+définitions : 
+   figure->(fig0,{point(0,2),caché,label(solution,centré,14)}), 
+   t0->tests(OA×OC-OD×OB,e=2,OA×(OD+DC)-OD×(OA+AB),e=3,OA×OC-OD×(OA+AB)), 
+   f1->remplace(t0,{v,i0,d0,d1}), f->calcule(remplace(f1,F)), s->stnd(développe(f,y),y), 
+   c1->développe(opérande(opérande(s,1),1),x), 
+   c0->calcule(développe(-opérande(opérande(s,2),1),x)), solution->f(x)=norm(c0/c1), 
+   format->{point(0,-2),caché,label(f(x)=?,centré,14)}~
+vérification : 
+   e0->(opérande(entrée,2),1), e1->applique(e0,schéma({(n/d,1)->image : STOP(n,d)})), 
+   a0->calcule(développe(opérande(e1,1)×c1,x)), a1->calcule(développe(opérande(e1,2)×c0,x)), 
+   correct->compare(a0,a1)=0, {note,total,partie,texte}->standard, réponse->FIN~
+">
+</APPLET></P>
+</body>
+</html>

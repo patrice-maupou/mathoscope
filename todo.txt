@@ -1,0 +1,110 @@
+
+  mappe(x->image+x,(1,2,3),x), dans ce cas 1 est la première image, 1+2+3
+  mappe((x,y)->image*x+y, (4,5), (7,8), x+y) donne (4+7)×5+8
+  fait
+  mappe({a€b : (a,b)->b},3,({1,2},{2,3,5},{8,3},{4,5,7})) donne {2,3,5},{8,3}
+  mappe({a<3:a->a},(1,2,3,4)) donne (1,2) 
+  fait
+  décompose(ab) doit donner (-10,(a,b),ab) pour les variables
+  fait
+  dans la définition d'une fonction, a+b->2+3 devrait donner a->2 et b->3
+  fait
+  revoir (a,b)->mappe((x,y)->..)
+  fait
+  (x,y)->choix([1,3],[2,7],a<b), {a,b}->choix(2,{1,2,3})
+  fait
+  problème avec mappe({x>=image : x->x},(2,5,4,3),x) devrait donner 5, rectifier les conditions
+  fait
+  ajouter un constructeur de GPoint pour l'intersection de droites
+  fait
+  Revoir Parser pour que la chaîne `abc de` soit interprétée comme telle
+  fait
+  mauvaise interprétation de mappe(x->opérande(x,(2,3)),f(1,2,3,4)), 
+  doit donner (2,3) au lieu de f(2,3)
+  fait
+  revoir escape dans GPanelKeyPressed
+  fait
+  revoir les décorations : angle(A,B,C), cos(a) etc.., DISPLAYS doit être changé avant de l'utiliser.
+  fait
+  envisager la juxtaposition d'expressions pour une plus grande souplesse d'écriture :
+    3-7+|4 <BACKSPACE> 3-7|4 <-> 3-7-|4        3-7|+4 <DELETE> 3-7|4 <-> 3-7-|4
+  fait
+  la fonction hors(x,e) ne fonctionne pas à cause de la transformation x->x0
+  fait
+  ajouter dans Expression.applyFunc une liste trace à la place des paramètres statiques
+  fait
+  f(1,2,3,..,f(4,5,6),7)->f(1,2,3,..,4,5,6,7) comment faire ?  applique(f,(1,2,3,4)) donne f(1,2,3,4)
+  fait
+  incompatibilité dans display(false) avec le nouveau schéma d'actions et l'affichage de la solution
+    (Nombres premiers) car hotspot est nul
+  fait
+  inutilité de la fonction telque (Expressions de fonctions, longueurs à revoir, Thalès2),
+  on peut changer le nom de la fonction  à la place
+  fait
+  
+
+  bug sur applique(f(e), schéma) quand f est compliquée : applique(norm(applique(f,primitive))) ?
+  
+  changer le paramètre size de TextBox() et exprBox() par font
+  
+
+  revoir le chargement imports et définitions globales, la chaîne est probablement limitée.
+
+  envisager une palette d'actions plus variée suivant l'interface utilisateur, la flèche haut pourrait changer
+  la figure, etc..
+    interactions : début des interactions avec la figure, 
+  action curseur : définir le point et l'expression de départ
+    curseur->{point(0,0),label(?,centré,14)
+  action déplacement : on peut tirer sur les points M et N, valeurs initiales (4,0) et (0,5)
+    TRAINER(pM, {point(5,0)) , TRAINER(D,droite(pM,pN))
+  fait
+  action cliquer : quand on clique, on ajoute quelque chose ou on modifie LABEL
+    CLIQUER(pM,point(0,0),nb<4), nb->nb+1, pM->tests(pointEntier(pM),nb=2,STOP), poly->joint(poly,pM), poly
+  fait
+  action presser une touche : quand on appuie sur la flèche ?, on change l'expression x de 3 à 4
+    PRESSER(touche,Entrée), nb->tests(nb,compare(touche,Entrée)=0,calcule(nb+1)), 
+      partie->tests(partie, nb>4, partie+1), exécuter->partie, curseur->point(..) 
+  
+  action animation : on anime la variable t avec une pause de 500 ms condition d'arrêt : 4
+    ANIMER(t, 0, t<=4, 500), t->calcule(t+0.2), .., FIN(t)
+
+  changer les énoncés en labels, Q1: Q2: Q3: au lieu de partie->.., on aurait EXECUTER(Q2,Q3)
+
+  <applet..> doit être remplacé par 
+    <OBJECT codetype="application/java" classid="java:Bubbles.class" width="500" height="500">
+    </OBJECT>
+
+   
+  les suites ne sont pas prises en compte dans les ajouts de définition car le vecteur definitions est formé
+  uniquement de variables, `a,b`->(2,3) par exemple 
+    2.  f(a,b)->applique(..) au lieu de f->f(a,b)=applique(..)
+    3.  a+b->2+3 définirait a->2 et b->3
+  il faudrait que definitions contienne des expressions et disposer d'une hashtable : tabledefs, get(a+b)->2+3
+  utiliser match(2+3,a+b,..) pour récupérer a->2 et b->3
+
+
+  thread de ExpressionApplet pour les transformations avec applyDefs
+
+  ExprNode contient un opérateur, les Node parent, left, Vector<Node> right, une place, une Expression
+  Exemple : n0 : FUNC, (n0, (nx, ny) null
+    n0 : VAR, f    nx : VAR, x
+
+      a+b->plus(a,b), etc.. a+b+c->plus(plus(a,b),c)
+      TOKENS correspondent à des définitions d'expressions régulières
+        opérateur: ("+" "-" ..)
+        variable:( ["a"-"z" "A"-"Z"] ["a"-"z" "0"-"9"]* )
+        entier:(["1"-"9"] ["0"-"9"]*)
+        parenthèses:("(" ")" "{" "}" "[" "]")
+        virgule: "," ":"
+        exemples : 23+(a-x) donne 23,+,(,a,-,x,)
+
+
+
+
+  contexte avec les constructions autorisées : 
+    a->réel, n->entier, entier->réel, {u,v}->var, vec(var)->vecteur, vecteur+vecteur->vecteur, réel*vecteur->vecteur,
+    `[0-9]+`->entier, entier+entier->entier, 
+
+  fichiers à faire : pavages et remplissages, isométries
+  
+  )

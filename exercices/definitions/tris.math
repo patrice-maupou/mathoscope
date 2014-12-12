@@ -1,0 +1,49 @@
+<definitions>
+comp->comp(a,b)=applique(compare(a,b)>0),
+place->place(x,s,comp)=applique({non(s->seq),mappe(comp,s,x) : STOP(joint(x,s))},{non(s->seq) : STOP(joint(s,x))},(t,a)->sépare(s,1),{mappe(comp,a,x) : STOP(joint(place(x,t,comp),a))},joint(s,x)),
+triseq->triseq(s,comp)=applique(s,t->sépare(s,1),{(a,b)->t : place(b,triseq(a,comp),comp)}),
+PLUS->12,
+MUL->15,
+TRI->TRI(x,ops,comp)=applique((op,n,s)->x,{non((u,v)->sépare(s)) : STOP(x)},{op€ops : STOP(seq(op,n,mappe((a,ops,comp)->TRI(a,ops,comp),triseq(s,comp),ops,comp)))},seq(op,n,mappe((a,ops,comp)->TRI(a,ops,comp),s,ops,comp))),
+tri->tri(x,ops,comp)=compose(TRI(décompose(x),ops,comp)),
+ASSOC->ASSOC(x,ops)=applique((op,n,s)->x,{non(s->seq) : STOP(x)},(s0,t0)->sépare(s),t->tests(t0,opérande(t,3)->seq,ASSOC(t0,ops)),s1->tests(s0,opérande(s0,3)->seq,mappe(ASSOC(a,b),s0,ops)),{opérande(t,1)=op,op€ops : STOP(op,n,joint(s1,opérande(t,3)))},seq(op,n,joint(s1,t))),
+assoc->assoc(x,ops)=compose(ASSOC(décompose(x),ops))
+</definitions>
+<commentaires>
+comp->`Compare les éléments a et b selon la structure`,
+place->`place un élément x dans une suite ordonnée s en utilisant la fonction de comparaison¶comp(a,b)¶Exemple : place(3,(2,5,7),comp)`,
+triseq->`Trie une suite d'élément en utilisant la fonction de comparaison comp(a,b)¶Exemple : triseq((6,5,8,2),comp)`,
+tri->`Trie les opérations récursivement sur la décomposition¶Exemple : tri(3+2+7,comp)`,
+assoc->`Applique récursivement l'associativité pour les opérations de l'endemble ops¶Exemple : assoc(3+(4×3+2+4),{PLUS})`
+</commentaires>
+<history>
+place(8,(1,2,3,7),comp),
+triseq((-9,-3,-2),comp),
+triseq((9,-3,-2),comp),
+triseq((9,-3,7,2),comp),
+triseq((9,-3,7),comp),
+triseq((9,-3,7,2,3,5,1,8),comp),
+triseq((9,-3,7),comp),
+place(8,4,comp),
+triseq((7,3),comp),
+place(4,8,comp),
+mappe(comp,5,7),
+triseq((9,-3,7,2,3,5,1,8,-2,-4),comp),
+triseq((9,7,2,3,5,1,8,-2,-4),comp),
+triseq((9,7,2,3,1,8,-2,-4),comp),
+triseq((7,2,3,1,8,-2,-4),comp),
+triseq((7,2,3,1,8,-2),comp),
+triseq((7,2,3,1),comp),
+triseq((2,3,5),comp),
+place(-2,(-5,-3,0,1,3,7,9),comp),
+place(5,(1,3,7,9),comp),
+place(5,(1,3,7,9)),
+tri(3+2×3,{PLUS},comp),
+triseq((3,2×(3+2),7),comp),
+triseq((3,(3+2)×2,7),comp),
+triseq(3,(3+2)×2,7,comp),
+(2+3)×2+3+7,
+tri(3+2×(3+2)+7,{PLUS,MUL},comp),
+tri(3+2×(3+2)+7,{PLUS},comp),
+tri(3+2+7,{PLUS},comp)
+</history>

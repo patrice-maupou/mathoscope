@@ -1,0 +1,7 @@
+<decorations>
+{leftpar(x)->image : DECO(OUEST,x,brleft,10)},
+brleft->arc(point(40,30),30,30,100,160)
+</decorations>
+<history>
+leftpar(1+2)
+</history>
